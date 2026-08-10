@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "C24 Smart 4K TV",
+    "category": "Television",
+    "price": 24999,
+    "stock": 20,
+    "image": "/images/products/smart-tv.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Premium Washing Machine",
+    "category": "Washing Machine",
+    "price": 19999,
+    "stock": 15,
+    "image": "/images/products/washing-machine.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Double Door Refrigerator",
+    "category": "Refrigerator",
+    "price": 32999,
+    "stock": 12,
+    "image": "/images/products/refrigerator.jpg"
+  }
+]

@@ -1,0 +1,500 @@
+/* =====================================================
+   FLOATING ACTIONS
+===================================================== */
+
+.floating-actions {
+  position: fixed;
+
+  right: 22px;
+  bottom: 22px;
+
+  z-index: 9990;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 12px;
+}
+
+
+/* =====================================================
+   COMMON BUTTON
+===================================================== */
+
+.whatsapp-button,
+.ai-button {
+  width: 56px;
+  height: 56px;
+
+  border-radius: 50%;
+
+  border: 1px solid
+    rgba(255, 255, 255, .15);
+
+  cursor: pointer;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  transition: .3s;
+
+  box-shadow:
+    0 10px 30px
+    rgba(0, 0, 0, .35);
+}
+
+
+/* =====================================================
+   WHATSAPP
+===================================================== */
+
+.whatsapp-button {
+  background:
+    linear-gradient(
+      145deg,
+      #20d66b,
+      #0ba94f
+    );
+
+  color: white;
+
+  font-size: 29px;
+}
+
+.whatsapp-button:hover {
+  transform: scale(1.08);
+
+  box-shadow:
+    0 0 25px
+    rgba(32, 214, 107, .45);
+}
+
+
+/* =====================================================
+   AI BUTTON
+===================================================== */
+
+.ai-button {
+  background:
+    linear-gradient(
+      145deg,
+      #008cff,
+      #00cfff
+    );
+
+  color: #001018;
+
+  font-size: 14px;
+
+  font-weight: 900;
+}
+
+.ai-button:hover {
+  transform: scale(1.08);
+
+  box-shadow:
+    0 0 25px
+    rgba(0, 207, 255, .45);
+}
+
+
+/* =====================================================
+   CHAT WINDOW
+===================================================== */
+
+.ai-chat-window {
+  position: fixed;
+
+  right: 22px;
+  bottom: 150px;
+
+  width: 360px;
+  max-width:
+    calc(100vw - 35px);
+
+  height: 500px;
+  max-height:
+    calc(100vh - 180px);
+
+  z-index: 9989;
+
+  display: flex;
+
+  flex-direction: column;
+
+  overflow: hidden;
+
+  border:
+    1px solid
+    rgba(0, 207, 255, .2);
+
+  border-radius: 18px;
+
+  background:
+    rgba(4, 10, 14, .96);
+
+  backdrop-filter:
+    blur(20px);
+
+  box-shadow:
+    0 25px 80px
+    rgba(0, 0, 0, .6);
+
+  animation:
+    chatOpen .25s ease;
+}
+
+
+@keyframes chatOpen {
+
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(15px)
+      scale(.96);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.ai-chat-header {
+  min-height: 68px;
+
+  padding: 15px 18px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  border-bottom:
+    1px solid
+    rgba(255,255,255,.08);
+
+  background:
+    rgba(0, 207, 255, .04);
+}
+
+
+.ai-chat-header strong {
+  display: block;
+
+  color: white;
+
+  font-size: 14px;
+}
+
+
+.ai-chat-header small {
+  display: block;
+
+  margin-top: 5px;
+
+  color: #55e39a;
+
+  font-size: 9px;
+}
+
+
+.ai-chat-header button {
+  width: 30px;
+  height: 30px;
+
+  border: none;
+
+  background: transparent;
+
+  color: #777;
+
+  font-size: 23px;
+
+  cursor: pointer;
+}
+
+
+.ai-chat-header button:hover {
+  color: white;
+}
+
+
+/* =====================================================
+   MESSAGES
+===================================================== */
+
+.ai-chat-messages {
+  flex: 1;
+
+  overflow-y: auto;
+
+  padding: 18px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+
+/* =====================================================
+   MESSAGE
+===================================================== */
+
+.chat-message {
+  max-width: 82%;
+
+  padding: 11px 13px;
+
+  border-radius: 12px;
+
+  white-space: pre-line;
+
+  font-size: 12px;
+
+  line-height: 1.5;
+}
+
+
+/* BOT */
+
+.bot-message {
+  align-self: flex-start;
+
+  background:
+    rgba(255,255,255,.06);
+
+  border:
+    1px solid
+    rgba(255,255,255,.07);
+
+  color: #ccc;
+
+  border-bottom-left-radius: 3px;
+}
+
+
+/* USER */
+
+.user-message {
+  align-self: flex-end;
+
+  background:
+    linear-gradient(
+      135deg,
+      #007bff,
+      #00cfff
+    );
+
+  color: #001018;
+
+  font-weight: 600;
+
+  border-bottom-right-radius: 3px;
+}
+
+
+/* =====================================================
+   TYPING
+===================================================== */
+
+.typing {
+  color: #00cfff;
+
+  font-size: 10px;
+
+  animation:
+    typingPulse 1s infinite;
+}
+
+
+@keyframes typingPulse {
+
+  0%,
+  100% {
+    opacity: .4;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+}
+
+
+/* =====================================================
+   INPUT
+===================================================== */
+
+.ai-chat-input {
+  padding: 12px;
+
+  display: flex;
+
+  gap: 8px;
+
+  border-top:
+    1px solid
+    rgba(255,255,255,.08);
+
+  background:
+    rgba(0,0,0,.25);
+}
+
+
+.ai-chat-input input {
+  flex: 1;
+
+  min-width: 0;
+
+  padding: 12px;
+
+  border:
+    1px solid
+    rgba(255,255,255,.1);
+
+  border-radius: 9px;
+
+  outline: none;
+
+  background: #080e12;
+
+  color: white;
+
+  font-size: 12px;
+}
+
+
+.ai-chat-input input:focus {
+  border-color: #00cfff;
+}
+
+
+.ai-chat-input input::placeholder {
+  color: #555;
+}
+
+
+.ai-chat-input button {
+  width: 44px;
+
+  border: none;
+
+  border-radius: 9px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #008cff,
+      #00cfff
+    );
+
+  color: #001018;
+
+  font-size: 17px;
+
+  font-weight: 900;
+
+  cursor: pointer;
+}
+
+
+.ai-chat-input button:disabled {
+  opacity: .35;
+
+  cursor: not-allowed;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 600px) {
+
+  .floating-actions {
+    right: 15px;
+
+    bottom: 15px;
+  }
+
+
+  .whatsapp-button,
+  .ai-button {
+    width: 50px;
+
+    height: 50px;
+  }
+
+
+  .ai-chat-window {
+    right: 15px;
+
+    bottom: 130px;
+
+    width:
+      calc(100vw - 30px);
+
+    height: 460px;
+  }
+
+}
+
+.qr-button {
+  width: 58px;
+  height: 58px;
+
+  border: 1px solid
+    rgba(255,255,255,.15);
+
+  border-radius: 50%;
+
+  background:
+    linear-gradient(
+      145deg,
+      #151d22,
+      #05090c
+    );
+
+  color: #00cfff;
+
+  font-size: 12px;
+
+  font-weight: 900;
+
+  letter-spacing: 1px;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 10px 30px
+    rgba(0,0,0,.4);
+
+  transition: .3s;
+}
+
+.qr-button:hover {
+  transform: scale(1.1);
+
+  border-color: #00cfff;
+
+  box-shadow:
+    0 0 25px
+    rgba(0,207,255,.35);
+}

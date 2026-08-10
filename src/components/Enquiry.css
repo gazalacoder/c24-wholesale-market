@@ -1,0 +1,374 @@
+/* =====================================================
+   C24 WHOLESALE ENQUIRY
+===================================================== */
+
+.enquiry-section {
+  min-height: 100vh;
+
+  padding:
+    130px 7%;
+
+  display: grid;
+
+  grid-template-columns:
+    0.85fr 1.15fr;
+
+  align-items: center;
+
+  gap: 80px;
+
+  color: white;
+
+  background:
+    radial-gradient(
+      circle at 15% 50%,
+      rgba(0, 207, 255, 0.12),
+      transparent 35%
+    ),
+    #020609;
+
+  border-top:
+    1px solid
+    rgba(255,255,255,0.06);
+}
+
+
+/* =====================================================
+   LEFT
+===================================================== */
+
+.enquiry-intro {
+  max-width: 600px;
+}
+
+.enquiry-label {
+  color: #00cfff;
+
+  font-size: 11px;
+
+  font-weight: 800;
+
+  letter-spacing: 4px;
+}
+
+.enquiry-intro h2 {
+  margin:
+    25px 0;
+
+  font-size:
+    clamp(50px, 6vw, 80px);
+
+  line-height: 0.95;
+
+  letter-spacing: -4px;
+}
+
+.enquiry-intro h2 strong {
+  color: #00cfff;
+
+  text-shadow:
+    0 0 30px
+    rgba(0,207,255,0.35);
+}
+
+.enquiry-intro > p {
+  max-width: 500px;
+
+  color:
+    rgba(255,255,255,0.58);
+
+  font-size: 17px;
+
+  line-height: 1.7;
+}
+
+
+/* =====================================================
+   POINTS
+===================================================== */
+
+.enquiry-points {
+  margin-top: 45px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 20px;
+}
+
+.enquiry-points div {
+  display: flex;
+
+  align-items: center;
+
+  gap: 18px;
+}
+
+.enquiry-points span {
+  width: 38px;
+
+  height: 38px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border-radius: 50%;
+
+  color: #00cfff;
+
+  border:
+    1px solid
+    rgba(0,207,255,0.3);
+
+  background:
+    rgba(0,207,255,0.05);
+
+  font-size: 10px;
+
+  font-weight: 800;
+}
+
+.enquiry-points p {
+  margin: 0;
+
+  color:
+    rgba(255,255,255,0.75);
+
+  font-size: 14px;
+}
+
+
+/* =====================================================
+   FORM BOX
+===================================================== */
+
+.enquiry-box {
+  padding: 38px;
+
+  border-radius: 22px;
+
+  border:
+    1px solid
+    rgba(0,207,255,0.18);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,0.065),
+      rgba(255,255,255,0.018)
+    );
+
+  box-shadow:
+    0 25px 80px
+    rgba(0,0,0,0.35);
+
+  backdrop-filter:
+    blur(20px);
+}
+
+
+/* HEADER */
+
+.enquiry-box-header {
+  margin-bottom: 30px;
+}
+
+.enquiry-box-header span {
+  color: #00cfff;
+
+  font-size: 9px;
+
+  font-weight: 800;
+
+  letter-spacing: 3px;
+}
+
+.enquiry-box-header h3 {
+  margin-top: 8px;
+
+  font-size: 30px;
+}
+
+
+/* =====================================================
+   FORM
+===================================================== */
+
+.form-row {
+  display: grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap: 15px;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color:
+    rgba(255,255,255,0.65);
+
+  font-size: 11px;
+
+  font-weight: 700;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+
+  padding: 14px 15px;
+
+  border-radius: 9px;
+
+  border:
+    1px solid
+    rgba(255,255,255,0.1);
+
+  outline: none;
+
+  background:
+    rgba(0,0,0,0.25);
+
+  color: white;
+
+  font-family: inherit;
+
+  font-size: 13px;
+
+  transition:
+    border-color 0.3s,
+    box-shadow 0.3s;
+}
+
+.form-group select option {
+  background: #071016;
+
+  color: white;
+}
+
+.form-group textarea {
+  resize: vertical;
+
+  min-height: 110px;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color:
+    rgba(0,207,255,0.6);
+
+  box-shadow:
+    0 0 20px
+    rgba(0,207,255,0.08);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color:
+    rgba(255,255,255,0.28);
+}
+
+
+/* =====================================================
+   SUBMIT
+===================================================== */
+
+.enquiry-submit {
+  width: 100%;
+
+  padding: 16px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  border: none;
+
+  border-radius: 9px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #00cfff,
+      #00a9ff
+    );
+
+  color: #001018;
+
+  font-size: 13px;
+
+  font-weight: 900;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s;
+}
+
+.enquiry-submit span {
+  font-size: 20px;
+}
+
+.enquiry-submit:hover {
+  transform:
+    translateY(-3px);
+
+  box-shadow:
+    0 10px 35px
+    rgba(0,207,255,0.3);
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 900px) {
+
+  .enquiry-section {
+    grid-template-columns: 1fr;
+
+    gap: 50px;
+
+    padding:
+      100px 25px;
+  }
+
+  .enquiry-intro h2 {
+    letter-spacing: -2px;
+  }
+
+}
+
+@media (max-width: 550px) {
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .enquiry-box {
+    padding: 25px 20px;
+  }
+
+  .enquiry-intro h2 {
+    font-size: 48px;
+  }
+
+}

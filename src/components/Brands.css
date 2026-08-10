@@ -1,0 +1,36 @@
+.brands{
+    padding:80px;
+    background:#050505;
+}
+
+.brands h2{
+    text-align:center;
+    color:#00BFFF;
+    font-size:45px;
+    margin-bottom:50px;
+}
+
+.brand-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:30px;
+}
+
+.brand-card{
+    height:150px;
+    background:#111;
+    border:1px solid #222;
+    border-radius:20px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:32px;
+    font-weight:bold;
+    color:white;
+    transition:.3s;
+}
+
+.brand-card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 0 25px #00BFFF;
+}

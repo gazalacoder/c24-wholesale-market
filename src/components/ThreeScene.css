@@ -1,0 +1,724 @@
+/* =====================================================
+   C24 PRO 3D HERO
+===================================================== */
+
+.three-showroom {
+  position: relative;
+
+  width: 100%;
+
+  height: 720px;
+
+  min-height: 720px;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(0, 120, 255, 0.12),
+      transparent 42%
+    ),
+    #000208;
+
+  border-radius: 24px;
+
+  border: 1px solid
+    rgba(0, 200, 255, 0.15);
+
+  box-shadow:
+    inset 0 0 120px
+      rgba(0, 100, 255, 0.10),
+    0 0 80px
+      rgba(0, 120, 255, 0.08);
+}
+
+
+/* =====================================================
+   THREE.JS CANVAS
+===================================================== */
+
+.three-showroom canvas {
+  position: absolute !important;
+
+  inset: 0;
+
+  width: 100% !important;
+
+  height: 100% !important;
+
+  z-index: 1;
+}
+
+
+/* =====================================================
+   GALAXY ATMOSPHERE
+===================================================== */
+
+.three-showroom::before {
+  content: "";
+
+  position: absolute;
+
+  width: 700px;
+
+  height: 700px;
+
+  left: 50%;
+
+  top: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(0, 200, 255, 0.13),
+      rgba(0, 70, 255, 0.07) 35%,
+      transparent 70%
+    );
+
+  filter: blur(30px);
+
+  pointer-events: none;
+
+  z-index: 2;
+
+  animation:
+    galaxyBreathing 6s
+    ease-in-out
+    infinite;
+}
+
+
+@keyframes galaxyBreathing {
+
+  0%,
+  100% {
+    transform:
+      translate(-50%, -50%)
+      scale(0.9);
+
+    opacity: 0.6;
+  }
+
+  50% {
+    transform:
+      translate(-50%, -50%)
+      scale(1.12);
+
+    opacity: 1;
+  }
+}
+
+
+/* =====================================================
+   GALAXY INTRO TEXT
+===================================================== */
+
+.galaxy-title {
+  position: absolute;
+
+  z-index: 7;
+
+  left: 50%;
+
+  top: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  width: 100%;
+
+  text-align: center;
+
+  pointer-events: none;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 10px;
+
+  transition:
+    opacity 1s ease,
+    transform 1.2s ease;
+}
+
+
+.galaxy-title span {
+  font-size: 12px;
+
+  font-weight: 700;
+
+  letter-spacing: 9px;
+
+  color:
+    rgba(
+      220,
+      245,
+      255,
+      0.9
+    );
+
+  text-shadow:
+    0 0 20px
+      rgba(
+        0,
+        210,
+        255,
+        0.8
+      );
+}
+
+
+.galaxy-title strong {
+  font-family:
+    Arial,
+    sans-serif;
+
+  font-size: 115px;
+
+  line-height: 0.82;
+
+  font-weight: 900;
+
+  letter-spacing: -6px;
+
+  color: white;
+
+  background:
+    linear-gradient(
+      180deg,
+      #ffffff 0%,
+      #a7edff 45%,
+      #00aaff 100%
+    );
+
+  -webkit-background-clip: text;
+
+  background-clip: text;
+
+  -webkit-text-fill-color:
+    transparent;
+
+  filter:
+    drop-shadow(
+      0 0 18px
+      rgba(
+        0,
+        210,
+        255,
+        0.75
+      )
+    );
+
+  animation:
+    c24Glow 3s
+    ease-in-out
+    infinite;
+}
+
+
+@keyframes c24Glow {
+
+  0%,
+  100% {
+    filter:
+      drop-shadow(
+        0 0 15px
+        rgba(
+          0,
+          210,
+          255,
+          0.55
+        )
+      );
+  }
+
+  50% {
+    filter:
+      drop-shadow(
+        0 0 40px
+        rgba(
+          0,
+          220,
+          255,
+          1
+        )
+      )
+      drop-shadow(
+        0 0 70px
+        rgba(
+          0,
+          120,
+          255,
+          0.5
+        )
+      );
+  }
+}
+
+
+.galaxy-title b {
+  font-size: 25px;
+
+  font-weight: 700;
+
+  letter-spacing: 8px;
+
+  color: white;
+
+  text-shadow:
+    0 0 20px
+      rgba(
+        0,
+        200,
+        255,
+        0.8
+      );
+}
+
+
+/* GALAXY TEXT DISAPPEAR */
+
+.galaxy-title-hide {
+  opacity: 0;
+
+  transform:
+    translate(-50%, -50%)
+    scale(1.6);
+}
+
+
+/* =====================================================
+   HERO CONTENT
+===================================================== */
+
+.hero-content {
+  position: absolute;
+
+  z-index: 8;
+
+  left: 7%;
+
+  top: 50%;
+
+  width: 400px;
+
+  transform:
+    translateY(-45%)
+    translateX(-60px);
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  transition:
+    opacity 1.4s ease,
+    transform 1.4s ease;
+}
+
+
+.hero-show {
+  opacity: 1;
+
+  transform:
+    translateY(-50%)
+    translateX(0);
+
+  pointer-events: auto;
+}
+
+
+.hero-content small {
+  color: #63dcff;
+
+  font-size: 10px;
+
+  font-weight: 800;
+
+  letter-spacing: 5px;
+}
+
+
+.hero-content h1 {
+  margin:
+    15px 0 0;
+
+  color: white;
+
+  font-size: 56px;
+
+  line-height: 0.98;
+
+  font-weight: 800;
+
+  letter-spacing: -2px;
+
+  text-shadow:
+    0 0 30px
+      rgba(
+        0,
+        180,
+        255,
+        0.18
+      );
+}
+
+
+.hero-content p {
+  margin-top: 22px;
+
+  max-width: 350px;
+
+  color:
+    rgba(
+      225,
+      245,
+      255,
+      0.72
+    );
+
+  font-size: 15px;
+
+  line-height: 1.7;
+}
+
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.hero-buttons {
+  display: flex;
+
+  gap: 12px;
+
+  margin-top: 28px;
+}
+
+
+.hero-buttons button {
+  padding:
+    14px 21px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  color: #001018;
+
+  background:
+    linear-gradient(
+      135deg,
+      #9cecff,
+      #00bfff
+    );
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  box-shadow:
+    0 0 25px
+      rgba(
+        0,
+        200,
+        255,
+        0.25
+      );
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+
+.hero-buttons button:hover {
+  transform:
+    translateY(-4px);
+
+  box-shadow:
+    0 0 40px
+      rgba(
+        0,
+        200,
+        255,
+        0.55
+      );
+}
+
+
+.hero-buttons .secondary {
+  color: white;
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.06
+    );
+
+  border:
+    1px solid
+    rgba(
+      255,
+      255,
+      255,
+      0.22
+    );
+}
+
+
+/* =====================================================
+   FLOOR NEON
+===================================================== */
+
+.floor-line {
+  position: absolute;
+
+  z-index: 7;
+
+  left: 8%;
+
+  right: 8%;
+
+  bottom: 5%;
+
+  height: 2px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #00cfff,
+      #ffffff,
+      #ff3155,
+      transparent
+    );
+
+  box-shadow:
+    0 0 15px #00cfff,
+    0 0 35px
+      rgba(
+        0,
+        200,
+        255,
+        0.65
+      );
+
+  animation:
+    floorPulse 3s
+    ease-in-out
+    infinite;
+}
+
+
+@keyframes floorPulse {
+
+  0%,
+  100% {
+    opacity: 0.4;
+
+    transform:
+      scaleX(0.9);
+  }
+
+  50% {
+    opacity: 1;
+
+    transform:
+      scaleX(1);
+  }
+}
+
+
+/* =====================================================
+   C24 BADGE
+===================================================== */
+
+.c24-badge {
+  position: absolute;
+
+  z-index: 10;
+
+  top: 26px;
+
+  left: 30px;
+
+  padding:
+    9px 17px;
+
+  border-radius: 50px;
+
+  border:
+    1px solid
+    rgba(
+      0,
+      210,
+      255,
+      0.35
+    );
+
+  background:
+    rgba(
+      0,
+      15,
+      25,
+      0.6
+    );
+
+  backdrop-filter:
+    blur(15px);
+
+  color: #69ddff;
+
+  font-size: 10px;
+
+  font-weight: 800;
+
+  letter-spacing: 4px;
+
+  box-shadow:
+    0 0 25px
+      rgba(
+        0,
+        200,
+        255,
+        0.08
+      );
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 1000px) {
+
+  .three-showroom {
+    height: 680px;
+
+    min-height: 680px;
+  }
+
+  .hero-content {
+    left: 5%;
+
+    width: 350px;
+  }
+
+  .hero-content h1 {
+    font-size: 48px;
+  }
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 768px) {
+
+  .three-showroom {
+    height: 680px;
+
+    min-height: 680px;
+
+    border-radius: 18px;
+  }
+
+  .galaxy-title strong {
+    font-size: 82px;
+  }
+
+  .galaxy-title b {
+    font-size: 18px;
+
+    letter-spacing: 5px;
+  }
+
+  .galaxy-title span {
+    font-size: 9px;
+
+    letter-spacing: 5px;
+  }
+
+  .hero-content {
+    left: 6%;
+
+    top: 10%;
+
+    width: 88%;
+
+    transform:
+      translateY(-30px);
+  }
+
+  .hero-show {
+    transform:
+      translateY(0);
+  }
+
+  .hero-content h1 {
+    font-size: 39px;
+  }
+
+  .hero-content p {
+    font-size: 13px;
+  }
+
+  .hero-buttons {
+    flex-wrap: wrap;
+  }
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media (max-width: 480px) {
+
+  .three-showroom {
+    height: 620px;
+
+    min-height: 620px;
+  }
+
+  .galaxy-title strong {
+    font-size: 68px;
+  }
+
+  .galaxy-title b {
+    font-size: 14px;
+
+    letter-spacing: 3px;
+  }
+
+  .hero-content h1 {
+    font-size: 33px;
+  }
+
+  .hero-buttons button {
+    padding:
+      11px 15px;
+
+    font-size: 12px;
+  }
+
+  .c24-badge {
+    top: 18px;
+
+    left: 18px;
+  }
+}

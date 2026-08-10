@@ -1,0 +1,942 @@
+/* =====================================================
+   C24 PREMIUM GALAXY INTRO
+===================================================== */
+
+.intro-scene {
+
+  position: fixed;
+
+  inset: 0;
+
+  width: 100vw;
+
+  height: 100vh;
+
+  height: 100dvh;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at center,
+
+      #071c2d 0%,
+
+      #03101b 28%,
+
+      #01060b 58%,
+
+      #000000 100%
+    );
+
+  z-index: 99999;
+
+  opacity: 1;
+
+  visibility: visible;
+
+  pointer-events: auto;
+
+  transition:
+    opacity 0.8s ease,
+    visibility 0.8s ease;
+}
+
+
+/* =====================================================
+   INTRO EXIT
+===================================================== */
+
+.intro-scene.intro-closing {
+
+  opacity: 0;
+
+  visibility: hidden;
+
+  pointer-events: none;
+}
+
+
+/* =====================================================
+   GALAXY CANVAS
+===================================================== */
+
+.galaxy-canvas {
+
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+
+  height: 100%;
+
+  display: block;
+
+  pointer-events: none;
+
+  z-index: 1;
+}
+
+
+/* =====================================================
+   CENTER LOGO
+===================================================== */
+
+.logo-wrapper {
+
+  position: relative;
+
+  width:
+    min(
+      310px,
+      62vw
+    );
+
+  aspect-ratio: 1 / 1;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  z-index: 5;
+
+  animation:
+    logoEntrance
+    1.5s
+    cubic-bezier(
+      0.16,
+      1,
+      0.3,
+      1
+    )
+    forwards;
+}
+
+
+/* =====================================================
+   GALAXY AURA
+===================================================== */
+
+.logo-galaxy {
+
+  position: absolute;
+
+  inset: -2%;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle at center,
+
+      rgba(
+        0,
+        230,
+        255,
+        0.30
+      ) 0%,
+
+      rgba(
+        0,
+        170,
+        255,
+        0.20
+      ) 25%,
+
+      rgba(
+        0,
+        100,
+        255,
+        0.12
+      ) 45%,
+
+      transparent 72%
+    );
+
+  box-shadow:
+
+    0 0 25px
+    rgba(
+      0,
+      220,
+      255,
+      0.40
+    ),
+
+    0 0 60px
+    rgba(
+      0,
+      160,
+      255,
+      0.32
+    ),
+
+    0 0 110px
+    rgba(
+      0,
+      100,
+      255,
+      0.22
+    ),
+
+    0 0 170px
+    rgba(
+      0,
+      70,
+      255,
+      0.12
+    );
+
+  filter: blur(1px);
+
+  animation:
+    galaxyPulse
+    2.5s
+    ease-in-out
+    infinite;
+}
+
+
+/* =====================================================
+   OUTER GLOW
+===================================================== */
+
+.logo-glow {
+
+  position: absolute;
+
+  inset: -22%;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+
+      rgba(
+        0,
+        220,
+        255,
+        0.23
+      ) 0%,
+
+      rgba(
+        0,
+        170,
+        255,
+        0.15
+      ) 28%,
+
+      rgba(
+        0,
+        100,
+        255,
+        0.08
+      ) 48%,
+
+      transparent 70%
+    );
+
+  filter: blur(22px);
+
+  z-index: -1;
+
+  animation:
+    premiumGlow
+    2.8s
+    ease-in-out
+    infinite;
+}
+
+
+/* =====================================================
+   EXTRA GLOW
+===================================================== */
+
+.logo-wrapper::before {
+
+  content: "";
+
+  position: absolute;
+
+  inset: -30%;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+
+      rgba(
+        0,
+        180,
+        255,
+        0.12
+      ),
+
+      transparent 65%
+    );
+
+  filter: blur(35px);
+
+  z-index: -2;
+
+  animation:
+    outerGlow
+    4s
+    ease-in-out
+    infinite;
+}
+
+
+/* =====================================================
+   C24 LOGO
+===================================================== */
+
+.intro-logo {
+
+  position: relative;
+
+  z-index: 10;
+
+  width: 86%;
+
+  height: 86%;
+
+  object-fit: contain;
+
+  border-radius: 50%;
+
+  animation:
+    logoFloat
+    3s
+    ease-in-out
+    infinite;
+
+  filter:
+
+    drop-shadow(
+      0 0 8px
+      rgba(
+        255,
+        255,
+        255,
+        0.75
+      )
+    )
+
+    drop-shadow(
+      0 0 20px
+      rgba(
+        0,
+        200,
+        255,
+        0.65
+      )
+    )
+
+    drop-shadow(
+      0 0 45px
+      rgba(
+        0,
+        160,
+        255,
+        0.40
+      )
+    );
+}
+
+
+/* =====================================================
+   RINGS
+===================================================== */
+
+.logo-ring {
+
+  position: absolute;
+
+  border-radius: 50%;
+
+  pointer-events: none;
+
+  z-index: 8;
+}
+
+
+/* =====================================================
+   RING ONE
+===================================================== */
+
+.ring-one {
+
+  inset: -5%;
+
+  border:
+    1px solid
+    rgba(
+      0,
+      220,
+      255,
+      0.75
+    );
+
+  box-shadow:
+
+    0 0 10px
+    rgba(
+      0,
+      200,
+      255,
+      0.50
+    ),
+
+    0 0 30px
+    rgba(
+      0,
+      180,
+      255,
+      0.30
+    );
+
+  animation:
+    rotateRing
+    5s
+    linear
+    infinite;
+}
+
+
+/* =====================================================
+   RING TWO
+===================================================== */
+
+.ring-two {
+
+  inset: -10%;
+
+  border:
+    1px dashed
+    rgba(
+      60,
+      190,
+      255,
+      0.40
+    );
+
+  box-shadow:
+    0 0 20px
+    rgba(
+      0,
+      170,
+      255,
+      0.20
+    );
+
+  animation:
+    rotateRingReverse
+    8s
+    linear
+    infinite;
+}
+
+
+/* =====================================================
+   THIRD RING
+===================================================== */
+
+.logo-wrapper::after {
+
+  content: "";
+
+  position: absolute;
+
+  inset: -16%;
+
+  border-radius: 50%;
+
+  border:
+    1px solid
+    rgba(
+      0,
+      150,
+      255,
+      0.13
+    );
+
+  box-shadow:
+    0 0 25px
+    rgba(
+      0,
+      150,
+      255,
+      0.10
+    );
+
+  animation:
+    slowRing
+    12s
+    linear
+    infinite;
+}
+
+
+/* =====================================================
+   BRAND TEXT
+===================================================== */
+
+.intro-brand {
+
+  position: absolute;
+
+  left: 50%;
+
+  bottom: 8%;
+
+  transform:
+    translateX(-50%);
+
+  width: 100%;
+
+  text-align: center;
+
+  color:
+    rgba(
+      185,
+      238,
+      255,
+      0.88
+    );
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  letter-spacing: 4px;
+
+  text-shadow:
+
+    0 0 10px
+    rgba(
+      0,
+      200,
+      255,
+      0.45
+    );
+
+  opacity: 0;
+
+  animation:
+    brandAppear
+    1s
+    ease
+    1.8s
+    forwards;
+}
+
+
+.intro-brand span {
+
+  color: #00cfff;
+}
+
+
+/* =====================================================
+   LOGO ENTRANCE
+===================================================== */
+
+@keyframes logoEntrance {
+
+  0% {
+
+    opacity: 0;
+
+    transform:
+      scale(0.35)
+      rotate(-12deg);
+
+    filter: blur(15px);
+  }
+
+  45% {
+
+    opacity: 0.8;
+
+    transform:
+      scale(1.08)
+      rotate(3deg);
+
+    filter: blur(2px);
+  }
+
+  70% {
+
+    opacity: 1;
+
+    transform:
+      scale(0.98)
+      rotate(-1deg);
+
+    filter: blur(0);
+  }
+
+  100% {
+
+    opacity: 1;
+
+    transform:
+      scale(1)
+      rotate(0deg);
+
+    filter: blur(0);
+  }
+}
+
+
+/* =====================================================
+   LOGO FLOAT
+===================================================== */
+
+@keyframes logoFloat {
+
+  0%,
+  100% {
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+
+  50% {
+
+    transform:
+      translateY(-6px)
+      scale(1.015);
+  }
+}
+
+
+/* =====================================================
+   GALAXY PULSE
+===================================================== */
+
+@keyframes galaxyPulse {
+
+  0%,
+  100% {
+
+    opacity: 0.65;
+
+    transform:
+      scale(0.94);
+  }
+
+  50% {
+
+    opacity: 1;
+
+    transform:
+      scale(1.07);
+  }
+}
+
+
+/* =====================================================
+   PREMIUM GLOW
+===================================================== */
+
+@keyframes premiumGlow {
+
+  0%,
+  100% {
+
+    opacity: 0.40;
+
+    transform:
+      scale(0.90);
+
+    filter:
+      blur(22px);
+  }
+
+  50% {
+
+    opacity: 1;
+
+    transform:
+      scale(1.12);
+
+    filter:
+      blur(32px);
+  }
+}
+
+
+/* =====================================================
+   OUTER GLOW
+===================================================== */
+
+@keyframes outerGlow {
+
+  0%,
+  100% {
+
+    opacity: 0.35;
+
+    transform:
+      scale(0.92);
+  }
+
+  50% {
+
+    opacity: 0.75;
+
+    transform:
+      scale(1.08);
+  }
+}
+
+
+/* =====================================================
+   ROTATING RING
+===================================================== */
+
+@keyframes rotateRing {
+
+  from {
+
+    transform:
+      rotate(0deg);
+  }
+
+  to {
+
+    transform:
+      rotate(360deg);
+  }
+}
+
+
+/* =====================================================
+   REVERSE RING
+===================================================== */
+
+@keyframes rotateRingReverse {
+
+  from {
+
+    transform:
+      rotate(360deg);
+  }
+
+  to {
+
+    transform:
+      rotate(0deg);
+  }
+}
+
+
+/* =====================================================
+   SLOW RING
+===================================================== */
+
+@keyframes slowRing {
+
+  from {
+
+    transform:
+      rotate(0deg)
+      scale(1);
+  }
+
+  50% {
+
+    transform:
+      rotate(180deg)
+      scale(1.04);
+  }
+
+  to {
+
+    transform:
+      rotate(360deg)
+      scale(1);
+  }
+}
+
+
+/* =====================================================
+   BRAND APPEAR
+===================================================== */
+
+@keyframes brandAppear {
+
+  from {
+
+    opacity: 0;
+
+    transform:
+      translateX(-50%)
+      translateY(12px);
+  }
+
+  to {
+
+    opacity: 1;
+
+    transform:
+      translateX(-50%)
+      translateY(0);
+  }
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 1024px) {
+
+  .logo-wrapper {
+
+    width:
+      min(
+        290px,
+        60vw
+      );
+  }
+
+  .intro-brand {
+
+    font-size: 11px;
+  }
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 768px) {
+
+  .logo-wrapper {
+
+    width:
+      min(
+        245px,
+        64vw
+      );
+  }
+
+  .logo-glow {
+
+    inset: -20%;
+
+    filter: blur(18px);
+  }
+
+  .logo-wrapper::before {
+
+    inset: -26%;
+
+    filter: blur(28px);
+  }
+
+  .ring-one {
+
+    inset: -5%;
+  }
+
+  .ring-two {
+
+    inset: -9%;
+  }
+
+  .logo-wrapper::after {
+
+    inset: -14%;
+  }
+
+  .intro-brand {
+
+    bottom: 7%;
+
+    padding:
+      0 20px;
+
+    font-size: 9px;
+
+    letter-spacing: 2.5px;
+  }
+}
+
+
+/* =====================================================
+   SMALL PHONE
+===================================================== */
+
+@media (max-width: 480px) {
+
+  .logo-wrapper {
+
+    width:
+      min(
+        215px,
+        66vw
+      );
+  }
+
+  .intro-brand {
+
+    font-size: 8px;
+
+    letter-spacing: 2px;
+  }
+}
+
+
+/* =====================================================
+   VERY SMALL PHONE
+===================================================== */
+
+@media (max-width: 360px) {
+
+  .logo-wrapper {
+
+    width: 195px;
+  }
+
+  .intro-brand {
+
+    font-size: 7px;
+
+    letter-spacing: 1.5px;
+  }
+}
+
+
+/* =====================================================
+   REDUCED MOTION
+===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .intro-logo,
+  .logo-galaxy,
+  .logo-glow,
+  .logo-ring,
+  .logo-wrapper::before,
+  .logo-wrapper::after {
+
+    animation: none;
+  }
+}

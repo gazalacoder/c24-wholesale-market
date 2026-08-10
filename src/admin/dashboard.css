@@ -1,0 +1,696 @@
+* {
+  box-sizing: border-box;
+}
+
+.admin-panel {
+  min-height: 100vh;
+  display: flex;
+  background: #020405;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.admin-sidebar {
+  width: 245px;
+  min-height: 100vh;
+
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+
+  padding: 30px 18px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #061015,
+      #020506
+    );
+
+  border-right:
+    1px solid
+    rgba(0, 207, 255, .12);
+
+  z-index: 20;
+}
+
+.admin-logo {
+  margin-bottom: 45px;
+
+  color: #fff;
+
+  font-size: 30px;
+  font-weight: 900;
+}
+
+.admin-logo span {
+  display: block;
+
+  margin-top: 5px;
+
+  color: #00cfff;
+
+  font-size: 8px;
+
+  letter-spacing: 3px;
+}
+
+.admin-sidebar button {
+  width: 100%;
+
+  margin-bottom: 8px;
+
+  padding: 14px 16px;
+
+  border: 0;
+  border-radius: 9px;
+
+  background: transparent;
+
+  color: #777;
+
+  text-align: left;
+
+  font-size: 13px;
+
+  cursor: pointer;
+
+  transition: .25s;
+}
+
+.admin-sidebar button:hover,
+.admin-sidebar button.active {
+  background:
+    rgba(0, 207, 255, .10);
+
+  color: #00cfff;
+
+  box-shadow:
+    inset 3px 0 #00cfff;
+}
+
+.admin-sidebar-bottom {
+  position: absolute;
+
+  left: 18px;
+  right: 18px;
+  bottom: 25px;
+}
+
+.admin-sidebar-bottom a {
+  display: block;
+
+  padding: 12px;
+
+  color: #555;
+
+  text-decoration: none;
+
+  font-size: 11px;
+
+  text-align: center;
+}
+
+.admin-sidebar-bottom a:hover {
+  color: #00cfff;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+.admin-main {
+  width: calc(100% - 245px);
+
+  margin-left: 245px;
+
+  padding: 35px;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.admin-header {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  margin-bottom: 35px;
+}
+
+.admin-header span {
+  color: #00cfff;
+
+  font-size: 9px;
+
+  letter-spacing: 3px;
+}
+
+.admin-header h1 {
+  margin: 8px 0 0;
+
+  font-size: 36px;
+}
+
+.admin-online {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  color: #55e39a;
+
+  font-size: 11px;
+}
+
+.admin-online i {
+  width: 7px;
+  height: 7px;
+
+  display: block;
+
+  border-radius: 50%;
+
+  background: #55e39a;
+
+  box-shadow:
+    0 0 12px #55e39a;
+}
+
+
+/* =========================
+   CARDS
+========================= */
+
+.admin-cards {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap: 18px;
+
+  margin-bottom: 25px;
+}
+
+.admin-card {
+  padding: 25px;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, .08);
+
+  border-radius: 15px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.045),
+      rgba(255,255,255,.015)
+    );
+}
+
+.admin-card span {
+  color: #666;
+
+  font-size: 9px;
+
+  letter-spacing: 2px;
+}
+
+.admin-card strong {
+  display: block;
+
+  margin-top: 15px;
+
+  color: #00cfff;
+
+  font-size: 30px;
+}
+
+.admin-card .online-text {
+  color: #55e39a;
+}
+
+
+/* =========================
+   SECTION
+========================= */
+
+.admin-section {
+  margin-bottom: 25px;
+
+  padding: 28px;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, .08);
+
+  border-radius: 16px;
+
+  background:
+    rgba(255,255,255,.025);
+}
+
+.section-title {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 25px;
+}
+
+.section-title span {
+  color: #00cfff;
+
+  font-size: 8px;
+
+  letter-spacing: 3px;
+}
+
+.section-title h2 {
+  margin: 7px 0 0;
+
+  font-size: 21px;
+}
+
+.section-title button {
+  padding: 11px 17px;
+
+  border: 0;
+
+  border-radius: 7px;
+
+  background: #00cfff;
+
+  color: #001018;
+
+  font-weight: 800;
+
+  cursor: pointer;
+}
+
+
+/* =========================
+   PRODUCT FORM
+========================= */
+
+.product-form {
+  display: grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap: 18px;
+}
+
+.form-group {
+  display: flex;
+
+  flex-direction: column;
+}
+
+.form-group.full {
+  grid-column: 1 / -1;
+}
+
+.form-group label {
+  margin-bottom: 8px;
+
+  color: #888;
+
+  font-size: 10px;
+}
+
+.form-group input {
+  width: 100%;
+
+  padding: 14px;
+
+  border:
+    1px solid
+    rgba(255,255,255,.10);
+
+  border-radius: 8px;
+
+  outline: none;
+
+  background: #070d10;
+
+  color: white;
+}
+
+.form-group input:focus {
+  border-color: #00cfff;
+}
+
+.form-group small {
+  margin-top: 7px;
+
+  color: #555;
+
+  font-size: 9px;
+}
+
+.add-product-button {
+  grid-column: 1 / -1;
+
+  padding: 15px;
+
+  border: 0;
+
+  border-radius: 8px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #008cff,
+      #00cfff
+    );
+
+  color: #001018;
+
+  font-weight: 900;
+
+  cursor: pointer;
+}
+
+
+/* =========================
+   PRODUCT LIST
+========================= */
+
+.product-list {
+  display: flex;
+
+  flex-direction: column;
+}
+
+.product-row {
+  display: grid;
+
+  grid-template-columns:
+    70px 2fr 1fr 1fr auto;
+
+  align-items: center;
+
+  gap: 18px;
+
+  padding: 15px 0;
+
+  border-bottom:
+    1px solid
+    rgba(255,255,255,.06);
+}
+
+.product-image {
+  width: 60px;
+  height: 60px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  border-radius: 9px;
+
+  background: #071116;
+
+  color: #00cfff;
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.product-details strong {
+  display: block;
+
+  font-size: 13px;
+}
+
+.product-details small {
+  display: block;
+
+  margin-top: 5px;
+
+  color: #666;
+
+  font-size: 10px;
+}
+
+.product-price {
+  color: #00cfff;
+
+  font-weight: 800;
+}
+
+.product-stock {
+  color: #888;
+
+  font-size: 11px;
+}
+
+.delete-button {
+  padding: 8px 12px;
+
+  border:
+    1px solid
+    rgba(255,70,70,.5);
+
+  border-radius: 6px;
+
+  background: transparent;
+
+  color: #ff7070;
+
+  cursor: pointer;
+}
+
+
+/* =========================
+   EMPTY
+========================= */
+
+.empty-box {
+  padding: 40px;
+
+  border:
+    1px dashed
+    rgba(255,255,255,.10);
+
+  border-radius: 10px;
+
+  text-align: center;
+}
+
+.empty-box h3 {
+  margin: 0;
+
+  color: #aaa;
+}
+
+.empty-box p {
+  color: #555;
+
+  font-size: 12px;
+}
+
+
+/* =========================
+   OFFERS
+========================= */
+
+.offer-row {
+  display: flex;
+
+  align-items: center;
+
+  gap: 20px;
+
+  padding: 15px 0;
+
+  border-bottom:
+    1px solid
+    rgba(255,255,255,.06);
+}
+
+.offer-row img {
+  width: 65px;
+  height: 65px;
+
+  object-fit: cover;
+
+  border-radius: 9px;
+}
+
+.offer-row div {
+  flex: 1;
+}
+
+.offer-row strong {
+  display: block;
+}
+
+.offer-row small {
+  display: block;
+
+  margin-top: 5px;
+
+  color: #666;
+}
+
+.offer-row del {
+  color: #666;
+}
+
+.offer-price {
+  color: #00cfff;
+}
+
+
+/* =========================
+   ENQUIRIES
+========================= */
+
+.enquiry-card {
+  padding: 20px;
+
+  margin-bottom: 12px;
+
+  border:
+    1px solid
+    rgba(255,255,255,.07);
+
+  border-radius: 10px;
+
+  background: #05090b;
+
+  color: #888;
+
+  font-size: 12px;
+}
+
+.enquiry-card > div {
+  margin-bottom: 7px;
+}
+
+.enquiry-card .enquiry-name {
+  color: white;
+
+  font-size: 15px;
+
+  font-weight: 700;
+}
+
+.enquiry-card p {
+  margin-top: 12px;
+
+  color: #777;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 900px) {
+
+  .admin-sidebar {
+    width: 200px;
+  }
+
+  .admin-main {
+    width: calc(100% - 200px);
+
+    margin-left: 200px;
+
+    padding: 20px;
+  }
+
+  .admin-cards {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+  .product-row {
+    grid-template-columns:
+      60px 1fr;
+  }
+
+  .product-price,
+  .product-stock,
+  .delete-button {
+    grid-column: 2;
+  }
+
+}
+
+
+@media (max-width: 600px) {
+
+  .admin-sidebar {
+    position: relative;
+
+    width: 100%;
+
+    min-height: auto;
+  }
+
+  .admin-panel {
+    display: block;
+  }
+
+  .admin-sidebar-bottom {
+    position: static;
+  }
+
+  .admin-main {
+    width: 100%;
+
+    margin-left: 0;
+
+    padding: 15px;
+  }
+
+  .admin-header {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 15px;
+  }
+
+  .admin-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .product-form {
+    grid-template-columns: 1fr;
+  }
+
+  .form-group.full,
+  .add-product-button {
+    grid-column: auto;
+  }
+
+}
