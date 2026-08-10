@@ -12,7 +12,7 @@ import "./App.css";
    COMPONENTS
 ===================================================== */
 
-import Navbar from "./components/Navbar";
+import Navbar from "./components/navbar";
 import ThreeScene from "./components/ThreeScene";
 import IntroScene from "./components/IntroScene";
 import FloatingActions from "./components/FloatingActions";
@@ -24,10 +24,10 @@ import Enquiry from "./components/Enquiry";
    PAGES
 ===================================================== */
 
-import About from "./pages/About";
+import About from "./pages/about";
 import ProductsPage from "./pages/ProductsPage";
 import CategoriesPage from "./pages/CategoriesPage";
-import Contact from "./pages/Contact";
+import Contact from "./pages/contact";
 
 /* =====================================================
    ADMIN
@@ -48,9 +48,9 @@ function HomePage() {
   return (
     <>
 
-      {/* =================================================
-          C24 GALAXY INTRO
-      ================================================= */}
+      {/* ===============================
+          INTRO
+      =============================== */}
 
       {showIntro && (
         <IntroScene
@@ -59,9 +59,9 @@ function HomePage() {
       )}
 
 
-      {/* =================================================
+      {/* ===============================
           HOME HERO
-      ================================================= */}
+      =============================== */}
 
       <section
         id="home"
@@ -70,7 +70,7 @@ function HomePage() {
 
         <main className="hero">
 
-          {/* LEFT CONTENT */}
+          {/* LEFT */}
 
           <section className="hero-left">
 
@@ -78,13 +78,11 @@ function HomePage() {
               C24 HOME APPLICATION WHOLESALE
             </span>
 
-
             <h1>
               Premium Electronics
               <br />
               Wholesale Store
             </h1>
-
 
             <p>
               India's Premium Home Appliances
@@ -101,7 +99,6 @@ function HomePage() {
                 Explore Products
               </a>
 
-
               <a
                 href="#enquiry"
                 className="outline-btn"
@@ -114,12 +111,10 @@ function HomePage() {
           </section>
 
 
-          {/* RIGHT 3D SCENE */}
+          {/* RIGHT 3D */}
 
           <section className="hero-right">
-
             <ThreeScene />
-
           </section>
 
         </main>
@@ -127,9 +122,9 @@ function HomePage() {
       </section>
 
 
-      {/* =================================================
+      {/* ===============================
           PRODUCTS
-      ================================================= */}
+      =============================== */}
 
       <section
         id="products"
@@ -141,9 +136,9 @@ function HomePage() {
       </section>
 
 
-      {/* =================================================
+      {/* ===============================
           CATEGORIES
-      ================================================= */}
+      =============================== */}
 
       <section
         id="categories"
@@ -155,9 +150,9 @@ function HomePage() {
       </section>
 
 
-      {/* =================================================
+      {/* ===============================
           DAILY OFFERS
-      ================================================= */}
+      =============================== */}
 
       <section
         id="offers"
@@ -169,9 +164,9 @@ function HomePage() {
       </section>
 
 
-      {/* =================================================
-          WHOLESALE ENQUIRY
-      ================================================= */}
+      {/* ===============================
+          ENQUIRY
+      =============================== */}
 
       <section
         id="enquiry"
@@ -183,9 +178,9 @@ function HomePage() {
       </section>
 
 
-      {/* =================================================
+      {/* ===============================
           CONTACT
-      ================================================= */}
+      =============================== */}
 
       <section
         id="contact"
@@ -197,14 +192,13 @@ function HomePage() {
       </section>
 
 
-      {/* =================================================
+      {/* ===============================
           FOOTER
-      ================================================= */}
+      =============================== */}
 
       <footer className="c24-footer">
 
         <div className="footer-content">
-
 
           {/* BRAND */}
 
@@ -230,21 +224,17 @@ function HomePage() {
               QUICK LINKS
             </span>
 
-
             <a href="#home">
               Home
             </a>
-
 
             <a href="#products">
               Products
             </a>
 
-
             <a href="#categories">
               Categories
             </a>
-
 
             <a href="#offers">
               Daily Offers
@@ -261,18 +251,13 @@ function HomePage() {
               BUSINESS
             </span>
 
-
             <a href="#enquiry">
               Wholesale Enquiry
             </a>
 
-
             <a href="#contact">
               Contact
             </a>
-
-
-            {/* ADMIN LOGIN */}
 
             <Link
               to="/admin"
@@ -294,7 +279,6 @@ function HomePage() {
             © 2026 C24 Home Application Wholesale.
             All Rights Reserved.
           </small>
-
 
           <a href="#home">
             Back to Top ↑
@@ -318,164 +302,119 @@ function App() {
   const location = useLocation();
 
 
-  /* =================================================
-     ADMIN PAGES
-  ================================================= */
+  /* ===============================
+     ADMIN PAGE CHECK
+  =============================== */
 
   const isAdminPage =
     location.pathname === "/admin" ||
-    location.pathname.startsWith(
-      "/admin/"
-    );
+    location.pathname.startsWith("/admin/");
 
 
   return (
     <>
 
-      {/* =================================================
-          PUBLIC WEBSITE NAVBAR
-          Admin pages par hide rahega
-      ================================================= */}
+      {/* ===============================
+          PUBLIC NAVBAR
+      =============================== */}
 
       {!isAdminPage && (
         <Navbar />
       )}
 
 
-      {/* =================================================
-          FLOATING WHATSAPP + AI
-          Admin pages par hide rahega
-      ================================================= */}
+      {/* ===============================
+          FLOATING ACTIONS
+      =============================== */}
 
       {!isAdminPage && (
         <FloatingActions />
       )}
 
 
-      {/* =================================================
+      {/* ===============================
           ROUTES
-      ================================================= */}
+      =============================== */}
 
       <Routes>
 
-
-        {/* =================================================
-            HOME
-        ================================================= */}
+        {/* HOME */}
 
         <Route
           path="/"
-          element={
-            <HomePage />
-          }
+          element={<HomePage />}
         />
 
 
-        {/* =================================================
-            ABOUT
-        ================================================= */}
+        {/* ABOUT */}
 
         <Route
           path="/about"
-          element={
-            <About />
-          }
+          element={<About />}
         />
 
 
-        {/* =================================================
-            PRODUCTS
-        ================================================= */}
+        {/* PRODUCTS */}
 
         <Route
           path="/products"
-          element={
-            <ProductsPage />
-          }
+          element={<ProductsPage />}
         />
 
 
-        {/* =================================================
-            CATEGORIES
-        ================================================= */}
+        {/* CATEGORIES */}
 
         <Route
           path="/categories"
-          element={
-            <CategoriesPage />
-          }
+          element={<CategoriesPage />}
         />
 
 
-        {/* =================================================
-            DAILY OFFERS
-        ================================================= */}
+        {/* DAILY OFFERS */}
 
         <Route
           path="/offers"
-          element={
-            <DailyOffers />
-          }
+          element={<DailyOffers />}
         />
 
 
-        {/* =================================================
-            WHOLESALE ENQUIRY
-        ================================================= */}
+        {/* ENQUIRY */}
 
         <Route
           path="/enquiry"
-          element={
-            <Enquiry />
-          }
+          element={<Enquiry />}
         />
 
 
-        {/* =================================================
-            CONTACT
-        ================================================= */}
+        {/* CONTACT */}
 
         <Route
           path="/contact"
-          element={
-            <Contact />
-          }
+          element={<Contact />}
         />
 
 
-        {/* =================================================
-            ADMIN LOGIN
-        ================================================= */}
+        {/* ADMIN LOGIN */}
 
         <Route
           path="/admin"
-          element={
-            <AdminLogin />
-          }
+          element={<AdminLogin />}
         />
 
 
-        {/* =================================================
-            ADMIN DASHBOARD
-        ================================================= */}
+        {/* ADMIN DASHBOARD */}
 
         <Route
           path="/admin/dashboard"
-          element={
-            <Dashboard />
-          }
+          element={<Dashboard />}
         />
 
 
-        {/* =================================================
-            FALLBACK
-        ================================================= */}
+        {/* FALLBACK */}
 
         <Route
           path="*"
-          element={
-            <HomePage />
-          }
+          element={<HomePage />}
         />
 
       </Routes>
