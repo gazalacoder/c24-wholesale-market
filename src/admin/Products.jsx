@@ -1,67 +1,65 @@
 import React from "react";
 
+const BASE = import.meta.env.BASE_URL;
+
 const products = [
   {
     id: 1,
     name: "C24 Smart 4K TV",
     category: "Television",
     price: "₹24,999",
-    image: "/images/products/c24-smart-tv.jpg",
+    image: `${BASE}images/products/c24-smart-tv.jpg`,
   },
   {
     id: 2,
     name: "C24 Refrigerator",
     category: "Refrigerator",
     price: "₹32,999",
-    image: "/images/products/c24-refrigerator.jpg",
+    image: `${BASE}images/products/c24-refrigerator.jpg`,
   },
   {
     id: 3,
     name: "C24 Washing Machine",
     category: "Washing Machine",
     price: "₹19,999",
-    image: "/images/products/c24-washing-machine.jpg",
+    image: `${BASE}images/products/c24-washing-machine.jpg`,
   },
   {
     id: 4,
     name: "C24 Air Cooler",
     category: "Air Cooler",
     price: "₹8,999",
-    image: "/images/products/c24-air-cooler.jpg",
+    image: `${BASE}images/products/c24-air-cooler.jpg`,
   },
   {
     id: 5,
     name: "C24 Microwave Oven",
     category: "Microwave",
     price: "₹9,999",
-    image: "/images/products/c24-microwave.jpg",
+    image: `${BASE}images/products/c24-microwave.jpg`,
   },
   {
     id: 6,
     name: "C24 Mixer Grinder",
     category: "Kitchen Appliance",
     price: "₹3,499",
-    image: "/images/products/c24-mixer.jpg",
+    image: `${BASE}images/products/c24-mixer.jpg`,
   },
   {
     id: 7,
     name: "C24 Split AC",
     category: "Air Conditioner",
     price: "₹34,999",
-    image: "/images/products/c24-ac.jpg",
+    image: `${BASE}images/products/c24-ac.jpg`,
   },
 ];
 
 function Product() {
   return (
     <section className="products-page">
-
       <div className="products-container">
 
-        {/* HEADER */}
-
         <div className="products-heading">
-
           <span>
             C24 HOME APPLICATION WHOLESALE
           </span>
@@ -74,25 +72,17 @@ function Product() {
             Explore our premium home appliances
             available for wholesale orders.
           </p>
-
         </div>
-
-
-        {/* PRODUCTS */}
 
         <div className="products-grid">
 
           {products.map((product) => (
-
             <div
               className="product-card"
               key={product.id}
             >
 
-              {/* IMAGE */}
-
               <div className="product-image">
-
                 <img
                   src={product.image}
                   alt={product.name}
@@ -100,11 +90,7 @@ function Product() {
                     e.currentTarget.style.display = "none";
                   }}
                 />
-
               </div>
-
-
-              {/* DETAILS */}
 
               <div className="product-info">
 
@@ -139,15 +125,11 @@ function Product() {
                 </button>
 
               </div>
-
             </div>
-
           ))}
 
         </div>
-
       </div>
-
     </section>
   );
 }

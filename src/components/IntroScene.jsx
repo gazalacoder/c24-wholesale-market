@@ -421,7 +421,7 @@ function IntroScene({ onComplete }) {
 
 
         <img
-          src="/images/c24-logo-crop.png"
+          src={`${import.meta.env.BASE_URL}images/c24-logo-crop.png`}
           alt="C24 Home Appliances Wholesale"
           className="intro-logo"
         />

@@ -1,35 +1,37 @@
 import "./CategoriesPage.css";
 
+const BASE = import.meta.env.BASE_URL;
+
 const categories = [
   {
     name: "Televisions",
     count: "25+ Products",
-    image: "/images/categories/tv.jpg",
+    image: `${BASE}images/categories/tv.jpg`,
   },
   {
     name: "Washing Machines",
     count: "18+ Products",
-    image: "/images/categories/washing-machine.jpg",
+    image: `${BASE}images/categories/washing-machine.jpg`,
   },
   {
     name: "Refrigerators",
     count: "20+ Products",
-    image: "/images/categories/refrigerator.jpg",
+    image: `${BASE}images/categories/refrigerator.jpg`,
   },
   {
     name: "Kitchen Appliances",
     count: "35+ Products",
-    image: "/images/categories/kitchen.jpg",
+    image: `${BASE}images/categories/kitchen.jpg`,
   },
   {
     name: "Fans",
     count: "15+ Products",
-    image: "/images/categories/fan.jpg",
+    image: `${BASE}images/categories/fan.jpg`,
   },
   {
     name: "Cooling",
     count: "12+ Products",
-    image: "/images/categories/cooling.jpg",
+    image: `${BASE}images/categories/cooling.jpg`,
   },
 ];
 
@@ -59,7 +61,6 @@ export default function CategoriesPage() {
 
       </div>
 
-
       {/* CATEGORY GRID */}
 
       <div className="categories-grid">
@@ -76,10 +77,10 @@ export default function CategoriesPage() {
               <img
                 src={category.image}
                 alt={category.name}
+                loading="lazy"
               />
 
             </div>
-
 
             <div className="category-content">
 

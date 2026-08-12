@@ -1,12 +1,14 @@
 import "./ProductsPage.css";
 
+const BASE = import.meta.env.BASE_URL;
+
 const products = [
   {
     id: 1,
     name: "C24 Smart 4K TV",
     category: "Television",
     price: "₹24,999",
-    image: "/images/products/c24-smart-tv.jpg",
+    image: `${BASE}images/products/c24-smart-tv.jpg`,
   },
 
   {
@@ -14,7 +16,7 @@ const products = [
     name: "Premium Washing Machine",
     category: "Washing Machine",
     price: "₹19,999",
-    image: "/images/products/c24-washing-machine.jpg",
+    image: `${BASE}images/products/c24-washing-machine.jpg`,
   },
 
   {
@@ -22,7 +24,7 @@ const products = [
     name: "Double Door Refrigerator",
     category: "Refrigerator",
     price: "₹32,999",
-    image: "/images/products/c24-refrigerator.jpg",
+    image: `${BASE}images/products/c24-refrigerator.jpg`,
   },
 
   {
@@ -30,7 +32,7 @@ const products = [
     name: "Power Air Cooler",
     category: "Cooling",
     price: "₹8,999",
-    image: "/images/products/c24-air-cooler.jpg",
+    image: `${BASE}images/products/c24-air-cooler.jpg`,
   },
 ];
 
@@ -40,15 +42,12 @@ export default function ProductsPage() {
       className="products-section"
       id="products"
     >
-
       {/* ================================
           HEADER
       ================================= */}
 
       <div className="products-header">
-
         <div>
-
           <span className="products-label">
             C24 PRODUCT COLLECTION
           </span>
@@ -58,7 +57,6 @@ export default function ProductsPage() {
             <br />
             <strong>Products.</strong>
           </h2>
-
         </div>
 
         <p>
@@ -66,27 +64,21 @@ export default function ProductsPage() {
           home appliances and electronics
           available for wholesale.
         </p>
-
       </div>
-
 
       {/* ================================
           PRODUCT GRID
       ================================= */}
 
       <div className="products-grid">
-
         {products.map((product) => (
-
           <article
             className="product-card"
             key={product.id}
           >
-
             {/* IMAGE */}
 
             <div className="product-image">
-
               <img
                 src={product.image}
                 alt={product.name}
@@ -96,14 +88,11 @@ export default function ProductsPage() {
               <span className="product-category">
                 {product.category}
               </span>
-
             </div>
-
 
             {/* INFO */}
 
             <div className="product-info">
-
               <h3>
                 {product.name}
               </h3>
@@ -112,11 +101,8 @@ export default function ProductsPage() {
                 {product.category}
               </p>
 
-
               <div className="product-bottom">
-
                 <div className="product-price">
-
                   <span>
                     Starting from
                   </span>
@@ -124,9 +110,7 @@ export default function ProductsPage() {
                   <strong>
                     {product.price}
                   </strong>
-
                 </div>
-
 
                 {/* WHATSAPP */}
 
@@ -140,26 +124,18 @@ export default function ProductsPage() {
                 >
                   Enquire →
                 </a>
-
               </div>
-
             </div>
-
           </article>
-
         ))}
-
       </div>
-
 
       {/* ================================
           BOTTOM CTA
       ================================= */}
 
       <div className="products-bottom">
-
         <div>
-
           <span>
             WHOLESALE COLLECTION
           </span>
@@ -168,16 +144,12 @@ export default function ProductsPage() {
             Need products in
             <strong> bulk quantity?</strong>
           </h3>
-
         </div>
-
 
         <a href="#enquiry">
           Get Wholesale Quote →
         </a>
-
       </div>
-
     </section>
   );
 }

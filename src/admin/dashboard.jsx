@@ -3,8 +3,27 @@ import "./dashboard.css";
 
 const API = "http://localhost:5000/api";
 
-export default function Dashboard() {
+const BASE = import.meta.env.BASE_URL;
 
+const getImageUrl = (image) => {
+  if (!image) return "";
+
+  if (
+    image.startsWith("http://") ||
+    image.startsWith("https://") ||
+    image.startsWith("data:")
+  ) {
+    return image;
+  }
+
+  if (image.startsWith("/")) {
+    return `${BASE}${image.slice(1)}`;
+  }
+
+  return image;
+};
+
+export default function Dashboard() {
   const [products, setProducts] = useState([]);
   const [offers, setOffers] = useState([]);
   const [enquiries, setEnquiries] = useState([]);
@@ -19,55 +38,37 @@ export default function Dashboard() {
     image: "",
   });
 
+  /* =====================================================
+     LOAD DATA
+  ===================================================== */
+
   const loadData = async () => {
-
     try {
+      const productsResponse = await fetch(`${API}/products`);
+      const offersResponse = await fetch(`${API}/offers`);
+      const enquiriesResponse = await fetch(`${API}/enquiries`);
 
-      const productsResponse =
-        await fetch(`${API}/products`);
-
-      const offersResponse =
-        await fetch(`${API}/offers`);
-
-      const enquiriesResponse =
-        await fetch(`${API}/enquiries`);
-
-      const productsData =
-        await productsResponse.json();
-
-      const offersData =
-        await offersResponse.json();
-
-      const enquiriesData =
-        await enquiriesResponse.json();
+      const productsData = await productsResponse.json();
+      const offersData = await offersResponse.json();
+      const enquiriesData = await enquiriesResponse.json();
 
       setProducts(productsData);
       setOffers(offersData);
       setEnquiries(enquiriesData);
-
     } catch (error) {
-
-      console.error(
-        "Backend connection error:",
-        error
-      );
-
+      console.error("Backend connection error:", error);
     }
-
   };
-
 
   useEffect(() => {
     loadData();
   }, []);
 
-
-  /* =========================
+  /* =====================================================
      ADD PRODUCT
-  ========================= */
+  ===================================================== */
 
   const addProduct = async (e) => {
-
     e.preventDefault();
 
     if (
@@ -75,46 +76,33 @@ export default function Dashboard() {
       !product.category ||
       !product.price
     ) {
-
       alert(
         "Product name, category and price required."
       );
-
       return;
     }
 
-
     try {
-
-      const response =
-        await fetch(`${API}/products`, {
-
+      const response = await fetch(
+        `${API}/products`,
+        {
           method: "POST",
-
           headers: {
-            "Content-Type":
-              "application/json",
+            "Content-Type": "application/json",
           },
-
           body: JSON.stringify(product),
+        }
+      );
 
-        });
-
-
-      const data =
-        await response.json();
-
+      const data = await response.json();
 
       if (!response.ok) {
-
         alert(
           data.message ||
-          "Product add failed."
+            "Product add failed."
         );
-
         return;
       }
-
 
       setProduct({
         name: "",
@@ -124,42 +112,30 @@ export default function Dashboard() {
         image: "",
       });
 
-
       await loadData();
-
 
       alert(
         "Product added successfully!"
       );
-
     } catch (error) {
-
       alert(
         "Backend connect nahi ho raha."
       );
-
     }
-
   };
 
-
-  /* =========================
+  /* =====================================================
      DELETE PRODUCT
-  ========================= */
+  ===================================================== */
 
   const deleteProduct = async (id) => {
-
-    const confirmDelete =
-      window.confirm(
-        "Kya aap ye product delete karna chahte ho?"
-      );
-
+    const confirmDelete = window.confirm(
+      "Kya aap ye product delete karna chahte ho?"
+    );
 
     if (!confirmDelete) return;
 
-
     try {
-
       await fetch(
         `${API}/products/${id}`,
         {
@@ -168,38 +144,33 @@ export default function Dashboard() {
       );
 
       await loadData();
-
     } catch (error) {
-
       alert(
         "Product delete nahi hua."
       );
-
     }
-
   };
 
+  /* =====================================================
+     DASHBOARD
+  ===================================================== */
 
   return (
-
     <div className="admin-panel">
 
-      {/* =========================
+      {/* =================================================
           SIDEBAR
-      ========================= */}
+      ================================================= */}
 
       <aside className="admin-sidebar">
 
         <div className="admin-logo">
-
           C24
 
           <span>
             WHOLESALE ADMIN
           </span>
-
         </div>
-
 
         <button
           className={
@@ -214,7 +185,6 @@ export default function Dashboard() {
           📊 Dashboard
         </button>
 
-
         <button
           className={
             activeTab === "products"
@@ -227,7 +197,6 @@ export default function Dashboard() {
         >
           📦 Products
         </button>
-
 
         <button
           className={
@@ -242,7 +211,6 @@ export default function Dashboard() {
           🔥 Daily Offers
         </button>
 
-
         <button
           className={
             activeTab === "enquiries"
@@ -256,21 +224,17 @@ export default function Dashboard() {
           📩 Enquiries
         </button>
 
-
         <div className="admin-sidebar-bottom">
-
           <a href="/">
             ← Back to Website
           </a>
-
         </div>
 
       </aside>
 
-
-      {/* =========================
+      {/* =================================================
           MAIN
-      ========================= */}
+      ================================================= */}
 
       <main className="admin-main">
 
@@ -279,7 +243,6 @@ export default function Dashboard() {
         <header className="admin-header">
 
           <div>
-
             <span>
               C24 HOME APPLICATION WHOLESALE
             </span>
@@ -287,33 +250,25 @@ export default function Dashboard() {
             <h1>
               Admin Panel
             </h1>
-
           </div>
 
-
           <div className="admin-online">
-
             <i></i>
-
             Backend Online
-
           </div>
 
         </header>
 
-
-        {/* =========================
-            DASHBOARD
-        ========================= */}
+        {/* =================================================
+            DASHBOARD TAB
+        ================================================= */}
 
         {activeTab === "dashboard" && (
-
           <>
 
             <div className="admin-cards">
 
               <div className="admin-card">
-
                 <span>
                   TOTAL PRODUCTS
                 </span>
@@ -321,12 +276,9 @@ export default function Dashboard() {
                 <strong>
                   {products.length}
                 </strong>
-
               </div>
 
-
               <div className="admin-card">
-
                 <span>
                   DAILY OFFERS
                 </span>
@@ -334,12 +286,9 @@ export default function Dashboard() {
                 <strong>
                   {offers.length}
                 </strong>
-
               </div>
 
-
               <div className="admin-card">
-
                 <span>
                   ENQUIRIES
                 </span>
@@ -347,12 +296,9 @@ export default function Dashboard() {
                 <strong>
                   {enquiries.length}
                 </strong>
-
               </div>
 
-
               <div className="admin-card">
-
                 <span>
                   WEBSITE
                 </span>
@@ -360,18 +306,15 @@ export default function Dashboard() {
                 <strong className="online-text">
                   LIVE
                 </strong>
-
               </div>
 
             </div>
-
 
             <div className="admin-section">
 
               <div className="section-title">
 
                 <div>
-
                   <span>
                     INVENTORY
                   </span>
@@ -379,9 +322,7 @@ export default function Dashboard() {
                   <h2>
                     Recent Products
                   </h2>
-
                 </div>
-
 
                 <button
                   onClick={() =>
@@ -392,7 +333,6 @@ export default function Dashboard() {
                 </button>
 
               </div>
-
 
               {products.length === 0 ? (
 
@@ -425,7 +365,9 @@ export default function Dashboard() {
                         {item.image ? (
 
                           <img
-                            src={item.image}
+                            src={getImageUrl(
+                              item.image
+                            )}
                             alt={item.name}
                           />
 
@@ -439,7 +381,6 @@ export default function Dashboard() {
 
                       </div>
 
-
                       <div className="product-details">
 
                         <strong>
@@ -452,21 +393,20 @@ export default function Dashboard() {
 
                       </div>
 
-
                       <div className="product-price">
 
                         ₹
                         {Number(
                           item.price
-                        ).toLocaleString("en-IN")}
+                        ).toLocaleString(
+                          "en-IN"
+                        )}
 
                       </div>
 
-
                       <div className="product-stock">
 
-                        Stock:
-                        {" "}
+                        Stock:{" "}
                         {item.stock}
 
                       </div>
@@ -482,16 +422,13 @@ export default function Dashboard() {
             </div>
 
           </>
-
         )}
 
-
-        {/* =========================
-            PRODUCTS
-        ========================= */}
+        {/* =================================================
+            PRODUCTS TAB
+        ================================================= */}
 
         {activeTab === "products" && (
-
           <>
 
             <div className="admin-section">
@@ -512,7 +449,6 @@ export default function Dashboard() {
 
               </div>
 
-
               <form
                 className="product-form"
                 onSubmit={addProduct}
@@ -531,13 +467,13 @@ export default function Dashboard() {
                     onChange={(e) =>
                       setProduct({
                         ...product,
-                        name: e.target.value,
+                        name:
+                          e.target.value,
                       })
                     }
                   />
 
                 </div>
-
 
                 <div className="form-group">
 
@@ -560,7 +496,6 @@ export default function Dashboard() {
 
                 </div>
 
-
                 <div className="form-group">
 
                   <label>
@@ -581,7 +516,6 @@ export default function Dashboard() {
                   />
 
                 </div>
-
 
                 <div className="form-group">
 
@@ -604,7 +538,6 @@ export default function Dashboard() {
 
                 </div>
 
-
                 <div className="form-group full">
 
                   <label>
@@ -613,7 +546,7 @@ export default function Dashboard() {
 
                   <input
                     type="text"
-                    placeholder="/images/products/tv.jpg"
+                    placeholder="/images/products/c24-smart-tv.jpg"
                     value={product.image}
                     onChange={(e) =>
                       setProduct({
@@ -626,11 +559,11 @@ export default function Dashboard() {
 
                   <small>
                     Abhi image ka path use karo.
-                    Actual upload system next step mein add karenge.
+                    Actual upload system next step mein
+                    add karenge.
                   </small>
 
                 </div>
-
 
                 <button
                   className="add-product-button"
@@ -642,7 +575,6 @@ export default function Dashboard() {
               </form>
 
             </div>
-
 
             <div className="admin-section">
 
@@ -662,7 +594,6 @@ export default function Dashboard() {
 
               </div>
 
-
               <div className="product-list">
 
                 {products.map((item) => (
@@ -677,7 +608,9 @@ export default function Dashboard() {
                       {item.image ? (
 
                         <img
-                          src={item.image}
+                          src={getImageUrl(
+                            item.image
+                          )}
                           alt={item.name}
                         />
 
@@ -691,7 +624,6 @@ export default function Dashboard() {
 
                     </div>
 
-
                     <div className="product-details">
 
                       <strong>
@@ -704,30 +636,30 @@ export default function Dashboard() {
 
                     </div>
 
-
                     <div className="product-price">
 
                       ₹
                       {Number(
                         item.price
-                      ).toLocaleString("en-IN")}
+                      ).toLocaleString(
+                        "en-IN"
+                      )}
 
                     </div>
 
-
                     <div className="product-stock">
 
-                      Stock:
-                      {" "}
+                      Stock:{" "}
                       {item.stock}
 
                     </div>
 
-
                     <button
                       className="delete-button"
                       onClick={() =>
-                        deleteProduct(item.id)
+                        deleteProduct(
+                          item.id
+                        )
                       }
                     >
                       Delete
@@ -742,13 +674,11 @@ export default function Dashboard() {
             </div>
 
           </>
-
         )}
 
-
-        {/* =========================
-            OFFERS
-        ========================= */}
+        {/* =================================================
+            OFFERS TAB
+        ================================================= */}
 
         {activeTab === "offers" && (
 
@@ -769,7 +699,6 @@ export default function Dashboard() {
               </div>
 
             </div>
-
 
             {offers.length === 0 ? (
 
@@ -798,11 +727,12 @@ export default function Dashboard() {
 
                     {offer.image && (
                       <img
-                        src={offer.image}
+                        src={getImageUrl(
+                          offer.image
+                        )}
                         alt={offer.title}
                       />
                     )}
-
 
                     <div>
 
@@ -816,11 +746,9 @@ export default function Dashboard() {
 
                     </div>
 
-
                     <del>
                       ₹{offer.oldPrice}
                     </del>
-
 
                     <strong className="offer-price">
                       ₹{offer.offerPrice}
@@ -838,10 +766,9 @@ export default function Dashboard() {
 
         )}
 
-
-        {/* =========================
-            ENQUIRIES
-        ========================= */}
+        {/* =================================================
+            ENQUIRIES TAB
+        ================================================= */}
 
         {activeTab === "enquiries" && (
 
@@ -863,7 +790,6 @@ export default function Dashboard() {
 
             </div>
 
-
             {enquiries.length === 0 ? (
 
               <div className="empty-box">
@@ -873,7 +799,8 @@ export default function Dashboard() {
                 </h3>
 
                 <p>
-                  Customer enquiries yahan दिखाई देंगी.
+                  Customer enquiries yahan
+                  dikhengi.
                 </p>
 
               </div>
@@ -898,19 +825,26 @@ export default function Dashboard() {
                     </div>
 
                     <div>
-                      📧 {item.email || "No email"}
+                      📧{" "}
+                      {item.email ||
+                        "No email"}
                     </div>
 
                     <div>
-                      Product: {item.product || "Not specified"}
+                      Product:{" "}
+                      {item.product ||
+                        "Not specified"}
                     </div>
 
                     <div>
-                      Quantity: {item.quantity || "Not specified"}
+                      Quantity:{" "}
+                      {item.quantity ||
+                        "Not specified"}
                     </div>
 
                     <p>
-                      {item.message || "No message"}
+                      {item.message ||
+                        "No message"}
                     </p>
 
                   </div>

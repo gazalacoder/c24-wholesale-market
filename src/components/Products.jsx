@@ -26,6 +26,7 @@ const products = [
     img: "https://images.unsplash.com/photo-1618220179428-22790b461013?w=500",
   },
 ];
+
 export default function Products() {
   return (
     <section className="products">

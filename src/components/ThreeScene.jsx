@@ -12,6 +12,7 @@ import {
 } from "react";
 import * as THREE from "three";
 import "./ThreeScene.css";
+const ASSET_BASE = import.meta.env.BASE_URL;
 
 /* =====================================================
    GALAXY PORTAL
@@ -205,7 +206,7 @@ function Businessman({ showroom }) {
   const ref = useRef();
 
   const { scene } = useGLTF(
-    "/models/businessman.glb"
+    `${ASSET_BASE}models/businessman.glb`
   );
 
   useEffect(() => {
@@ -372,7 +373,7 @@ function Products() {
       {/* TV */}
 
       <Product
-        path="/models/smart_tv.glb"
+        path={`${ASSET_BASE}models/smart_tv.glb`}
         position={[
           3.1,
           1.15,
@@ -385,7 +386,7 @@ function Products() {
       {/* FAN */}
 
       <Product
-        path="/models/fan.glb"
+        path={`${ASSET_BASE}models/fan.glb`}
         position={[
           -3.0,
           1.45,
@@ -398,7 +399,7 @@ function Products() {
       {/* WASHING MACHINE */}
 
       <Product
-        path="/models/washing_machine.glb"
+        path={`${ASSET_BASE}models/washing_machine.glb`}
         position={[
           3.0,
           -1.35,
@@ -411,7 +412,7 @@ function Products() {
       {/* MIXER */}
 
       <Product
-        path="/models/mixer.glb"
+        path={`${ASSET_BASE}models/mixer.glb`}
         position={[
           -3.0,
           -1.35,
@@ -810,21 +811,21 @@ export default function ThreeScene() {
 ===================================================== */
 
 useGLTF.preload(
-  "/models/businessman.glb"
+  `${ASSET_BASE}models/businessman.glb`
 );
 
 useGLTF.preload(
-  "/models/smart_tv.glb"
+  `${ASSET_BASE}models/smart_tv.glb`
 );
 
 useGLTF.preload(
-  "/models/washing_machine.glb"
+  `${ASSET_BASE}models/washing_machine.glb`
 );
 
 useGLTF.preload(
-  "/models/mixer.glb"
+  `${ASSET_BASE}models/mixer.glb`
 );
 
 useGLTF.preload(
-  "/models/fan.glb"
+  `${ASSET_BASE}models/fan.glb`
 );
