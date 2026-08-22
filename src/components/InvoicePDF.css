@@ -1,0 +1,31 @@
+.invoice-download-button {
+  border: 1px solid rgba(0, 200, 255, 0.35);
+
+  background: rgba(0, 200, 255, 0.08);
+
+  color: #00c8ff;
+
+  padding: 11px 18px;
+
+  border-radius: 9px;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.3s ease;
+}
+
+.invoice-download-button:hover {
+  background: #00c8ff;
+
+  color: #001018;
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 8px 25px
+    rgba(0, 200, 255, 0.18);
+}

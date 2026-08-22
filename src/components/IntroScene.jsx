@@ -1,10 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import "./IntroScene.css";
 
-function IntroScene({ onComplete }) {
+function IntroScene({ onComplete = () => {} }) {
   const starsRef = useRef(null);
-
   const [closing, setClosing] = useState(false);
+
+  /* =========================================
+     GALAXY ANIMATION
+  ========================================= */
 
   useEffect(() => {
     const canvas = starsRef.current;
@@ -13,12 +16,10 @@ function IntroScene({ onComplete }) {
 
     const ctx = canvas.getContext("2d");
 
+    if (!ctx) return;
+
     let animationFrame;
     let stars = [];
-
-    /* =====================================================
-       RESIZE
-    ===================================================== */
 
     const resize = () => {
       const dpr = Math.min(
@@ -48,7 +49,7 @@ function IntroScene({ onComplete }) {
       );
 
       stars = Array.from(
-        { length: 130 },
+        { length: 160 },
         () => ({
           x:
             Math.random() *
@@ -80,13 +81,7 @@ function IntroScene({ onComplete }) {
       resize
     );
 
-
-    /* =====================================================
-       GALAXY ANIMATION
-    ===================================================== */
-
     const animate = () => {
-
       ctx.clearRect(
         0,
         0,
@@ -94,17 +89,15 @@ function IntroScene({ onComplete }) {
         window.innerHeight
       );
 
-
       const centerX =
         window.innerWidth / 2;
 
       const centerY =
         window.innerHeight / 2;
 
-
-      /* =================================================
-         BACKGROUND GALAXY
-      ================================================= */
+      /* =====================================
+         GALAXY
+      ===================================== */
 
       const gradient =
         ctx.createRadialGradient(
@@ -116,9 +109,8 @@ function IntroScene({ onComplete }) {
           Math.max(
             window.innerWidth,
             window.innerHeight
-          ) * 0.65
+          ) * 0.7
         );
-
 
       gradient.addColorStop(
         0,
@@ -140,7 +132,6 @@ function IntroScene({ onComplete }) {
         "rgba(0,0,0,0)"
       );
 
-
       ctx.fillStyle = gradient;
 
       ctx.fillRect(
@@ -150,27 +141,21 @@ function IntroScene({ onComplete }) {
         window.innerHeight
       );
 
-
-      /* =================================================
+      /* =====================================
          STARS
-      ================================================= */
+      ===================================== */
 
       stars.forEach((star) => {
-
         star.y -= star.speed;
 
-
         if (star.y < -5) {
-
           star.y =
-            window.innerHeight +
-            5;
+            window.innerHeight + 5;
 
           star.x =
             Math.random() *
             window.innerWidth;
         }
-
 
         const twinkle =
           0.5 +
@@ -181,9 +166,7 @@ function IntroScene({ onComplete }) {
           ) *
             0.3;
 
-
         ctx.beginPath();
-
 
         ctx.arc(
           star.x,
@@ -193,21 +176,18 @@ function IntroScene({ onComplete }) {
           Math.PI * 2
         );
 
-
         ctx.fillStyle =
           `rgba(90,210,255,${
             star.opacity *
             twinkle
           })`;
 
-
         ctx.fill();
       });
 
-
-      /* =================================================
+      /* =====================================
          GALAXY ORBIT
-      ================================================= */
+      ===================================== */
 
       const radius =
         Math.min(
@@ -215,23 +195,18 @@ function IntroScene({ onComplete }) {
           window.innerHeight
         ) * 0.36;
 
-
       ctx.save();
-
 
       ctx.translate(
         centerX,
         centerY
       );
 
-
       ctx.rotate(
         Date.now() * 0.00008
       );
 
-
       ctx.beginPath();
-
 
       ctx.ellipse(
         0,
@@ -243,56 +218,46 @@ function IntroScene({ onComplete }) {
         Math.PI * 2
       );
 
-
       ctx.strokeStyle =
         "rgba(0,200,255,0.18)";
 
-
       ctx.lineWidth = 2;
 
-
       ctx.shadowBlur = 20;
-
 
       ctx.shadowColor =
         "#00cfff";
 
-
       ctx.stroke();
-
 
       ctx.restore();
 
-
-      /* =================================================
+      /* =====================================
          ORBIT PARTICLES
-      ================================================= */
+      ===================================== */
 
       for (
         let i = 0;
-        i < 22;
+        i < 30;
         i++
       ) {
-
         const angle =
           Date.now() *
             0.0007 +
           i * 0.4;
 
-
         const particleRadius =
           radius *
           (
             0.45 +
-            (i % 5) * 0.09
+            (i % 5) *
+              0.09
           );
-
 
         const x =
           centerX +
           Math.cos(angle) *
             particleRadius;
-
 
         const y =
           centerY +
@@ -300,9 +265,7 @@ function IntroScene({ onComplete }) {
             particleRadius *
             0.38;
 
-
         ctx.beginPath();
-
 
         ctx.arc(
           x,
@@ -312,21 +275,16 @@ function IntroScene({ onComplete }) {
           Math.PI * 2
         );
 
-
         ctx.fillStyle =
           "rgba(0,210,255,0.8)";
 
-
         ctx.shadowBlur = 12;
-
 
         ctx.shadowColor =
           "#00cfff";
 
-
         ctx.fill();
       }
-
 
       animationFrame =
         requestAnimationFrame(
@@ -334,16 +292,9 @@ function IntroScene({ onComplete }) {
         );
     };
 
-
     animate();
 
-
-    /* =====================================================
-       CLEANUP
-    ===================================================== */
-
     return () => {
-
       cancelAnimationFrame(
         animationFrame
       );
@@ -353,40 +304,40 @@ function IntroScene({ onComplete }) {
         resize
       );
     };
-
   }, []);
 
-
-  /* =====================================================
-     INTRO TIMER
-  ===================================================== */
+  /* =========================================
+     INTRO FINISH
+  ========================================= */
 
   useEffect(() => {
-
     const timer =
       setTimeout(() => {
 
         setClosing(true);
 
-
         setTimeout(() => {
 
-          onComplete();
+          if (
+            typeof onComplete ===
+            "function"
+          ) {
+            onComplete();
+          }
 
-        }, 800);
+        }, 1000);
 
-      }, 5200);
+      }, 4200);
 
-
-    return () =>
+    return () => {
       clearTimeout(timer);
+    };
 
   }, [onComplete]);
 
-
-  /* =====================================================
-     JSX
-  ===================================================== */
+  /* =========================================
+     UI
+  ========================================= */
 
   return (
     <div
@@ -399,43 +350,39 @@ function IntroScene({ onComplete }) {
       }
     >
 
-      {/* GALAXY CANVAS */}
-
       <canvas
         ref={starsRef}
         className="galaxy-canvas"
       />
 
-
-      {/* CENTER LOGO */}
-
       <div className="logo-wrapper">
 
-        <div className="logo-galaxy"></div>
+        <div className="logo-galaxy" />
 
-        <div className="logo-glow"></div>
+        <div className="logo-glow" />
 
-        <div className="logo-ring ring-one"></div>
+        <div className="logo-ring ring-one" />
 
-        <div className="logo-ring ring-two"></div>
-
+        <div className="logo-ring ring-two" />
 
         <img
-          src={`${import.meta.env.BASE_URL}images/c24-logo-crop.png`}
-          alt="C24 Home Appliances Wholesale"
+          src={
+            `${import.meta.env.BASE_URL}images/c24-logo-crop.png`
+          }
+          alt="C24"
           className="intro-logo"
         />
 
       </div>
 
-
-      {/* BRAND TEXT */}
-
       <div className="intro-brand">
 
-        C24 HOME APPLIANCES
-        <span>
-          {" "}WHOLESALE
+        <span className="brand-main">
+          C24
+        </span>
+
+        <span className="brand-sub">
+          HOME APPLICATION WHOLESALE
         </span>
 
       </div>

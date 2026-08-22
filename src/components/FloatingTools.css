@@ -1,0 +1,69 @@
+.c24-floating-tools {
+  position: fixed;
+  right: 22px;
+  bottom: 25px;
+  z-index: 9999;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.c24-floating-tools button {
+  width: 52px;
+  height: 52px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: #111;
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 21px;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.22);
+
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease;
+}
+
+.c24-floating-tools button:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 14px 35px rgba(0,0,0,.30);
+}
+
+.floating-cart {
+  position: relative;
+}
+
+.floating-cart span {
+  position: absolute;
+
+  top: -5px;
+  right: -5px;
+
+  min-width: 20px;
+  height: 20px;
+
+  padding: 0 5px;
+
+  border-radius: 20px;
+
+  background: #e53935;
+  color: white;
+
+  font-size: 11px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

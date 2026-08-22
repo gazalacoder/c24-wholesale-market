@@ -1,0 +1,335 @@
+.my-orders-page {
+  min-height: 100vh;
+  padding: 70px 6%;
+  background: #f7f7f7;
+  color: #111;
+}
+
+.my-orders-header {
+  max-width: 1200px;
+  margin: 0 auto 35px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 30px;
+}
+
+.orders-label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 11px;
+  letter-spacing: 2px;
+  font-weight: 700;
+}
+
+.my-orders-header h1 {
+  margin: 0;
+  font-size: clamp(38px, 6vw, 70px);
+  line-height: 1;
+}
+
+.my-orders-header p {
+  margin: 15px 0 0;
+  color: #666;
+}
+
+.orders-header-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.orders-header-actions button,
+.orders-login-box button,
+.no-orders button {
+  border: 0;
+  padding: 12px 20px;
+  background: #111;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.orders-header-actions button:last-child {
+  background: #d71920;
+}
+
+.orders-summary {
+  max-width: 1200px;
+  margin: 0 auto 30px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.orders-summary-card {
+  padding: 25px;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 16px;
+}
+
+.orders-summary-card span {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  color: #777;
+}
+
+.orders-summary-card strong {
+  display: block;
+  margin-top: 8px;
+  font-size: 32px;
+}
+
+.my-orders-list {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  gap: 20px;
+}
+
+.my-order-card {
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 18px;
+  padding: 25px;
+}
+
+.my-order-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.my-order-top span:first-child,
+.my-order-bottom span {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  color: #777;
+}
+
+.my-order-top strong {
+  display: block;
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+.my-order-top small {
+  display: block;
+  margin-top: 6px;
+  color: #777;
+}
+
+.my-order-status {
+  padding: 8px 14px;
+  border-radius: 30px;
+  background: #eee;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.my-order-status.new {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.my-order-status.confirmed {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.my-order-status.processing {
+  background: #ede9fe;
+  color: #6d28d9;
+}
+
+.my-order-status.shipped {
+  background: #cffafe;
+  color: #155e75;
+}
+
+.my-order-status.delivered {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.my-order-status.cancelled {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.my-order-products {
+  padding: 20px 0;
+}
+
+.my-order-products h3 {
+  margin: 0 0 12px;
+  font-size: 16px;
+}
+
+.my-order-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 14px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.my-order-item strong {
+  display: block;
+}
+
+.my-order-item small {
+  display: block;
+  margin-top: 5px;
+  color: #777;
+}
+
+.my-order-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-top: 18px;
+}
+
+.my-order-bottom strong {
+  display: block;
+  margin-top: 5px;
+  font-size: 24px;
+}
+
+.my-order-bottom a {
+  padding: 12px 18px;
+  background: #25d366;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.no-orders {
+  max-width: 650px;
+  margin: 70px auto;
+  padding: 50px 25px;
+  text-align: center;
+  background: #fff;
+  border-radius: 20px;
+  border: 1px solid #e5e5e5;
+}
+
+.no-orders-icon {
+  font-size: 45px;
+}
+
+.no-orders h2 {
+  margin: 15px 0 8px;
+}
+
+.no-orders p {
+  color: #777;
+  margin-bottom: 25px;
+}
+
+.orders-login-box {
+  max-width: 500px;
+  margin: 100px auto;
+  padding: 45px;
+  text-align: center;
+  background: #fff;
+  border-radius: 20px;
+}
+
+.orders-logo {
+  font-size: 42px;
+  font-weight: 900;
+}
+
+.orders-login-box > span {
+  font-size: 11px;
+  letter-spacing: 2px;
+}
+
+.orders-login-box h1 {
+  margin-bottom: 10px;
+}
+
+.orders-login-box p {
+  color: #777;
+  line-height: 1.6;
+}
+
+.orders-login-box button {
+  display: block;
+  width: 100%;
+  margin-top: 18px;
+}
+
+.orders-login-box .orders-back-button {
+  background: transparent;
+  color: #111;
+  border: 1px solid #ddd;
+}
+
+.orders-loading {
+  max-width: 500px;
+  margin: 150px auto;
+  text-align: center;
+}
+
+.orders-error {
+  max-width: 1200px;
+  margin: 0 auto 20px;
+  padding: 15px 18px;
+  background: #fee2e2;
+  color: #991b1b;
+  border-radius: 10px;
+}
+
+.orders-error button {
+  margin-left: 15px;
+  padding: 7px 12px;
+  cursor: pointer;
+}
+
+@media (max-width: 700px) {
+
+  .my-orders-page {
+    padding: 40px 18px;
+  }
+
+  .my-orders-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .orders-header-actions {
+    width: 100%;
+  }
+
+  .orders-header-actions button {
+    flex: 1;
+  }
+
+  .orders-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .my-order-top,
+  .my-order-bottom {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .my-order-bottom a {
+    width: 100%;
+    text-align: center;
+  }
+
+  .my-order-item {
+    align-items: flex-start;
+  }
+}

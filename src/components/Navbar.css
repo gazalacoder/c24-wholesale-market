@@ -560,3 +560,153 @@
   }
 
 }
+
+/* =========================================
+   NAVBAR RIGHT
+========================================= */
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+
+/* =========================================
+   RETAILER LOGIN
+========================================= */
+
+.retailer-login-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 10px 15px;
+
+  border: 1px solid
+    rgba(255, 255, 255, 0.12);
+
+  border-radius: 7px;
+
+  color: #fff;
+
+  text-decoration: none;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  transition: 0.25s ease;
+}
+
+
+.retailer-login-btn:hover {
+  border-color:
+    rgba(0, 200, 255, 0.5);
+
+  color: #00c8ff;
+}
+
+
+/* =========================================
+   LANGUAGE
+========================================= */
+
+.language-box {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+
+.language-icon {
+  font-size: 15px;
+}
+
+
+.language-box select {
+  border: none;
+  outline: none;
+
+  background: transparent;
+
+  color: inherit;
+
+  font-size: 12px;
+
+  cursor: pointer;
+}
+
+
+.language-box select option {
+  background: #080b0f;
+  color: #fff;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 900px) {
+
+  .navbar-menu {
+    position: absolute;
+
+    top: 100%;
+    left: 0;
+    right: 0;
+
+    display: none;
+
+    flex-direction: column;
+
+    padding: 25px;
+
+    background: #05080b;
+
+    border-top:
+      1px solid
+      rgba(255,255,255,0.08);
+  }
+
+
+  .navbar-menu.menu-open {
+    display: flex;
+  }
+
+
+  .nav-links {
+    flex-direction: column;
+
+    width: 100%;
+
+    gap: 18px;
+  }
+
+
+  .navbar-right {
+    flex-direction: column;
+
+    width: 100%;
+
+    align-items: stretch;
+
+    margin-top: 20px;
+  }
+
+
+  .language-box {
+    justify-content: center;
+  }
+
+
+  .retailer-login-btn,
+  .quote-btn {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    text-align: center;
+  }
+
+}

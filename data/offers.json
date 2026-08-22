@@ -6,5 +6,27 @@
     "oldPrice": 24999,
     "offerPrice": 21999,
     "image": "/images/products/smart-tv.jpg"
+  },
+  {
+    "id": 1787036520791,
+    "title": " Weekend Mega Offer",
+    "product": "Samsung 55 Inch TV",
+    "oldPrice": 50000,
+    "offerPrice": 25000,
+    "image": "",
+    "startDate": "2026-08-11",
+    "endDate": "2026-08-18"
+  },
+  {
+    "id": "offer_1787122864896_2c8cb71c",
+    "title": "mart TV Special Offer",
+    "product": "c24",
+    "oldPrice": 56565700,
+    "offerPrice": 77700,
+    "startDate": "2026-05-06",
+    "endDate": "2026-03-04",
+    "image": "",
+    "description": "",
+    "createdAt": "2026-08-19T07:01:04.901Z"
   }
 ]

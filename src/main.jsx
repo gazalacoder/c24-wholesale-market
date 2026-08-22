@@ -4,10 +4,31 @@ import { BrowserRouter } from "react-router-dom";
 
 import App from "./App";
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+import {
+  LanguageProvider
+} from "./LanguageContext";
+
+import "./index.css";
+
+
+ReactDOM.createRoot(
+  document.getElementById("root")
+).render(
+
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
+
+    <BrowserRouter
+      basename="/c24-wholesale-market"
+    >
+
+      <LanguageProvider>
+
+        <App />
+
+      </LanguageProvider>
+
     </BrowserRouter>
+
   </React.StrictMode>
+
 );

@@ -22,5 +22,22 @@
     "price": 32999,
     "stock": 12,
     "image": "/images/products/refrigerator.jpg"
+  },
+  {
+    "id": "product_1787122803805_a92f262d",
+    "name": "C24 Smart TV",
+    "brand": "c24",
+    "category": "tv",
+    "mrp": 55500,
+    "wholesalePrice": 700000,
+    "discountPercent": 0,
+    "price": 55500,
+    "stock": 50,
+    "image": "",
+    "images": [],
+    "description": "",
+    "specifications": {},
+    "createdAt": "2026-08-19T07:00:03.824Z",
+    "updatedAt": "2026-08-19T07:00:03.825Z"
   }
 ]

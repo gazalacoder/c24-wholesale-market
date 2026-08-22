@@ -1,0 +1,207 @@
+.retailer-profile {
+  min-height: 100vh;
+  padding: 110px 20px 50px;
+
+  background:
+    radial-gradient(
+      circle at 15% 10%,
+      rgba(0, 207, 255, 0.1),
+      transparent 32%
+    ),
+    #05090c;
+
+  color: #fff;
+}
+
+.profile-box {
+  width: 100%;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.profile-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+
+  margin-bottom: 30px;
+}
+
+.profile-header span {
+  color: #00cfff;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 3px;
+}
+
+.profile-header h1 {
+  margin: 8px 0;
+  font-size: 34px;
+}
+
+.profile-header p {
+  margin: 0;
+  color: rgba(255,255,255,.5);
+}
+
+.profile-header button,
+.profile-actions button {
+  border: 1px solid
+    rgba(255,255,255,.12);
+
+  border-radius: 8px;
+
+  padding: 11px 18px;
+
+  background: rgba(255,255,255,.04);
+
+  color: #fff;
+
+  cursor: pointer;
+}
+
+.profile-card {
+  margin-bottom: 20px;
+
+  padding: 25px;
+
+  border: 1px solid
+    rgba(255,255,255,.08);
+
+  border-radius: 16px;
+
+  background:
+    rgba(255,255,255,.025);
+}
+
+.profile-card-label {
+  margin-bottom: 20px;
+
+  color: #00cfff;
+
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.profile-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, 1fr);
+
+  gap: 20px;
+}
+
+.profile-grid div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.profile-grid small {
+  color:
+    rgba(255,255,255,.4);
+}
+
+.profile-grid strong {
+  font-size: 14px;
+}
+
+.profile-empty {
+  padding: 25px 0;
+}
+
+.profile-empty h3 {
+  margin: 0 0 7px;
+}
+
+.profile-empty p {
+  color:
+    rgba(255,255,255,.45);
+  font-size: 13px;
+}
+
+.profile-empty a {
+  color: #00cfff;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.profile-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-list-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 15px 0;
+
+  border-bottom: 1px solid
+    rgba(255,255,255,.06);
+}
+
+.profile-list-row:last-child {
+  border-bottom: none;
+}
+
+.profile-list-row span {
+  color:
+    rgba(255,255,255,.45);
+
+  font-size: 12px;
+}
+
+.profile-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+
+  margin-top: 25px;
+}
+
+.profile-actions a {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 11px 18px;
+
+  border-radius: 8px;
+
+  background: #00cfff;
+
+  color: #001015;
+
+  text-decoration: none;
+
+  font-size: 12px;
+  font-weight: 800;
+}
+
+@media (max-width: 650px) {
+
+  .retailer-profile {
+    padding: 90px 15px 35px;
+  }
+
+  .profile-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .profile-header h1 {
+    font-size: 28px;
+  }
+
+  .profile-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-actions {
+    flex-direction: column;
+  }
+}

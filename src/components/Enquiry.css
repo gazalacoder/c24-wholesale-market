@@ -1,374 +1,371 @@
-/* =====================================================
-   C24 WHOLESALE ENQUIRY
-===================================================== */
-
-.enquiry-section {
+.enquiry-page {
   min-height: 100vh;
-
-  padding:
-    130px 7%;
-
-  display: grid;
-
-  grid-template-columns:
-    0.85fr 1.15fr;
-
-  align-items: center;
-
-  gap: 80px;
-
-  color: white;
-
-  background:
-    radial-gradient(
-      circle at 15% 50%,
-      rgba(0, 207, 255, 0.12),
-      transparent 35%
-    ),
-    #020609;
-
-  border-top:
-    1px solid
-    rgba(255,255,255,0.06);
+  background: #f7f7f5;
+  color: #111;
 }
 
+/* HERO */
 
-/* =====================================================
-   LEFT
-===================================================== */
-
-.enquiry-intro {
-  max-width: 600px;
+.enquiry-hero {
+  padding: 110px 7% 80px;
+  background: #111;
+  color: #fff;
 }
 
-.enquiry-label {
-  color: #00cfff;
-
-  font-size: 11px;
-
-  font-weight: 800;
-
-  letter-spacing: 4px;
+.enquiry-hero-content {
+  max-width: 850px;
 }
 
-.enquiry-intro h2 {
-  margin:
-    25px 0;
-
-  font-size:
-    clamp(50px, 6vw, 80px);
-
-  line-height: 0.95;
-
-  letter-spacing: -4px;
+.enquiry-eyebrow,
+.enquiry-info > span,
+.enquiry-form-header > span,
+.contact-section-heading > span {
+  display: block;
+  font-size: 12px;
+  letter-spacing: 3px;
+  font-weight: 700;
+  margin-bottom: 18px;
 }
 
-.enquiry-intro h2 strong {
-  color: #00cfff;
-
-  text-shadow:
-    0 0 30px
-    rgba(0,207,255,0.35);
+.enquiry-hero h1 {
+  margin: 0;
+  font-size: clamp(42px, 7vw, 82px);
+  line-height: .95;
+  letter-spacing: -3px;
 }
 
-.enquiry-intro > p {
-  max-width: 500px;
-
-  color:
-    rgba(255,255,255,0.58);
-
-  font-size: 17px;
-
+.enquiry-hero p {
+  max-width: 650px;
+  margin-top: 28px;
+  color: #bdbdbd;
+  font-size: 18px;
   line-height: 1.7;
 }
 
 
-/* =====================================================
-   POINTS
-===================================================== */
+/* MAIN */
 
-.enquiry-points {
-  margin-top: 45px;
-
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 20px;
-}
-
-.enquiry-points div {
-  display: flex;
-
-  align-items: center;
-
-  gap: 18px;
-}
-
-.enquiry-points span {
-  width: 38px;
-
-  height: 38px;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  border-radius: 50%;
-
-  color: #00cfff;
-
-  border:
-    1px solid
-    rgba(0,207,255,0.3);
-
-  background:
-    rgba(0,207,255,0.05);
-
-  font-size: 10px;
-
-  font-weight: 800;
-}
-
-.enquiry-points p {
-  margin: 0;
-
-  color:
-    rgba(255,255,255,0.75);
-
-  font-size: 14px;
-}
-
-
-/* =====================================================
-   FORM BOX
-===================================================== */
-
-.enquiry-box {
-  padding: 38px;
-
-  border-radius: 22px;
-
-  border:
-    1px solid
-    rgba(0,207,255,0.18);
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255,255,255,0.065),
-      rgba(255,255,255,0.018)
-    );
-
-  box-shadow:
-    0 25px 80px
-    rgba(0,0,0,0.35);
-
-  backdrop-filter:
-    blur(20px);
-}
-
-
-/* HEADER */
-
-.enquiry-box-header {
-  margin-bottom: 30px;
-}
-
-.enquiry-box-header span {
-  color: #00cfff;
-
-  font-size: 9px;
-
-  font-weight: 800;
-
-  letter-spacing: 3px;
-}
-
-.enquiry-box-header h3 {
-  margin-top: 8px;
-
-  font-size: 30px;
-}
-
-
-/* =====================================================
-   FORM
-===================================================== */
-
-.form-row {
+.enquiry-main {
+  width: min(1250px, 90%);
+  margin: 0 auto;
+  padding: 90px 0;
   display: grid;
+  grid-template-columns: .85fr 1.15fr;
+  gap: 70px;
+}
 
-  grid-template-columns:
-    1fr 1fr;
 
+/* INFO */
+
+.enquiry-info {
+  padding-top: 20px;
+}
+
+.enquiry-info > span {
+  color: #777;
+}
+
+.enquiry-info h2 {
+  font-size: clamp(38px, 5vw, 62px);
+  line-height: 1;
+  letter-spacing: -2px;
+  margin: 0 0 25px;
+}
+
+.enquiry-info h2 strong {
+  display: block;
+}
+
+.enquiry-info > p {
+  color: #666;
+  line-height: 1.8;
+  max-width: 520px;
+}
+
+
+/* CONTACT CARDS */
+
+.contact-cards {
+  margin-top: 45px;
+  display: grid;
   gap: 15px;
 }
 
-.form-group {
-  margin-bottom: 18px;
-}
-
-.form-group label {
-  display: block;
-
-  margin-bottom: 8px;
-
-  color:
-    rgba(255,255,255,0.65);
-
-  font-size: 11px;
-
-  font-weight: 700;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-  width: 100%;
-
-  padding: 14px 15px;
-
-  border-radius: 9px;
-
-  border:
-    1px solid
-    rgba(255,255,255,0.1);
-
-  outline: none;
-
-  background:
-    rgba(0,0,0,0.25);
-
-  color: white;
-
-  font-family: inherit;
-
-  font-size: 13px;
-
-  transition:
-    border-color 0.3s,
-    box-shadow 0.3s;
-}
-
-.form-group select option {
-  background: #071016;
-
-  color: white;
-}
-
-.form-group textarea {
-  resize: vertical;
-
-  min-height: 110px;
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-  border-color:
-    rgba(0,207,255,0.6);
-
-  box-shadow:
-    0 0 20px
-    rgba(0,207,255,0.08);
-}
-
-.form-group input::placeholder,
-.form-group textarea::placeholder {
-  color:
-    rgba(255,255,255,0.28);
-}
-
-
-/* =====================================================
-   SUBMIT
-===================================================== */
-
-.enquiry-submit {
-  width: 100%;
-
-  padding: 16px;
-
+.contact-card {
   display: flex;
-
   align-items: center;
-
-  justify-content: space-between;
-
-  border: none;
-
-  border-radius: 9px;
-
-  background:
-    linear-gradient(
-      90deg,
-      #00cfff,
-      #00a9ff
-    );
-
-  color: #001018;
-
-  font-size: 13px;
-
-  font-weight: 900;
-
-  cursor: pointer;
-
-  transition:
-    transform 0.3s,
-    box-shadow 0.3s;
+  gap: 18px;
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #e6e6e6;
+  border-radius: 16px;
 }
 
-.enquiry-submit span {
+.contact-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #111;
+  color: #fff;
   font-size: 20px;
 }
 
-.enquiry-submit:hover {
-  transform:
-    translateY(-3px);
+.contact-card small {
+  display: block;
+  color: #888;
+  margin-bottom: 5px;
+}
 
-  box-shadow:
-    0 10px 35px
-    rgba(0,207,255,0.3);
+.contact-card strong {
+  display: block;
+  font-size: 15px;
 }
 
 
-/* =====================================================
-   MOBILE
-===================================================== */
+/* WHATSAPP */
 
-@media (max-width: 900px) {
+.enquiry-whatsapp {
+  margin-top: 22px;
+  width: 100%;
+  border: 0;
+  padding: 17px 22px;
+  border-radius: 12px;
+  background: #111;
+  color: #fff;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 700;
+  transition: .25s;
+}
 
-  .enquiry-section {
+.enquiry-whatsapp:hover {
+  transform: translateY(-2px);
+}
+
+
+/* FORM CARD */
+
+.enquiry-form-card {
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.06);
+}
+
+.enquiry-form-header > span {
+  color: #777;
+}
+
+.enquiry-form-header h2 {
+  margin: 0;
+  font-size: 34px;
+}
+
+.enquiry-form-header p {
+  color: #777;
+  line-height: 1.6;
+}
+
+
+/* MESSAGES */
+
+.enquiry-success,
+.enquiry-error {
+  margin: 20px 0;
+  padding: 14px 16px;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.enquiry-success {
+  background: #eaf8ef;
+  color: #16733a;
+}
+
+.enquiry-error {
+  background: #fff0f0;
+  color: #b42323;
+}
+
+
+/* FORM */
+
+.enquiry-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.enquiry-field {
+  margin-top: 20px;
+}
+
+.enquiry-field label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.enquiry-field input,
+.enquiry-field textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  background: #fafafa;
+  border-radius: 10px;
+  padding: 14px 15px;
+  outline: none;
+  font: inherit;
+  transition: .2s;
+}
+
+.enquiry-field input:focus,
+.enquiry-field textarea:focus {
+  border-color: #111;
+  background: #fff;
+}
+
+.enquiry-field textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+
+/* SUBMIT */
+
+.enquiry-submit {
+  width: 100%;
+  margin-top: 25px;
+  padding: 17px;
+  border: 0;
+  border-radius: 10px;
+  background: #111;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.enquiry-submit:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+
+
+/* CONTACT SECTION */
+
+.contact-section {
+  background: #111;
+  color: #fff;
+  padding: 90px 7%;
+}
+
+.contact-section-heading {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 50px;
+}
+
+.contact-section-heading > span {
+  color: #999;
+}
+
+.contact-section-heading h2 {
+  margin: 0;
+  font-size: clamp(38px, 5vw, 60px);
+}
+
+.contact-section-heading p {
+  color: #aaa;
+  line-height: 1.7;
+}
+
+
+.contact-grid {
+  width: min(1100px, 100%);
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.contact-box {
+  text-decoration: none;
+  border: 1px solid #333;
+  border-radius: 18px;
+  padding: 30px;
+  color: #fff;
+  background: #171717;
+  text-align: left;
+  cursor: pointer;
+  transition: .25s;
+}
+
+.contact-box:hover {
+  transform: translateY(-4px);
+  border-color: #666;
+}
+
+.contact-box span {
+  display: block;
+  font-size: 28px;
+  margin-bottom: 25px;
+}
+
+.contact-box small {
+  display: block;
+  color: #999;
+  margin-bottom: 8px;
+}
+
+.contact-box strong {
+  display: block;
+  font-size: 17px;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 850px) {
+
+  .enquiry-main {
     grid-template-columns: 1fr;
-
-    gap: 50px;
-
-    padding:
-      100px 25px;
+    gap: 40px;
   }
 
-  .enquiry-intro h2 {
-    letter-spacing: -2px;
+  .contact-grid {
+    grid-template-columns: 1fr;
   }
 
 }
 
-@media (max-width: 550px) {
+@media (max-width: 600px) {
 
-  .form-row {
+  .enquiry-hero {
+    padding: 80px 6% 60px;
+  }
+
+  .enquiry-main {
+    width: 88%;
+    padding: 60px 0;
+  }
+
+  .enquiry-form-card {
+    padding: 25px;
+    border-radius: 18px;
+  }
+
+  .enquiry-row {
     grid-template-columns: 1fr;
+    gap: 0;
   }
 
-  .enquiry-box {
-    padding: 25px 20px;
-  }
-
-  .enquiry-intro h2 {
-    font-size: 48px;
+  .contact-section {
+    padding: 65px 6%;
   }
 
 }

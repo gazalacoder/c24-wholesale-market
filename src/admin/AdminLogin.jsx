@@ -2,7 +2,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./AdminLogin.css";
 
-const API = "http://localhost:5000/api";
+const API =
+  import.meta.env.VITE_API_URL ||
+  "http://localhost:5000/api";
 
 export default function AdminLogin() {
   const navigate = useNavigate();
@@ -12,11 +14,24 @@ export default function AdminLogin() {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
     setError("");
+    setSuccess("");
+
+    const cleanUsername = username.trim();
+    const cleanPassword = password;
+
+    if (!cleanUsername || !cleanPassword) {
+      setError(
+        "Username aur password dono enter karo."
+      );
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -24,121 +39,241 @@ export default function AdminLogin() {
         `${API}/admin/login`,
         {
           method: "POST",
+
           headers: {
             "Content-Type": "application/json",
           },
+
           body: JSON.stringify({
-            username,
-            password,
+            username: cleanUsername,
+            password: cleanPassword,
           }),
         }
       );
 
-      const data = await response.json();
+      let data;
 
-      if (!response.ok) {
-        setError(
-          data.message || "Invalid login details"
-        );
-        setLoading(false);
-        return;
+      try {
+        data = await response.json();
+      } catch {
+        data = {};
       }
 
-      localStorage.setItem(
-        "c24_admin_logged_in",
-        "true"
+      if (!response.ok) {
+        throw new Error(
+          data.message ||
+            `Login failed (${response.status})`
+        );
+      }
+
+      if (!data.success) {
+        throw new Error(
+          data.message ||
+            "Invalid admin login."
+        );
+      }
+
+      /* =========================================
+         SAVE ADMIN LOGIN
+      ========================================= */
+
+      sessionStorage.setItem(
+        "c24_admin",
+        JSON.stringify(
+          data.admin || {
+            username: cleanUsername,
+            role: "admin",
+          }
+        )
       );
 
-      navigate("/admin/dashboard");
-
-    } catch (error) {
-      setError(
-        "Backend connect nahi ho raha. Pehle node server.cjs chalao."
+      setSuccess(
+        "Login successful. Opening dashboard..."
       );
+
+      /* =========================================
+         DASHBOARD
+      ========================================= */
+
+      setTimeout(() => {
+        navigate(
+          "/admin/dashboard",
+          {
+            replace: true,
+          }
+        );
+      }, 300);
+
+    } catch (err) {
+      console.error(
+        "ADMIN LOGIN ERROR:",
+        err
+      );
+
+      if (
+        err instanceof TypeError
+      ) {
+        setError(
+          "Backend server se connection nahi ho raha. Pehle node server.js chalao."
+        );
+      } else {
+        setError(
+          err.message ||
+            "Admin login failed."
+        );
+      }
+
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
+
   return (
-    <div className="admin-login">
+    <div className="admin-login-page">
 
-      <div className="admin-login-glow"></div>
+      <div className="admin-login-box">
 
-      <div className="admin-login-card">
+        {/* =====================================
+            LOGO
+        ===================================== */}
 
         <div className="admin-login-logo">
           C24
-          <span>WHOLESALE</span>
         </div>
 
-        <div className="admin-login-title">
-          <span>SECURE ACCESS</span>
-
-          <h1>
-            Admin
-            <strong> Panel</strong>
-          </h1>
-
-          <p>
-            Login to manage your C24 wholesale
-            website.
-          </p>
-        </div>
-
-        <form onSubmit={handleLogin}>
-
-          <label>
-            Username
-          </label>
-
-          <input
-            type="text"
-            placeholder="Enter username"
-            value={username}
-            onChange={(e) =>
-              setUsername(e.target.value)
-            }
-            required
-          />
+        <span className="admin-login-label">
+          C24 WHOLESALE
+        </span>
 
 
-          <label>
-            Password
-          </label>
+        {/* =====================================
+            TITLE
+        ===================================== */}
 
-          <input
-            type="password"
-            placeholder="Enter password"
-            value={password}
-            onChange={(e) =>
-              setPassword(e.target.value)
-            }
-            required
-          />
+        <h1>
+          Admin Login
+        </h1>
+
+        <p>
+          Sign in to manage your
+          wholesale store.
+        </p>
 
 
-          {error && (
-            <div className="admin-login-error">
-              {error}
-            </div>
-          )}
+        {/* =====================================
+            ERROR
+        ===================================== */}
 
+        {error && (
+          <div className="admin-login-error">
+            {error}
+          </div>
+        )}
+
+
+        {/* =====================================
+            SUCCESS
+        ===================================== */}
+
+        {success && (
+          <div className="admin-login-success">
+            {success}
+          </div>
+        )}
+
+
+        {/* =====================================
+            LOGIN FORM
+        ===================================== */}
+
+        <form
+          onSubmit={handleLogin}
+        >
+
+          {/* USERNAME */}
+
+          <div className="login-field">
+
+            <label>
+              Username
+            </label>
+
+            <input
+              type="text"
+              name="username"
+              placeholder="Enter username"
+              value={username}
+              onChange={(e) =>
+                setUsername(
+                  e.target.value
+                )
+              }
+              autoComplete="username"
+              disabled={loading}
+              required
+            />
+
+          </div>
+
+
+          {/* PASSWORD */}
+
+          <div className="login-field">
+
+            <label>
+              Password
+            </label>
+
+            <input
+              type="password"
+              name="password"
+              placeholder="Enter password"
+              value={password}
+              onChange={(e) =>
+                setPassword(
+                  e.target.value
+                )
+              }
+              autoComplete="current-password"
+              disabled={loading}
+              required
+            />
+
+          </div>
+
+
+          {/* LOGIN BUTTON */}
 
           <button
             type="submit"
             disabled={loading}
           >
+
             {loading
-              ? "Checking..."
-              : "Login to Admin →"}
+              ? "Signing in..."
+              : "Login to Dashboard →"}
+
           </button>
 
         </form>
 
-        <div className="admin-login-footer">
-          C24 HOME APPLICATION WHOLESALE
-        </div>
+
+        {/* =====================================
+            BACK TO WEBSITE
+        ===================================== */}
+
+        <button
+          type="button"
+          className="back-website"
+          onClick={() =>
+            navigate("/")
+          }
+          disabled={loading}
+        >
+          ← Back to Website
+        </button>
+
 
       </div>
 

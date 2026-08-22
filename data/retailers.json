@@ -1,0 +1,39 @@
+[
+  {
+    "id": 1787037529359,
+    "name": "Gazala Anjum",
+    "businessName": "amjum",
+    "phone": "9806135784",
+    "email": "anjumgazala1410@gmail.com",
+    "gstNumber": "",
+    "password": "123456",
+    "enquiries": [],
+    "orders": [
+      {
+        "id": "order_1787310094372_e0afc481",
+        "totalAmount": 117698,
+        "status": "New",
+        "items": [
+          {
+            "productId": 2,
+            "name": "Premium Washing Machine",
+            "brand": "",
+            "quantity": 2,
+            "price": 19999,
+            "image": "/images/products/washing-machine.jpg"
+          },
+          {
+            "productId": "offer_1787122864896_2c8cb71c",
+            "name": "c24",
+            "brand": "",
+            "quantity": 1,
+            "price": 77700,
+            "image": ""
+          }
+        ],
+        "createdAt": "2026-08-21T11:01:34.398Z"
+      }
+    ],
+    "createdAt": "2026-08-18T07:18:49.359Z"
+  }
+]

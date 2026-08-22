@@ -1,1 +1,16 @@
-[]
+[
+  {
+    "id": "enquiry_1787121533347_b384a07c",
+    "name": "gazala",
+    "business": "Gazala",
+    "phone": "9806135784",
+    "email": "anjumgazala1410@gmail.com",
+    "product": "tv",
+    "quantity": 3,
+    "message": "price",
+    "retailerId": null,
+    "retailerName": "Gazala",
+    "status": "Closed",
+    "date": "2026-08-19T06:38:53.348Z"
+  }
+]

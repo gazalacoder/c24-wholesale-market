@@ -1,196 +1,244 @@
 import { Canvas, useFrame } from "@react-three/fiber";
 import {
   Environment,
-  Stars,
   useGLTF,
 } from "@react-three/drei";
 import {
   Suspense,
   useEffect,
   useRef,
-  useState,
 } from "react";
 import * as THREE from "three";
+
 import "./ThreeScene.css";
+
 const ASSET_BASE = import.meta.env.BASE_URL;
 
 /* =====================================================
-   GALAXY PORTAL
+   MODEL PATHS
 ===================================================== */
 
-function GalaxyPortal({ showroom }) {
-  const portal = useRef();
-  const outerRing = useRef();
-  const innerRing = useRef();
+const BUSINESSMAN_MODEL =
+  `${ASSET_BASE}models/businessman.glb`;
 
-  useFrame(({ clock }) => {
-    const t = clock.getElapsedTime();
+const TV_MODEL =
+  `${ASSET_BASE}models/smart_tv.glb`;
 
-    if (outerRing.current) {
-      outerRing.current.rotation.z =
-        t * 0.45;
+const FAN_MODEL =
+  `${ASSET_BASE}models/fan.glb`;
 
-      outerRing.current.rotation.x =
-        Math.sin(t * 0.25) * 0.15;
-    }
+const WASHING_MACHINE_MODEL =
+  `${ASSET_BASE}models/washing_machine.glb`;
 
-    if (innerRing.current) {
-      innerRing.current.rotation.z =
-        -t * 0.65;
+const MIXER_MODEL =
+  `${ASSET_BASE}models/mixer.glb`;
 
-      innerRing.current.rotation.y =
-        Math.cos(t * 0.3) * 0.12;
-    }
 
-    if (portal.current) {
-      const pulse =
-        1 +
-        Math.sin(t * 2) * 0.04;
+/* =====================================================
+   SHOWROOM ENVIRONMENT
+===================================================== */
 
-      const target =
-        showroom ? 2.8 : pulse;
-
-      portal.current.scale.lerp(
-        new THREE.Vector3(
-          target,
-          target,
-          target
-        ),
-        showroom ? 0.035 : 0.02
-      );
-    }
-  });
-
+function ShowroomEnvironment() {
   return (
-    <group ref={portal}>
+    <group>
 
-      {/* DEEP SPACE */}
-
-      <Stars
-        radius={85}
-        depth={55}
-        count={6000}
-        factor={4}
-        saturation={0}
-        fade
-        speed={0.8}
-      />
-
-      {/* BLUE GALAXY CORE */}
+      {/* FLOOR */}
 
       <mesh
-        position={[0, 0, -5]}
+        position={[0, -2.15, 0]}
+        rotation={[-Math.PI / 2, 0, 0]}
+        receiveShadow
       >
-        <sphereGeometry
-          args={[3.3, 64, 64]}
+        <planeGeometry
+          args={[24, 18]}
         />
 
-        <meshBasicMaterial
-          color="#063b72"
-          transparent
-          opacity={0.22}
-          blending={
-            THREE.AdditiveBlending
-          }
-          depthWrite={false}
+        <meshStandardMaterial
+          color="#05070a"
+          metalness={0.85}
+          roughness={0.28}
         />
       </mesh>
 
-      {/* OUTER PORTAL */}
+
+      {/* BACK WALL */}
 
       <mesh
-        ref={outerRing}
-        position={[0, 0, -4]}
+        position={[0, 2.5, -4]}
       >
-        <torusGeometry
-          args={[
-            2.8,
-            0.13,
-            32,
-            180,
-          ]}
+        <boxGeometry
+          args={[18, 9, 0.25]}
         />
 
-        <meshBasicMaterial
-          color="#00cfff"
-          transparent
-          opacity={0.9}
-          blending={
-            THREE.AdditiveBlending
-          }
+        <meshStandardMaterial
+          color="#07090d"
+          metalness={0.55}
+          roughness={0.4}
         />
       </mesh>
 
-      {/* SECOND RING */}
+
+      {/* LEFT WALL */}
 
       <mesh
-        ref={innerRing}
-        position={[0, 0, -4.1]}
+        position={[-9, 2.5, 0]}
+        rotation={[0, Math.PI / 2, 0]}
       >
-        <torusGeometry
-          args={[
-            2.25,
-            0.07,
-            24,
-            140,
-          ]}
+        <boxGeometry
+          args={[18, 9, 0.25]}
+        />
+
+        <meshStandardMaterial
+          color="#05070a"
+          metalness={0.5}
+          roughness={0.45}
+        />
+      </mesh>
+
+
+      {/* RIGHT WALL */}
+
+      <mesh
+        position={[9, 2.5, 0]}
+        rotation={[0, Math.PI / 2, 0]}
+      >
+        <boxGeometry
+          args={[18, 9, 0.25]}
+        />
+
+        <meshStandardMaterial
+          color="#05070a"
+          metalness={0.5}
+          roughness={0.45}
+        />
+      </mesh>
+
+
+      {/* BACK GLASS */}
+
+      <mesh
+        position={[0, 1.2, -3.82]}
+      >
+        <planeGeometry
+          args={[11, 5]}
+        />
+
+        <meshBasicMaterial
+          color="#061923"
+          transparent
+          opacity={0.65}
+        />
+      </mesh>
+
+
+      {/* RED HORIZONTAL NEON */}
+
+      <mesh
+        position={[0, -1.45, -3.65]}
+      >
+        <boxGeometry
+          args={[11, 0.035, 0.035]}
+        />
+
+        <meshBasicMaterial
+          color="#ff1744"
+        />
+      </mesh>
+
+
+      {/* CYAN HORIZONTAL NEON */}
+
+      <mesh
+        position={[0, -1.52, -3.65]}
+      >
+        <boxGeometry
+          args={[7, 0.018, 0.018]}
+        />
+
+        <meshBasicMaterial
+          color="#00d9ff"
+        />
+      </mesh>
+
+
+      {/* LEFT VERTICAL NEON */}
+
+      <mesh
+        position={[-5.2, 1, -3.6]}
+      >
+        <boxGeometry
+          args={[0.035, 6, 0.035]}
+        />
+
+        <meshBasicMaterial
+          color="#00d9ff"
+        />
+      </mesh>
+
+
+      {/* RIGHT VERTICAL NEON */}
+
+      <mesh
+        position={[5.2, 1, -3.6]}
+      >
+        <boxGeometry
+          args={[0.035, 6, 0.035]}
+        />
+
+        <meshBasicMaterial
+          color="#ff1744"
+        />
+      </mesh>
+
+
+      {/* CEILING LIGHTS */}
+
+      <mesh
+        position={[-3, 4.5, -1]}
+      >
+        <boxGeometry
+          args={[4, 0.04, 0.04]}
         />
 
         <meshBasicMaterial
           color="#ffffff"
-          transparent
-          opacity={0.75}
-          blending={
-            THREE.AdditiveBlending
-          }
         />
       </mesh>
 
-      {/* RED ACCENT RING */}
 
       <mesh
-        position={[0, 0, -4.2]}
-        rotation={[0, 0, Math.PI / 3]}
+        position={[3, 4.5, -1]}
       >
-        <torusGeometry
-          args={[
-            2.5,
-            0.035,
-            20,
-            120,
-          ]}
+        <boxGeometry
+          args={[4, 0.04, 0.04]}
         />
 
         <meshBasicMaterial
-          color="#ff1648"
-          transparent
-          opacity={0.7}
-          blending={
-            THREE.AdditiveBlending
-          }
+          color="#ffffff"
         />
       </mesh>
 
-      {/* CENTER LIGHT */}
+
+      {/* SHOWROOM LIGHTS */}
 
       <pointLight
-        position={[0, 0, -2]}
-        intensity={40}
-        distance={25}
-        color="#00cfff"
-      />
-
-      <pointLight
-        position={[2, 1, -2]}
-        intensity={20}
-        distance={18}
+        position={[5, 2, -2]}
+        intensity={10}
+        distance={16}
         color="#ff1744"
       />
 
       <pointLight
-        position={[-2, -1, -2]}
-        intensity={15}
-        distance={18}
+        position={[-5, 2, -2]}
+        intensity={10}
+        distance={16}
+        color="#00cfff"
+      />
+
+      <pointLight
+        position={[0, 4, -2]}
+        intensity={8}
+        distance={14}
         color="#ffffff"
       />
 
@@ -198,107 +246,70 @@ function GalaxyPortal({ showroom }) {
   );
 }
 
+
 /* =====================================================
    BUSINESSMAN
 ===================================================== */
 
-function Businessman({ showroom }) {
-  const ref = useRef();
+function Businessman() {
+  const modelRef = useRef();
 
-  const { scene } = useGLTF(
-    `${ASSET_BASE}models/businessman.glb`
-  );
+  const { scene } =
+    useGLTF(BUSINESSMAN_MODEL);
+
 
   useEffect(() => {
     scene.traverse((child) => {
+
       if (child.isMesh) {
         child.castShadow = true;
         child.receiveShadow = true;
       }
+
     });
   }, [scene]);
 
+
   useFrame(({ clock }) => {
-    if (!ref.current) return;
+
+    if (!modelRef.current) {
+      return;
+    }
 
     const t =
       clock.getElapsedTime();
 
-    /*
-      BEFORE SHOWROOM:
-      character remains behind portal
-    */
 
-    const targetX = showroom
-      ? 1.15
-      : 4.5;
+    /* Gentle floating */
 
-    const targetZ = showroom
-      ? 0
-      : -5;
+    modelRef.current.position.y =
+      -1.25 +
+      Math.sin(t * 1.5) * 0.04;
 
-    const targetY = -1.25;
 
-    ref.current.position.x =
-      THREE.MathUtils.lerp(
-        ref.current.position.x,
-        targetX,
-        0.025
-      );
+    /* Small natural movement */
 
-    ref.current.position.y =
-      THREE.MathUtils.lerp(
-        ref.current.position.y,
-        targetY +
-          Math.sin(t * 1.4) *
-            0.025,
-        0.025
-      );
+    modelRef.current.rotation.y =
+      Math.sin(t * 0.55) * 0.10;
 
-    ref.current.position.z =
-      THREE.MathUtils.lerp(
-        ref.current.position.z,
-        targetZ,
-        0.025
-      );
-
-    /*
-      CINEMATIC BODY MOTION
-    */
-
-    ref.current.rotation.y =
-      Math.sin(t * 0.65) *
-      0.08;
-
-    ref.current.rotation.z =
-      Math.sin(t * 1.1) *
-      0.012;
-
-    /*
-      SLIGHT PRESENTATION MOVEMENT
-    */
-
-    if (showroom) {
-      ref.current.rotation.y =
-        Math.sin(t * 0.8) *
-        0.12;
-    }
   });
+
 
   return (
     <group
-      ref={ref}
-      position={[
-        4.5,
-        -1.25,
-        -5,
-      ]}
+      ref={modelRef}
+      position={[0.9, -1.25, 0]}
       scale={2.8}
     >
-      <primitive object={scene} />
+
+      <primitive
+        object={scene}
+      />
+
     </group>
   );
 }
+
 
 /* =====================================================
    PRODUCT
@@ -308,60 +319,126 @@ function Product({
   path,
   position,
   scale,
-  delay,
+  delay = 0,
 }) {
-  const ref = useRef();
 
-  const { scene } = useGLTF(path);
+  const modelRef = useRef();
+
+  const { scene } =
+    useGLTF(path);
+
 
   useEffect(() => {
+
     scene.traverse((child) => {
+
       if (child.isMesh) {
         child.castShadow = true;
         child.receiveShadow = true;
       }
+
     });
+
   }, [scene]);
 
+
   useFrame(({ clock }) => {
-    if (!ref.current) return;
+
+    if (!modelRef.current) {
+      return;
+    }
 
     const t =
-      clock.getElapsedTime() +
-      delay;
+      clock.getElapsedTime();
+
 
     /*
-      FLOAT
+      Product entrance
     */
 
-    ref.current.position.y =
+    const startTime =
+      0.8 + delay * 0.35;
+
+    const elapsed =
+      Math.max(
+        0,
+        t - startTime
+      );
+
+    const progress =
+      Math.min(
+        elapsed / 1.2,
+        1
+      );
+
+    const eased =
+      1 -
+      Math.pow(
+        1 - progress,
+        3
+      );
+
+
+    const startZ =
+      position[2] - 2;
+
+
+    modelRef.current.position.x =
+      position[0];
+
+    modelRef.current.position.y =
       position[1] +
-      Math.sin(t * 1.15) *
-        0.10;
+      Math.sin(
+        t * 1.1 + delay
+      ) * 0.06;
 
-    /*
-      ROTATION
-    */
+    modelRef.current.position.z =
+      THREE.MathUtils.lerp(
+        startZ,
+        position[2],
+        eased
+      );
 
-    ref.current.rotation.y =
-      Math.sin(t * 0.7) *
-      0.15;
 
-    ref.current.rotation.x =
-      Math.sin(t * 0.45) *
-      0.025;
+    modelRef.current.rotation.y =
+      Math.sin(
+        t * 0.6 + delay
+      ) * 0.12;
+
+
+    const currentScale =
+      THREE.MathUtils.lerp(
+        0.01,
+        scale,
+        eased
+      );
+
+    modelRef.current.scale.setScalar(
+      currentScale
+    );
+
   });
+
 
   return (
     <group
-      ref={ref}
-      position={position}
-      scale={scale}
+      ref={modelRef}
+      position={[
+        position[0],
+        position[1],
+        position[2] - 2,
+      ]}
+      scale={0.01}
     >
-      <primitive object={scene} />
+
+      <primitive
+        object={scene}
+      />
+
     </group>
   );
 }
+
 
 /* =====================================================
    PRODUCTS
@@ -370,60 +447,50 @@ function Product({
 function Products() {
   return (
     <>
-      {/* TV */}
+
+      {/* SMART TV */}
 
       <Product
-        path={`${ASSET_BASE}models/smart_tv.glb`}
-        position={[
-          3.1,
-          1.15,
-          -0.8,
-        ]}
-        scale={0.72}
+        path={TV_MODEL}
+        position={[-3.0, 1.05, -0.8]}
+        scale={0.70}
         delay={0}
       />
+
 
       {/* FAN */}
 
       <Product
-        path={`${ASSET_BASE}models/fan.glb`}
-        position={[
-          -3.0,
-          1.45,
-          -0.7,
-        ]}
-        scale={0.72}
+        path={FAN_MODEL}
+        position={[3.0, 1.35, -0.7]}
+        scale={0.70}
         delay={1}
       />
+
 
       {/* WASHING MACHINE */}
 
       <Product
-        path={`${ASSET_BASE}models/washing_machine.glb`}
-        position={[
-          3.0,
-          -1.35,
-          0,
-        ]}
-        scale={0.72}
+        path={WASHING_MACHINE_MODEL}
+        position={[-3.0, -1.30, 0]}
+        scale={0.70}
         delay={2}
       />
+
 
       {/* MIXER */}
 
       <Product
-        path={`${ASSET_BASE}models/mixer.glb`}
-        position={[
-          -3.0,
-          -1.35,
-          0,
-        ]}
+        path={MIXER_MODEL}
+        position={[3.0, -1.35, 0]}
         scale={0.65}
         delay={3}
       />
+
     </>
   );
 }
+
 
 /* =====================================================
    PRODUCT GLOW
@@ -433,399 +500,263 @@ function ProductGlow({
   position,
   color,
 }) {
-  const ref = useRef();
+
+  const glowRef = useRef();
+
 
   useFrame(({ clock }) => {
-    if (!ref.current) return;
+
+    if (!glowRef.current) {
+      return;
+    }
 
     const pulse =
       1 +
       Math.sin(
         clock.getElapsedTime() * 2
-      ) *
-        0.12;
+      ) * 0.10;
 
-    ref.current.scale.setScalar(
+    glowRef.current.scale.setScalar(
       pulse
     );
+
   });
+
 
   return (
     <mesh
-      ref={ref}
+      ref={glowRef}
       position={position}
     >
+
       <sphereGeometry
-        args={[
-          0.8,
-          32,
-          32,
-        ]}
+        args={[0.8, 32, 32]}
       />
 
       <meshBasicMaterial
         color={color}
         transparent
-        opacity={0.075}
-        blending={
-          THREE.AdditiveBlending
-        }
+        opacity={0.07}
+        blending={THREE.AdditiveBlending}
         depthWrite={false}
       />
+
     </mesh>
   );
 }
 
+
 /* =====================================================
-   CAMERA CINEMATIC MOVEMENT
+   CAMERA
 ===================================================== */
 
-function CameraController({
-  showroom,
-}) {
-  useFrame(
-    ({ camera, clock }) => {
-      const t =
-        clock.getElapsedTime();
+function CameraController() {
 
-      /*
-        GALAXY SHOT
-      */
+  useFrame(({ camera, clock }) => {
 
-      const targetZ = showroom
-        ? 9
-        : 14;
+    const t =
+      clock.getElapsedTime();
 
-      const targetY = showroom
-        ? 0.2
-        : 0;
 
-      camera.position.z =
-        THREE.MathUtils.lerp(
-          camera.position.z,
-          targetZ,
-          0.025
-        );
-
-      camera.position.x =
-        THREE.MathUtils.lerp(
-          camera.position.x,
-          Math.sin(
-            t * 0.18
-          ) * 0.15,
-          0.025
-        );
-
-      camera.position.y =
-        THREE.MathUtils.lerp(
-          camera.position.y,
-          targetY +
-            Math.cos(
-              t * 0.15
-            ) *
-              0.08,
-          0.025
-        );
-
-      camera.lookAt(
-        0,
-        -0.15,
-        0
+    camera.position.x =
+      THREE.MathUtils.lerp(
+        camera.position.x,
+        Math.sin(t * 0.18) * 0.25,
+        0.025
       );
-    }
-  );
+
+
+    camera.position.y =
+      THREE.MathUtils.lerp(
+        camera.position.y,
+        0.1 +
+          Math.sin(t * 0.20) * 0.05,
+        0.025
+      );
+
+
+    camera.position.z =
+      THREE.MathUtils.lerp(
+        camera.position.z,
+        9,
+        0.025
+      );
+
+
+    camera.lookAt(
+      0,
+      -0.35,
+      -1.2
+    );
+
+  });
+
 
   return null;
 }
+
 
 /* =====================================================
    SCENE CONTENT
 ===================================================== */
 
-function SceneContent({
-  showroom,
-}) {
+function SceneContent() {
+
   return (
     <>
-      <GalaxyPortal
-        showroom={showroom}
+
+      <ShowroomEnvironment />
+
+      <CameraController />
+
+      <Businessman />
+
+      <Products />
+
+
+      <ProductGlow
+        position={[-3, 1.05, -0.8]}
+        color="#00cfff"
       />
 
-      <CameraController
-        showroom={showroom}
+      <ProductGlow
+        position={[3, 1.35, -0.7]}
+        color="#ff1744"
       />
 
-      <Businessman
-        showroom={showroom}
+      <ProductGlow
+        position={[-3, -1.3, 0]}
+        color="#00cfff"
       />
 
-      {showroom && (
-        <>
-          <Products />
+      <ProductGlow
+        position={[3, -1.35, 0]}
+        color="#ff1744"
+      />
 
-          <ProductGlow
-            position={[
-              3.1,
-              1.15,
-              -0.8,
-            ]}
-            color="#00cfff"
-          />
-
-          <ProductGlow
-            position={[
-              -3,
-              1.45,
-              -0.7,
-            ]}
-            color="#ff1744"
-          />
-
-          <ProductGlow
-            position={[
-              3,
-              -1.35,
-              0,
-            ]}
-            color="#00cfff"
-          />
-
-          <ProductGlow
-            position={[
-              -3,
-              -1.35,
-              0,
-            ]}
-            color="#ff1744"
-          />
-        </>
-      )}
     </>
   );
 }
+
 
 /* =====================================================
    MAIN THREE SCENE
 ===================================================== */
 
 export default function ThreeScene() {
-  const [showroom, setShowroom] =
-    useState(false);
-
-  useEffect(() => {
-    /*
-      0–3 sec:
-      GALAXY PORTAL
-    */
-
-    const timer =
-      setTimeout(() => {
-        setShowroom(true);
-      }, 3000);
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, []);
 
   return (
     <section className="three-showroom">
 
-      {/* =============================================
-          3D SCENE
-      ============================================= */}
-
       <Canvas
         camera={{
-          position: [
-            0,
-            0,
-            14,
-          ],
+          position: [0, 0, 14],
           fov: 42,
         }}
+
         dpr={[1, 1.5]}
+
         gl={{
           antialias: true,
           powerPreference:
             "high-performance",
         }}
+
+        shadows
       >
 
         <color
           attach="background"
-          args={[
-            "#000208",
-          ]}
+          args={["#000208"]}
         />
 
-        {/* LIGHTING */}
+
+        {/* MAIN LIGHT */}
 
         <ambientLight
-          intensity={1.6}
-        />
-
-        <directionalLight
-          position={[
-            5,
-            7,
-            6,
-          ]}
-          intensity={3}
-        />
-
-        <directionalLight
-          position={[
-            -5,
-            4,
-            3,
-          ]}
           intensity={1.5}
-          color="#ff3155"
         />
+
+
+        <directionalLight
+          position={[5, 7, 6]}
+          intensity={3}
+          castShadow
+        />
+
+
+        {/* CYAN */}
 
         <pointLight
-          position={[
-            -4,
-            2,
-            4,
-          ]}
+          position={[-4, 2, 4]}
           intensity={14}
-          distance={15}
+          distance={18}
           color="#00cfff"
         />
 
+
+        {/* RED */}
+
         <pointLight
-          position={[
-            4,
-            2,
-            4,
-          ]}
+          position={[4, 2, 4]}
           intensity={14}
-          distance={15}
+          distance={18}
           color="#ff1744"
         />
+
+
+        {/* FRONT WHITE LIGHT
+            Businessman clearly visible */}
+
+        <pointLight
+          position={[0, 2, 6]}
+          intensity={10}
+          distance={16}
+          color="#ffffff"
+        />
+
 
         <Environment
           preset="city"
         />
 
+
         <Suspense fallback={null}>
-          <SceneContent
-            showroom={
-              showroom
-            }
-          />
+
+          <SceneContent />
+
         </Suspense>
 
       </Canvas>
 
-      {/* =============================================
-          GALAXY TEXT
-      ============================================= */}
-
-      <div
-        className={`galaxy-title ${
-          showroom
-            ? "galaxy-title-hide"
-            : ""
-        }`}
-      >
-
-        <span>
-          WELCOME TO
-        </span>
-
-        <strong>
-          C24
-        </strong>
-
-        <b>
-          HOME APPLIANCES
-        </b>
-
-      </div>
-
-      {/* =============================================
-          HERO CONTENT
-      ============================================= */}
-
-      <div
-        className={`hero-content ${
-          showroom
-            ? "hero-show"
-            : ""
-        }`}
-      >
-
-        <small>
-          PREMIUM WHOLESALE
-        </small>
-
-        <h1>
-          C24 Home
-          <br />
-          Appliances
-        </h1>
-
-        <p>
-          Premium electronics &
-          home appliances for
-          wholesale buyers.
-        </p>
-
-        <div className="hero-buttons">
-
-          <button>
-            Explore Products
-          </button>
-
-          <button className="secondary">
-            Wholesale Enquiry
-          </button>
-
-        </div>
-
-      </div>
-
-      {/* =============================================
-          FLOOR LIGHT
-      ============================================= */}
 
       <div className="floor-line" />
-
-      {/* =============================================
-          TOP BADGE
-      ============================================= */}
-
-      <div className="c24-badge">
-        C24 PRO
-      </div>
 
     </section>
   );
 }
+
 
 /* =====================================================
    PRELOAD MODELS
 ===================================================== */
 
 useGLTF.preload(
-  `${ASSET_BASE}models/businessman.glb`
+  BUSINESSMAN_MODEL
 );
 
 useGLTF.preload(
-  `${ASSET_BASE}models/smart_tv.glb`
+  TV_MODEL
 );
 
 useGLTF.preload(
-  `${ASSET_BASE}models/washing_machine.glb`
+  FAN_MODEL
 );
 
 useGLTF.preload(
-  `${ASSET_BASE}models/mixer.glb`
+  WASHING_MACHINE_MODEL
 );
 
 useGLTF.preload(
-  `${ASSET_BASE}models/fan.glb`
+  MIXER_MODEL
 );

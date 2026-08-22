@@ -1,0 +1,206 @@
+.retailer-login-page {
+  min-height: 100vh;
+  padding: 100px 6%;
+  background: #0a0a0a;
+  color: white;
+  display: flex;
+  align-items: center;
+}
+
+.retailer-login-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 480px;
+  gap: 80px;
+  align-items: center;
+}
+
+.retailer-login-intro > span {
+  font-size: 12px;
+  letter-spacing: 3px;
+  opacity: 0.7;
+}
+
+.retailer-login-intro h1 {
+  font-size: 72px;
+  line-height: 0.95;
+  margin: 20px 0;
+}
+
+.retailer-login-intro h1 strong {
+  color: #ff4d4d;
+}
+
+.retailer-login-intro p {
+  max-width: 520px;
+  line-height: 1.8;
+  color: #aaa;
+}
+
+.retailer-benefits {
+  margin-top: 40px;
+  display: grid;
+  gap: 18px;
+}
+
+.retailer-benefits div {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.retailer-benefits strong {
+  color: #ff4d4d;
+}
+
+.retailer-benefits span {
+  color: #ddd;
+}
+
+.retailer-login-box {
+  background: #151515;
+  border: 1px solid #292929;
+  border-radius: 20px;
+  padding: 35px;
+  box-shadow: 0 20px 70px rgba(0, 0, 0, 0.4);
+}
+
+.retailer-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+  background: #0d0d0d;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.retailer-tabs button {
+  border: 0;
+  padding: 13px;
+  border-radius: 7px;
+  background: transparent;
+  color: #aaa;
+  cursor: pointer;
+}
+
+.retailer-tabs button.active {
+  background: #ff4d4d;
+  color: white;
+}
+
+.retailer-form-header {
+  margin: 30px 0 25px;
+}
+
+.retailer-form-header span {
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: #ff4d4d;
+}
+
+.retailer-form-header h2 {
+  margin: 8px 0 0;
+  font-size: 32px;
+}
+
+.retailer-form-group {
+  margin-bottom: 18px;
+}
+
+.retailer-form-group label {
+  display: block;
+  margin-bottom: 7px;
+  font-size: 13px;
+  color: #ccc;
+}
+
+.retailer-form-group label small {
+  color: #777;
+}
+
+.retailer-form-group input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 14px;
+  border-radius: 8px;
+  border: 1px solid #333;
+  background: #0d0d0d;
+  color: white;
+  outline: none;
+}
+
+.retailer-form-group input:focus {
+  border-color: #ff4d4d;
+}
+
+.retailer-submit {
+  width: 100%;
+  padding: 15px;
+  border: 0;
+  border-radius: 8px;
+  background: #ff4d4d;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.retailer-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.retailer-error,
+.retailer-success {
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 18px;
+  font-size: 13px;
+}
+
+.retailer-error {
+  background: #3a1515;
+  color: #ff8b8b;
+}
+
+.retailer-success {
+  background: #12351f;
+  color: #7ee2a8;
+}
+
+.back-to-store {
+  width: 100%;
+  margin-top: 20px;
+  padding: 12px;
+  background: transparent;
+  border: 0;
+  color: #aaa;
+  cursor: pointer;
+}
+
+.back-to-store:hover {
+  color: white;
+}
+
+@media (max-width: 850px) {
+  .retailer-login-container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .retailer-login-intro h1 {
+    font-size: 52px;
+  }
+}
+
+@media (max-width: 500px) {
+  .retailer-login-page {
+    padding: 70px 20px;
+  }
+
+  .retailer-login-box {
+    padding: 22px;
+  }
+}

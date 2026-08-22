@@ -1,0 +1,249 @@
+.retailer-auth {
+  min-height: 100vh;
+  min-height: 100dvh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 100px 20px 40px;
+
+  background:
+    radial-gradient(
+      circle at 15% 10%,
+      rgba(0, 207, 255, 0.12),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 85% 90%,
+      rgba(0, 120, 255, 0.08),
+      transparent 35%
+    ),
+    #05090c;
+
+  color: #fff;
+}
+
+.retailer-auth-box {
+  width: 100%;
+  max-width: 470px;
+
+  padding: 38px;
+
+  border: 1px solid
+    rgba(255, 255, 255, 0.1);
+
+  border-radius: 22px;
+
+  background:
+    rgba(255, 255, 255, 0.035);
+
+  box-shadow:
+    0 30px 90px
+    rgba(0, 0, 0, 0.5);
+
+  backdrop-filter: blur(20px);
+}
+
+.retailer-auth-heading {
+  text-align: center;
+
+  margin-bottom: 30px;
+}
+
+.retailer-auth-heading span {
+  display: block;
+
+  color: #00cfff;
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: 3px;
+}
+
+.retailer-auth-heading h1 {
+  margin: 10px 0 8px;
+
+  font-size: 30px;
+  line-height: 1.15;
+}
+
+.retailer-auth-heading p {
+  margin: 0;
+
+  color:
+    rgba(255, 255, 255, 0.5);
+
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.retailer-auth-form {
+  display: flex;
+  flex-direction: column;
+
+  gap: 16px;
+}
+
+.retailer-field {
+  display: flex;
+  flex-direction: column;
+
+  gap: 7px;
+}
+
+.retailer-field label {
+  color:
+    rgba(255, 255, 255, 0.72);
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.retailer-field input {
+  width: 100%;
+  box-sizing: border-box;
+
+  padding: 14px 15px;
+
+  border: 1px solid
+    rgba(255, 255, 255, 0.1);
+
+  border-radius: 9px;
+
+  outline: none;
+
+  background:
+    rgba(0, 0, 0, 0.25);
+
+  color: #fff;
+
+  font-size: 13px;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.retailer-field input::placeholder {
+  color:
+    rgba(255, 255, 255, 0.3);
+}
+
+.retailer-field input:focus {
+  border-color: #00cfff;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(0, 207, 255, 0.08);
+}
+
+.retailer-submit {
+  width: 100%;
+
+  margin-top: 5px;
+
+  padding: 14px 18px;
+
+  border: none;
+
+  border-radius: 9px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #00cfff,
+      #0085a5
+    );
+
+  color: #001015;
+
+  font-size: 13px;
+  font-weight: 900;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.retailer-submit:hover {
+  transform: translateY(-1px);
+}
+
+.retailer-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.retailer-auth-switch {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 5px;
+
+  margin-top: 22px;
+
+  color:
+    rgba(255, 255, 255, 0.45);
+
+  font-size: 12px;
+}
+
+.retailer-auth-switch button {
+  padding: 0;
+
+  border: none;
+
+  background: transparent;
+
+  color: #00cfff;
+
+  font-size: 12px;
+  font-weight: 800;
+
+  cursor: pointer;
+}
+
+.retailer-back {
+  display: block;
+
+  margin: 20px auto 0;
+
+  padding: 0;
+
+  border: none;
+
+  background: transparent;
+
+  color:
+    rgba(255, 255, 255, 0.35);
+
+  font-size: 11px;
+
+  cursor: pointer;
+}
+
+.retailer-back:hover {
+  color: #00cfff;
+}
+
+@media (max-width: 600px) {
+  .retailer-auth {
+    padding: 80px 15px 30px;
+  }
+
+  .retailer-auth-box {
+    padding: 28px 20px;
+
+    border-radius: 18px;
+  }
+
+  .retailer-auth-heading h1 {
+    font-size: 25px;
+  }
+}

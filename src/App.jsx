@@ -1,360 +1,50 @@
-import { useState } from "react";
 import {
   Routes,
   Route,
-  Link,
-  useLocation,
 } from "react-router-dom";
 
-import "./App.css";
-
-/* =====================================================
-   COMPONENTS
-===================================================== */
-
-import Navbar from "./components/navbar";
-import ThreeScene from "./components/ThreeScene";
-import IntroScene from "./components/IntroScene";
-import FloatingActions from "./components/FloatingActions";
-
-import DailyOffers from "./components/DailyOffers";
-import Enquiry from "./components/Enquiry";
-
-/* =====================================================
-   PAGES
-===================================================== */
-
-import About from "./pages/about";
+import Home from "./pages/home";
+import Enquiry from "./pages/enquiry";
 import ProductsPage from "./pages/ProductsPage";
-import CategoriesPage from "./pages/CategoriesPage";
-import Contact from "./pages/contact";
+import Cart from "./components/Cart";
 
-/* =====================================================
-   ADMIN
-===================================================== */
+import RetailerLogin from "./pages/RetailerLogin";
+import RetailerDashboard from "./pages/RetailerDashboard";
+import RetailerProfile from "./pages/RetailerProfile";
+import MyOrders from "./pages/MyOrders";
+
+import AIChat from "./pages/AIChat";
 
 import AdminLogin from "./admin/AdminLogin";
 import Dashboard from "./admin/dashboard";
 
+/* FLOATING TOOLS */
+import FloatingTools from "./components/FloatingTools";
 
-/* =====================================================
-   HOME PAGE
-===================================================== */
+import "./App.css";
 
-function HomePage() {
 
-  const [showIntro, setShowIntro] = useState(true);
+export default function App() {
 
   return (
+
     <>
-
-      {/* ===============================
-          INTRO
-      =============================== */}
-
-      {showIntro && (
-        <IntroScene
-          onComplete={() => setShowIntro(false)}
-        />
-      )}
-
-
-      {/* ===============================
-          HOME HERO
-      =============================== */}
-
-      <section
-        id="home"
-        className="home-section"
-      >
-
-        <main className="hero">
-
-          {/* LEFT */}
-
-          <section className="hero-left">
-
-            <span className="hero-label">
-              C24 HOME APPLICATION WHOLESALE
-            </span>
-
-            <h1>
-              Premium Electronics
-              <br />
-              Wholesale Store
-            </h1>
-
-            <p>
-              India's Premium Home Appliances
-              Wholesale Platform
-            </p>
-
-
-            <div className="hero-buttons">
-
-              <a
-                href="#products"
-                className="primary-btn"
-              >
-                Explore Products
-              </a>
-
-              <a
-                href="#enquiry"
-                className="outline-btn"
-              >
-                Wholesale Enquiry
-              </a>
-
-            </div>
-
-          </section>
-
-
-          {/* RIGHT 3D */}
-
-          <section className="hero-right">
-            <ThreeScene />
-          </section>
-
-        </main>
-
-      </section>
-
-
-      {/* ===============================
-          PRODUCTS
-      =============================== */}
-
-      <section
-        id="products"
-        className="website-section"
-      >
-
-        <ProductsPage />
-
-      </section>
-
-
-      {/* ===============================
-          CATEGORIES
-      =============================== */}
-
-      <section
-        id="categories"
-        className="website-section"
-      >
-
-        <CategoriesPage />
-
-      </section>
-
-
-      {/* ===============================
-          DAILY OFFERS
-      =============================== */}
-
-      <section
-        id="offers"
-        className="website-section"
-      >
-
-        <DailyOffers />
-
-      </section>
-
-
-      {/* ===============================
-          ENQUIRY
-      =============================== */}
-
-      <section
-        id="enquiry"
-        className="website-section"
-      >
-
-        <Enquiry />
-
-      </section>
-
-
-      {/* ===============================
-          CONTACT
-      =============================== */}
-
-      <section
-        id="contact"
-        className="website-section"
-      >
-
-        <Contact />
-
-      </section>
-
-
-      {/* ===============================
-          FOOTER
-      =============================== */}
-
-      <footer className="c24-footer">
-
-        <div className="footer-content">
-
-          {/* BRAND */}
-
-          <div className="footer-brand">
-
-            <div className="footer-logo">
-              C24 Wholesale
-            </div>
-
-            <p>
-              Premium Electronics &
-              Home Appliances Wholesale Platform.
-            </p>
-
-          </div>
-
-
-          {/* QUICK LINKS */}
-
-          <div className="footer-navigation">
-
-            <span>
-              QUICK LINKS
-            </span>
-
-            <a href="#home">
-              Home
-            </a>
-
-            <a href="#products">
-              Products
-            </a>
-
-            <a href="#categories">
-              Categories
-            </a>
-
-            <a href="#offers">
-              Daily Offers
-            </a>
-
-          </div>
-
-
-          {/* BUSINESS */}
-
-          <div className="footer-navigation">
-
-            <span>
-              BUSINESS
-            </span>
-
-            <a href="#enquiry">
-              Wholesale Enquiry
-            </a>
-
-            <a href="#contact">
-              Contact
-            </a>
-
-            <Link
-              to="/admin"
-              className="admin-footer-link"
-            >
-              🔐 Admin Login
-            </Link>
-
-          </div>
-
-        </div>
-
-
-        {/* FOOTER BOTTOM */}
-
-        <div className="footer-bottom">
-
-          <small>
-            © 2026 C24 Home Application Wholesale.
-            All Rights Reserved.
-          </small>
-
-          <a href="#home">
-            Back to Top ↑
-          </a>
-
-        </div>
-
-      </footer>
-
-    </>
-  );
-}
-
-
-/* =====================================================
-   APP
-===================================================== */
-
-function App() {
-
-  const location = useLocation();
-
-
-  /* ===============================
-     ADMIN PAGE CHECK
-  =============================== */
-
-  const isAdminPage =
-    location.pathname === "/admin" ||
-    location.pathname.startsWith("/admin/");
-
-
-  return (
-    <>
-
-      {/* ===============================
-          PUBLIC NAVBAR
-      =============================== */}
-
-      {!isAdminPage && (
-        <Navbar />
-      )}
-
-
-      {/* ===============================
-          FLOATING ACTIONS
-      =============================== */}
-
-      {!isAdminPage && (
-        <FloatingActions />
-      )}
-
-
-      {/* ===============================
-          ROUTES
-      =============================== */}
 
       <Routes>
 
-        {/* HOME */}
+        {/* =========================
+            HOME
+        ========================= */}
 
         <Route
           path="/"
-          element={<HomePage />}
+          element={<Home />}
         />
 
 
-        {/* ABOUT */}
-
-        <Route
-          path="/about"
-          element={<About />}
-        />
-
-
-        {/* PRODUCTS */}
+        {/* =========================
+            PRODUCTS
+        ========================= */}
 
         <Route
           path="/products"
@@ -362,23 +52,19 @@ function App() {
         />
 
 
-        {/* CATEGORIES */}
+        {/* =========================
+            CART
+        ========================= */}
 
         <Route
-          path="/categories"
-          element={<CategoriesPage />}
+          path="/cart"
+          element={<Cart />}
         />
 
 
-        {/* DAILY OFFERS */}
-
-        <Route
-          path="/offers"
-          element={<DailyOffers />}
-        />
-
-
-        {/* ENQUIRY */}
+        {/* =========================
+            ENQUIRY
+        ========================= */}
 
         <Route
           path="/enquiry"
@@ -386,15 +72,88 @@ function App() {
         />
 
 
-        {/* CONTACT */}
+        {/* =========================
+            RETAILER LOGIN
+        ========================= */}
 
         <Route
-          path="/contact"
-          element={<Contact />}
+          path="/retailer-login"
+          element={<RetailerLogin />}
         />
 
 
-        {/* ADMIN LOGIN */}
+        {/* =========================
+            RETAILER DASHBOARD
+        ========================= */}
+
+        <Route
+          path="/retailer-dashboard"
+          element={<RetailerDashboard />}
+        />
+
+
+        {/* =========================
+            RETAILER PROFILE
+        ========================= */}
+
+        <Route
+          path="/retailer-profile"
+          element={<RetailerProfile />}
+        />
+
+
+        {/* =========================
+            MY ORDERS
+        ========================= */}
+
+        <Route
+          path="/my-orders"
+          element={<MyOrders />}
+        />
+
+
+        {/* =========================
+            AI CHAT
+        ========================= */}
+
+        <Route
+          path="/ai-chat"
+          element={<AIChat />}
+        />
+
+
+        {/* =========================
+            SCANNER
+        ========================= */}
+
+        <Route
+          path="/scanner"
+          element={
+            <div
+              style={{
+                minHeight: "100vh",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: "40px",
+                textAlign: "center",
+              }}
+            >
+              <div>
+                <h1>📷 C24 Product Scanner</h1>
+
+                <p>
+                  Product scanner coming soon.
+                </p>
+              </div>
+            </div>
+          }
+        />
+
+
+        {/* =========================
+            ADMIN LOGIN
+        ========================= */}
 
         <Route
           path="/admin"
@@ -402,7 +161,9 @@ function App() {
         />
 
 
-        {/* ADMIN DASHBOARD */}
+        {/* =========================
+            ADMIN DASHBOARD
+        ========================= */}
 
         <Route
           path="/admin/dashboard"
@@ -410,18 +171,31 @@ function App() {
         />
 
 
-        {/* FALLBACK */}
+        {/* =========================
+            FALLBACK
+        ========================= */}
 
         <Route
           path="*"
-          element={<HomePage />}
+          element={<Home />}
         />
 
       </Routes>
 
+
+      {/* =========================
+          FLOATING SIDE TOOLS
+
+          Cart
+          WhatsApp
+          AI Chat
+          Scanner
+      ========================= */}
+
+      <FloatingTools />
+
     </>
+
   );
+
 }
-
-
-export default App;

@@ -1,43 +1,82 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
+import { useLanguage } from "../LanguageContext";
+
 import "./Navbar.css";
+
 
 export default function Navbar() {
 
-  const [language, setLanguage] = useState("EN");
+  const {
+    language,
+    setLanguage,
+    t,
+  } = useLanguage();
 
-  const [menuOpen, setMenuOpen] = useState(false);
 
+  const [menuOpen, setMenuOpen] =
+    useState(false);
+
+
+  /* =====================================
+     CLOSE MOBILE MENU
+  ===================================== */
 
   const closeMenu = () => {
     setMenuOpen(false);
   };
 
 
+  /* =====================================
+     LANGUAGE CHANGE
+  ===================================== */
+
+  const handleLanguageChange = (e) => {
+
+    setLanguage(
+      e.target.value
+    );
+
+  };
+
+
   return (
+
     <nav className="navbar">
 
 
-      {/* LOGO */}
+      {/* =================================
+          LOGO
+      ================================= */}
 
       <Link
         to="/"
         className="logo"
         onClick={closeMenu}
       >
+
         C24
-        <span>Wholesale</span>
+
+        <span>
+          Wholesale
+        </span>
+
       </Link>
 
 
-      {/* MENU */}
+      {/* =================================
+          DESKTOP / MOBILE MENU
+      ================================= */}
 
       <div
         className={`navbar-menu ${
-          menuOpen ? "menu-open" : ""
+          menuOpen
+            ? "menu-open"
+            : ""
         }`}
       >
+
 
         <ul className="nav-links">
 
@@ -45,128 +84,176 @@ export default function Navbar() {
           {/* HOME */}
 
           <li>
+
             <Link
               to="/"
               onClick={closeMenu}
             >
-              Home
+              {t("home")}
             </Link>
+
           </li>
 
 
-          {/* ABOUT PAGE */}
+          {/* PRODUCTS */}
 
           <li>
-            <Link
-              to="/about"
-              onClick={closeMenu}
-            >
-              About Us
-            </Link>
-          </li>
 
-
-          {/* PRODUCTS PAGE */}
-
-          <li>
             <Link
               to="/products"
               onClick={closeMenu}
             >
-              Products
+              {t("products")}
             </Link>
+
           </li>
 
 
-          {/* CATEGORIES PAGE */}
+          {/* CATEGORIES */}
 
           <li>
+
             <Link
               to="/categories"
               onClick={closeMenu}
             >
-              Categories
+              {t("categories")}
             </Link>
+
           </li>
 
 
-          {/* OFFERS PAGE */}
+          {/* DAILY OFFERS */}
 
           <li>
+
             <Link
               to="/offers"
               onClick={closeMenu}
             >
-              Daily Offers
+              {t("offers")}
             </Link>
+
           </li>
 
 
-          {/* CONTACT PAGE */}
+          {/* CONTACT */}
 
           <li>
+
             <Link
               to="/contact"
               onClick={closeMenu}
             >
-              Contact
+              {t("contact")}
             </Link>
+
           </li>
 
         </ul>
 
 
-        {/* LANGUAGE */}
+        {/* =================================
+            RIGHT SIDE
+        ================================= */}
 
-        <div className="language-box">
+        <div className="navbar-right">
 
-          <span className="language-icon">
-            🌐
-          </span>
 
-          <select
-            value={language}
-            onChange={(e) =>
-              setLanguage(e.target.value)
-            }
+          {/* =================================
+              LANGUAGE
+          ================================= */}
+
+          <div className="language-box">
+
+            <span className="language-icon">
+              🌐
+            </span>
+
+
+            <select
+              value={language}
+              onChange={
+                handleLanguageChange
+              }
+              aria-label="Select language"
+            >
+
+              <option value="EN">
+                English
+              </option>
+
+
+              <option value="HI">
+                हिन्दी
+              </option>
+
+
+              <option value="GU">
+                ગુજરાતી
+              </option>
+
+            </select>
+
+          </div>
+
+
+          {/* =================================
+              RETAILER LOGIN
+          ================================= */}
+
+          <Link
+            to="/retailer-login"
+            className="retailer-login-btn"
+            onClick={closeMenu}
           >
 
-            <option value="EN">
-              English
-            </option>
+            {t("login")}
 
-            <option value="HI">
-              हिन्दी
-            </option>
+          </Link>
 
-          </select>
+
+          {/* =================================
+              WHOLESALE QUOTE
+          ================================= */}
+
+          <Link
+            to="/enquiry"
+            className="quote-btn"
+            onClick={closeMenu}
+          >
+
+            {t("wholesaleQuote")}
+
+            <span>
+              →
+            </span>
+
+          </Link>
 
         </div>
-
-
-        {/* QUOTE */}
-
-        <Link
-          to="/enquiry"
-          className="quote-btn"
-          onClick={closeMenu}
-        >
-          Get Wholesale Quote
-          <span>→</span>
-        </Link>
 
       </div>
 
 
-      {/* MOBILE MENU */}
+      {/* =================================
+          MOBILE MENU BUTTON
+      ================================= */}
 
       <button
+        type="button"
         className={`menu-toggle ${
-          menuOpen ? "active" : ""
+          menuOpen
+            ? "active"
+            : ""
         }`}
         onClick={() =>
-          setMenuOpen(!menuOpen)
+          setMenuOpen(
+            !menuOpen
+          )
         }
+        aria-label="Toggle menu"
+        aria-expanded={menuOpen}
       >
 
         <span></span>
@@ -176,5 +263,7 @@ export default function Navbar() {
       </button>
 
     </nav>
+
   );
+
 }
