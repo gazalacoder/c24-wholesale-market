@@ -1898,36 +1898,13 @@ app.use(
    START SERVER
 ========================================= */
 
-console.log(
-  "Starting C24 Backend..."
-);
+const PORT = process.env.PORT || 5000;
 
-app.listen(
-  PORT,
-  "127.0.0.1",
-  () => {
-    console.log(
-      "===================================="
-    );
+console.log("Starting C24 Backend...");
 
-    console.log(
-      "C24 Backend running"
-    );
-
-    console.log(
-      "http://127.0.0.1:5000"
-    );
-
-    console.log(
-      "Orders API:"
-    );
-
-    console.log(
-      "http://127.0.0.1:5000/api/orders"
-    );
-
-    console.log(
-      "===================================="
-    );
-  }
-);
+app.listen(PORT, "0.0.0.0", () => {
+  console.log("====================================");
+  console.log("C24 Backend running");
+  console.log(`Port: ${PORT}`);
+  console.log("====================================");
+});
