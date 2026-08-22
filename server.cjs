@@ -6,6 +6,10 @@ const crypto = require("crypto");
 
 const app = express();
 
+/* =========================================
+   PORT
+========================================= */
+
 const PORT = process.env.PORT || 5000;
 
 /* =========================================
@@ -92,10 +96,7 @@ createFile(AI_CHATS_FILE);
 
 function readData(file) {
   try {
-    const data = fs.readFileSync(
-      file,
-      "utf8"
-    );
+    const data = fs.readFileSync(file, "utf8");
 
     if (!data.trim()) {
       return [];
@@ -126,9 +127,7 @@ function createId(prefix) {
     "_" +
     Date.now() +
     "_" +
-    crypto
-      .randomBytes(4)
-      .toString("hex")
+    crypto.randomBytes(4).toString("hex")
   );
 }
 
@@ -152,8 +151,7 @@ function safeRetailer(retailer) {
 app.get("/api", (req, res) => {
   res.json({
     success: true,
-    message:
-      "C24 Wholesale API is running",
+    message: "C24 Wholesale API is running",
   });
 });
 
@@ -161,8 +159,7 @@ app.get("/api/health", (req, res) => {
   res.json({
     success: true,
     status: "online",
-    message:
-      "C24 backend is working",
+    message: "C24 backend is working",
   });
 });
 
@@ -171,224 +168,162 @@ app.get("/api/health", (req, res) => {
 ========================================= */
 
 app.get("/api/products", (req, res) => {
-  res.json(
-    readData(PRODUCTS_FILE)
-  );
+  res.json(readData(PRODUCTS_FILE));
 });
 
-app.get(
-  "/api/products/:id",
-  (req, res) => {
-    const products =
-      readData(PRODUCTS_FILE);
+app.get("/api/products/:id", (req, res) => {
+  const products = readData(PRODUCTS_FILE);
 
-    const product =
-      products.find(
-        (item) =>
-          String(item.id) ===
-          String(req.params.id)
-      );
+  const product = products.find(
+    (item) =>
+      String(item.id) ===
+      String(req.params.id)
+  );
 
-    if (!product) {
-      return res.status(404).json({
-        success: false,
-        message:
-          "Product not found",
-      });
-    }
-
-    res.json(product);
-  }
-);
-
-app.post(
-  "/api/products",
-  (req, res) => {
-    const products =
-      readData(PRODUCTS_FILE);
-
-    const {
-      name,
-      brand,
-      category,
-      mrp,
-      wholesalePrice,
-      price,
-      discountPercent,
-      stock,
-      image,
-      images,
-      description,
-      specifications,
-    } = req.body;
-
-    if (!name || !category) {
-      return res.status(400).json({
-        success: false,
-        message:
-          "Name and category are required",
-      });
-    }
-
-    const product = {
-      id: createId("product"),
-
-      name: String(name).trim(),
-
-      brand:
-        String(
-          brand || ""
-        ).trim(),
-
-      category:
-        String(category).trim(),
-
-      mrp: Number(
-        mrp || price || 0
-      ),
-
-      wholesalePrice:
-        Number(
-          wholesalePrice ||
-            price ||
-            0
-        ),
-
-      discountPercent:
-        Number(
-          discountPercent || 0
-        ),
-
-      price: Number(
-        mrp || price || 0
-      ),
-
-      stock: Number(
-        stock || 0
-      ),
-
-      image: image || "",
-
-      images:
-        Array.isArray(images)
-          ? images
-          : image
-          ? [image]
-          : [],
-
-      description:
-        description || "",
-
-      specifications:
-        specifications || {},
-
-      createdAt:
-        new Date().toISOString(),
-
-      updatedAt:
-        new Date().toISOString(),
-    };
-
-    products.push(product);
-
-    writeData(
-      PRODUCTS_FILE,
-      products
-    );
-
-    res.status(201).json({
-      success: true,
-      message:
-        "Product added successfully",
-      product,
+  if (!product) {
+    return res.status(404).json({
+      success: false,
+      message: "Product not found",
     });
   }
-);
 
-app.put(
-  "/api/products/:id",
-  (req, res) => {
-    const products =
-      readData(PRODUCTS_FILE);
+  res.json(product);
+});
 
-    const index =
-      products.findIndex(
-        (item) =>
-          String(item.id) ===
-          String(req.params.id)
-      );
+app.post("/api/products", (req, res) => {
+  const products = readData(PRODUCTS_FILE);
 
-    if (index === -1) {
-      return res.status(404).json({
-        success: false,
-        message:
-          "Product not found",
-      });
-    }
+  const {
+    name,
+    brand,
+    category,
+    mrp,
+    wholesalePrice,
+    price,
+    discountPercent,
+    stock,
+    image,
+    images,
+    description,
+    specifications,
+  } = req.body;
 
-    products[index] = {
-      ...products[index],
-      ...req.body,
-      id: products[index].id,
-      updatedAt:
-        new Date().toISOString(),
-    };
-
-    writeData(
-      PRODUCTS_FILE,
-      products
-    );
-
-    res.json({
-      success: true,
-      message:
-        "Product updated",
-      product:
-        products[index],
+  if (!name || !category) {
+    return res.status(400).json({
+      success: false,
+      message: "Name and category are required",
     });
   }
-);
 
-app.delete(
-  "/api/products/:id",
-  (req, res) => {
-    const products =
-      readData(PRODUCTS_FILE);
+  const product = {
+    id: createId("product"),
 
-    const index =
-      products.findIndex(
-        (item) =>
-          String(item.id) ===
-          String(req.params.id)
-      );
+    name: String(name).trim(),
 
-    if (index === -1) {
-      return res.status(404).json({
-        success: false,
-        message:
-          "Product not found",
-      });
-    }
+    brand: String(brand || "").trim(),
 
-    const deleted =
-      products.splice(
-        index,
-        1
-      )[0];
+    category: String(category).trim(),
 
-    writeData(
-      PRODUCTS_FILE,
-      products
-    );
+    mrp: Number(mrp || price || 0),
 
-    res.json({
-      success: true,
-      message:
-        "Product deleted",
-      product: deleted,
+    wholesalePrice: Number(
+      wholesalePrice || price || 0
+    ),
+
+    discountPercent: Number(
+      discountPercent || 0
+    ),
+
+    price: Number(mrp || price || 0),
+
+    stock: Number(stock || 0),
+
+    image: image || "",
+
+    images: Array.isArray(images)
+      ? images
+      : image
+      ? [image]
+      : [],
+
+    description: description || "",
+
+    specifications: specifications || {},
+
+    createdAt: new Date().toISOString(),
+
+    updatedAt: new Date().toISOString(),
+  };
+
+  products.push(product);
+
+  writeData(PRODUCTS_FILE, products);
+
+  res.status(201).json({
+    success: true,
+    message: "Product added successfully",
+    product,
+  });
+});
+
+app.put("/api/products/:id", (req, res) => {
+  const products = readData(PRODUCTS_FILE);
+
+  const index = products.findIndex(
+    (item) =>
+      String(item.id) ===
+      String(req.params.id)
+  );
+
+  if (index === -1) {
+    return res.status(404).json({
+      success: false,
+      message: "Product not found",
     });
   }
-);
+
+  products[index] = {
+    ...products[index],
+    ...req.body,
+    id: products[index].id,
+    updatedAt: new Date().toISOString(),
+  };
+
+  writeData(PRODUCTS_FILE, products);
+
+  res.json({
+    success: true,
+    message: "Product updated",
+    product: products[index],
+  });
+});
+
+app.delete("/api/products/:id", (req, res) => {
+  const products = readData(PRODUCTS_FILE);
+
+  const index = products.findIndex(
+    (item) =>
+      String(item.id) ===
+      String(req.params.id)
+  );
+
+  if (index === -1) {
+    return res.status(404).json({
+      success: false,
+      message: "Product not found",
+    });
+  }
+
+  const deleted = products.splice(index, 1)[0];
+
+  writeData(PRODUCTS_FILE, products);
+
+  res.json({
+    success: true,
+    message: "Product deleted",
+    product: deleted,
+  });
+});
 
 /* =========================================
    RETAILER REGISTER
@@ -397,10 +332,7 @@ app.delete(
 app.post(
   "/api/retailers/register",
   (req, res) => {
-    const retailers =
-      readData(
-        RETAILERS_FILE
-      );
+    const retailers = readData(RETAILERS_FILE);
 
     const {
       name,
@@ -424,9 +356,7 @@ app.post(
       });
     }
 
-    if (
-      String(password).length < 6
-    ) {
+    if (String(password).length < 6) {
       return res.status(400).json({
         success: false,
         message:
@@ -434,23 +364,18 @@ app.post(
       });
     }
 
-    const cleanPhone =
-      String(phone).trim();
+    const cleanPhone = String(phone).trim();
 
-    const cleanEmail =
-      String(email || "")
-        .trim()
-        .toLowerCase();
+    const cleanEmail = String(email || "")
+      .trim()
+      .toLowerCase();
 
-    const existing =
-      retailers.find(
-        (item) =>
-          item.phone ===
-            cleanPhone ||
-          (cleanEmail &&
-            item.email ===
-              cleanEmail)
-      );
+    const existing = retailers.find(
+      (item) =>
+        item.phone === cleanPhone ||
+        (cleanEmail &&
+          item.email === cleanEmail)
+    );
 
     if (existing) {
       return res.status(409).json({
@@ -463,53 +388,38 @@ app.post(
     const retailer = {
       id: createId("retailer"),
 
-      name:
-        String(name).trim(),
+      name: String(name).trim(),
 
-      businessName:
-        String(
-          businessName
-        ).trim(),
+      businessName: String(
+        businessName
+      ).trim(),
 
-      phone:
-        cleanPhone,
+      phone: cleanPhone,
 
-      email:
-        cleanEmail,
+      email: cleanEmail,
 
-      gstNumber:
-        String(
-          gstNumber || ""
-        ).trim(),
+      gstNumber: String(
+        gstNumber || ""
+      ).trim(),
 
-      password:
-        String(password),
+      password: String(password),
 
       enquiries: [],
 
       orders: [],
 
-      createdAt:
-        new Date().toISOString(),
+      createdAt: new Date().toISOString(),
     };
 
-    retailers.push(
-      retailer
-    );
+    retailers.push(retailer);
 
-    writeData(
-      RETAILERS_FILE,
-      retailers
-    );
+    writeData(RETAILERS_FILE, retailers);
 
     res.status(201).json({
       success: true,
       message:
         "Retailer registered successfully",
-      retailer:
-        safeRetailer(
-          retailer
-        ),
+      retailer: safeRetailer(retailer),
     });
   }
 );
@@ -521,10 +431,7 @@ app.post(
 app.post(
   "/api/retailers/login",
   (req, res) => {
-    const retailers =
-      readData(
-        RETAILERS_FILE
-      );
+    const retailers = readData(RETAILERS_FILE);
 
     const {
       phone,
@@ -532,17 +439,13 @@ app.post(
       password,
     } = req.body;
 
-    const identifier =
-      String(
-        phone || email || ""
-      )
-        .trim()
-        .toLowerCase();
+    const identifier = String(
+      phone || email || ""
+    )
+      .trim()
+      .toLowerCase();
 
-    if (
-      !identifier ||
-      !password
-    ) {
+    if (!identifier || !password) {
       return res.status(400).json({
         success: false,
         message:
@@ -550,37 +453,30 @@ app.post(
       });
     }
 
-    const retailer =
-      retailers.find(
-        (item) => {
-          const itemPhone =
-            String(
-              item.phone || ""
-            )
-              .trim()
-              .toLowerCase();
+    const retailer = retailers.find(
+      (item) => {
+        const itemPhone = String(
+          item.phone || ""
+        )
+          .trim()
+          .toLowerCase();
 
-          const itemEmail =
-            String(
-              item.email || ""
-            )
-              .trim()
-              .toLowerCase();
+        const itemEmail = String(
+          item.email || ""
+        )
+          .trim()
+          .toLowerCase();
 
-          return (
-            (
-              itemPhone ===
-                identifier ||
-              itemEmail ===
-                identifier
-            ) &&
-            String(
-              item.password
-            ) ===
-              String(password)
-          );
-        }
-      );
+        return (
+          (
+            itemPhone === identifier ||
+            itemEmail === identifier
+          ) &&
+          String(item.password) ===
+            String(password)
+        );
+      }
+    );
 
     if (!retailer) {
       return res.status(401).json({
@@ -592,12 +488,8 @@ app.post(
 
     res.json({
       success: true,
-      message:
-        "Login successful",
-      retailer:
-        safeRetailer(
-          retailer
-        ),
+      message: "Login successful",
+      retailer: safeRetailer(retailer),
     });
   }
 );
@@ -609,32 +501,24 @@ app.post(
 app.get(
   "/api/retailers/:id",
   (req, res) => {
-    const retailers =
-      readData(
-        RETAILERS_FILE
-      );
+    const retailers = readData(RETAILERS_FILE);
 
-    const retailer =
-      retailers.find(
-        (item) =>
-          String(item.id) ===
-          String(req.params.id)
-      );
+    const retailer = retailers.find(
+      (item) =>
+        String(item.id) ===
+        String(req.params.id)
+    );
 
     if (!retailer) {
       return res.status(404).json({
         success: false,
-        message:
-          "Retailer not found",
+        message: "Retailer not found",
       });
     }
 
     res.json({
       success: true,
-      retailer:
-        safeRetailer(
-          retailer
-        ),
+      retailer: safeRetailer(retailer),
     });
   }
 );
@@ -646,46 +530,35 @@ app.get(
 app.put(
   "/api/retailers/:id",
   (req, res) => {
-    const retailers =
-      readData(
-        RETAILERS_FILE
-      );
+    const retailers = readData(RETAILERS_FILE);
 
-    const index =
-      retailers.findIndex(
-        (item) =>
-          String(item.id) ===
-          String(req.params.id)
-      );
+    const index = retailers.findIndex(
+      (item) =>
+        String(item.id) ===
+        String(req.params.id)
+    );
 
     if (index === -1) {
       return res.status(404).json({
         success: false,
-        message:
-          "Retailer not found",
+        message: "Retailer not found",
       });
     }
 
     retailers[index] = {
       ...retailers[index],
       ...req.body,
-      id:
-        retailers[index].id,
+      id: retailers[index].id,
     };
 
-    writeData(
-      RETAILERS_FILE,
-      retailers
-    );
+    writeData(RETAILERS_FILE, retailers);
 
     res.json({
       success: true,
-      message:
-        "Profile updated successfully",
-      retailer:
-        safeRetailer(
-          retailers[index]
-        ),
+      message: "Profile updated successfully",
+      retailer: safeRetailer(
+        retailers[index]
+      ),
     });
   }
 );
@@ -694,174 +567,126 @@ app.put(
    ENQUIRIES
 ========================================= */
 
-app.get(
-  "/api/enquiries",
-  (req, res) => {
-    res.json(
-      readData(
-        ENQUIRIES_FILE
-      )
-    );
-  }
-);
+app.get("/api/enquiries", (req, res) => {
+  res.json(readData(ENQUIRIES_FILE));
+});
 
-app.post(
-  "/api/enquiries",
-  (req, res) => {
-    const enquiries =
-      readData(
-        ENQUIRIES_FILE
-      );
+app.post("/api/enquiries", (req, res) => {
+  const enquiries = readData(
+    ENQUIRIES_FILE
+  );
 
-    const retailers =
-      readData(
-        RETAILERS_FILE
-      );
+  const retailers = readData(
+    RETAILERS_FILE
+  );
 
-    const {
-      name,
-      business,
-      phone,
-      email,
-      product,
-      quantity,
-      message,
-      retailerId,
-      retailerName,
-    } = req.body;
+  const {
+    name,
+    business,
+    phone,
+    email,
+    product,
+    quantity,
+    message,
+    retailerId,
+    retailerName,
+  } = req.body;
 
-    if (
-      !name ||
-      !business ||
-      !phone ||
-      !product ||
-      !quantity
-    ) {
-      return res.status(400).json({
-        success: false,
-        message:
-          "Required enquiry fields are missing.",
-      });
-    }
-
-    const enquiry = {
-      id: createId("enquiry"),
-
-      name:
-        String(name).trim(),
-
-      business:
-        String(
-          business
-        ).trim(),
-
-      phone:
-        String(phone).trim(),
-
-      email:
-        String(email || "")
-          .trim()
-          .toLowerCase(),
-
-      product:
-        String(product).trim(),
-
-      quantity:
-        Number(quantity),
-
+  if (
+    !name ||
+    !business ||
+    !phone ||
+    !product ||
+    !quantity
+  ) {
+    return res.status(400).json({
+      success: false,
       message:
-        String(
-          message || ""
-        ).trim(),
-
-      retailerId:
-        retailerId || null,
-
-      retailerName:
-        retailerName ||
-        business,
-
-      status: "New",
-
-      date:
-        new Date().toISOString(),
-    };
-
-    enquiries.push(
-      enquiry
-    );
-
-    writeData(
-      ENQUIRIES_FILE,
-      enquiries
-    );
-
-    if (retailerId) {
-      const index =
-        retailers.findIndex(
-          (item) =>
-            String(item.id) ===
-            String(retailerId)
-        );
-
-      if (index !== -1) {
-        if (
-          !Array.isArray(
-            retailers[index]
-              .enquiries
-          )
-        ) {
-          retailers[index]
-            .enquiries = [];
-        }
-
-        retailers[index]
-          .enquiries.push({
-            id:
-              enquiry.id,
-
-            product:
-              enquiry.product,
-
-            quantity:
-              enquiry.quantity,
-
-            message:
-              enquiry.message,
-
-            status:
-              enquiry.status,
-
-            date:
-              enquiry.date,
-          });
-
-        writeData(
-          RETAILERS_FILE,
-          retailers
-        );
-      }
-    }
-
-    res.status(201).json({
-      success: true,
-      message:
-        "Enquiry submitted successfully",
-      enquiry,
+        "Required enquiry fields are missing.",
     });
   }
-);
+
+  const enquiry = {
+    id: createId("enquiry"),
+
+    name: String(name).trim(),
+
+    business: String(business).trim(),
+
+    phone: String(phone).trim(),
+
+    email: String(email || "")
+      .trim()
+      .toLowerCase(),
+
+    product: String(product).trim(),
+
+    quantity: Number(quantity),
+
+    message: String(message || "").trim(),
+
+    retailerId: retailerId || null,
+
+    retailerName:
+      retailerName || business,
+
+    status: "New",
+
+    date: new Date().toISOString(),
+  };
+
+  enquiries.push(enquiry);
+
+  writeData(ENQUIRIES_FILE, enquiries);
+
+  if (retailerId) {
+    const index = retailers.findIndex(
+      (item) =>
+        String(item.id) ===
+        String(retailerId)
+    );
+
+    if (index !== -1) {
+      if (
+        !Array.isArray(
+          retailers[index].enquiries
+        )
+      ) {
+        retailers[index].enquiries = [];
+      }
+
+      retailers[index].enquiries.push({
+        id: enquiry.id,
+        product: enquiry.product,
+        quantity: enquiry.quantity,
+        message: enquiry.message,
+        status: enquiry.status,
+        date: enquiry.date,
+      });
+
+      writeData(
+        RETAILERS_FILE,
+        retailers
+      );
+    }
+  }
+
+  res.status(201).json({
+    success: true,
+    message:
+      "Enquiry submitted successfully",
+    enquiry,
+  });
+});
 
 app.put(
   "/api/enquiries/:id/status",
   (req, res) => {
-    const enquiries =
-      readData(
-        ENQUIRIES_FILE
-      );
+    const enquiries = readData(
+      ENQUIRIES_FILE
+    );
 
-    const { status } =
-      req.body;
+    const { status } = req.body;
 
     const allowed = [
       "New",
@@ -869,33 +694,27 @@ app.put(
       "Closed",
     ];
 
-    if (
-      !allowed.includes(status)
-    ) {
+    if (!allowed.includes(status)) {
       return res.status(400).json({
         success: false,
-        message:
-          "Invalid status",
+        message: "Invalid status",
       });
     }
 
-    const index =
-      enquiries.findIndex(
-        (item) =>
-          String(item.id) ===
-          String(req.params.id)
-      );
+    const index = enquiries.findIndex(
+      (item) =>
+        String(item.id) ===
+        String(req.params.id)
+    );
 
     if (index === -1) {
       return res.status(404).json({
         success: false,
-        message:
-          "Enquiry not found",
+        message: "Enquiry not found",
       });
     }
 
-    enquiries[index].status =
-      status;
+    enquiries[index].status = status;
 
     writeData(
       ENQUIRIES_FILE,
@@ -906,8 +725,7 @@ app.put(
       success: true,
       message:
         "Enquiry status updated",
-      enquiry:
-        enquiries[index],
+      enquiry: enquiries[index],
     });
   }
 );
@@ -915,31 +733,27 @@ app.put(
 app.delete(
   "/api/enquiries/:id",
   (req, res) => {
-    const enquiries =
-      readData(
-        ENQUIRIES_FILE
-      );
+    const enquiries = readData(
+      ENQUIRIES_FILE
+    );
 
-    const index =
-      enquiries.findIndex(
-        (item) =>
-          String(item.id) ===
-          String(req.params.id)
-      );
+    const index = enquiries.findIndex(
+      (item) =>
+        String(item.id) ===
+        String(req.params.id)
+    );
 
     if (index === -1) {
       return res.status(404).json({
         success: false,
-        message:
-          "Enquiry not found",
+        message: "Enquiry not found",
       });
     }
 
-    const deleted =
-      enquiries.splice(
-        index,
-        1
-      )[0];
+    const deleted = enquiries.splice(
+      index,
+      1
+    )[0];
 
     writeData(
       ENQUIRIES_FILE,
@@ -948,8 +762,7 @@ app.delete(
 
     res.json({
       success: true,
-      message:
-        "Enquiry deleted",
+      message: "Enquiry deleted",
       enquiry: deleted,
     });
   }
@@ -959,135 +772,98 @@ app.delete(
    OFFERS
 ========================================= */
 
-app.get(
-  "/api/offers",
-  (req, res) => {
-    res.json(
-      readData(
-        OFFERS_FILE
-      )
-    );
-  }
-);
+app.get("/api/offers", (req, res) => {
+  res.json(readData(OFFERS_FILE));
+});
 
-app.post(
-  "/api/offers",
-  (req, res) => {
-    const offers =
-      readData(
-        OFFERS_FILE
-      );
+app.post("/api/offers", (req, res) => {
+  const offers = readData(OFFERS_FILE);
 
-    const {
-      title,
-      product,
-      oldPrice,
-      offerPrice,
-      startDate,
-      endDate,
-      image,
-      description,
-    } = req.body;
+  const {
+    title,
+    product,
+    oldPrice,
+    offerPrice,
+    startDate,
+    endDate,
+    image,
+    description,
+  } = req.body;
 
-    if (
-      !title ||
-      !product ||
-      !offerPrice
-    ) {
-      return res.status(400).json({
-        success: false,
-        message:
-          "Offer title, product and offer price are required.",
-      });
-    }
-
-    const offer = {
-      id: createId("offer"),
-
-      title:
-        String(title).trim(),
-
-      product:
-        String(product).trim(),
-
-      oldPrice:
-        Number(
-          oldPrice || 0
-        ),
-
-      offerPrice:
-        Number(offerPrice),
-
-      startDate:
-        startDate || null,
-
-      endDate:
-        endDate || null,
-
-      image:
-        image || "",
-
-      description:
-        description || "",
-
-      createdAt:
-        new Date().toISOString(),
-    };
-
-    offers.push(offer);
-
-    writeData(
-      OFFERS_FILE,
-      offers
-    );
-
-    res.status(201).json({
-      success: true,
+  if (
+    !title ||
+    !product ||
+    !offerPrice
+  ) {
+    return res.status(400).json({
+      success: false,
       message:
-        "Offer created successfully",
-      offer,
+        "Offer title, product and offer price are required.",
     });
   }
-);
+
+  const offer = {
+    id: createId("offer"),
+
+    title: String(title).trim(),
+
+    product: String(product).trim(),
+
+    oldPrice: Number(oldPrice || 0),
+
+    offerPrice: Number(offerPrice),
+
+    startDate: startDate || null,
+
+    endDate: endDate || null,
+
+    image: image || "",
+
+    description: description || "",
+
+    createdAt: new Date().toISOString(),
+  };
+
+  offers.push(offer);
+
+  writeData(OFFERS_FILE, offers);
+
+  res.status(201).json({
+    success: true,
+    message:
+      "Offer created successfully",
+    offer,
+  });
+});
 
 app.delete(
   "/api/offers/:id",
   (req, res) => {
-    const offers =
-      readData(
-        OFFERS_FILE
-      );
+    const offers = readData(OFFERS_FILE);
 
-    const index =
-      offers.findIndex(
-        (item) =>
-          String(item.id) ===
-          String(req.params.id)
-      );
+    const index = offers.findIndex(
+      (item) =>
+        String(item.id) ===
+        String(req.params.id)
+    );
 
     if (index === -1) {
       return res.status(404).json({
         success: false,
-        message:
-          "Offer not found",
+        message: "Offer not found",
       });
     }
 
-    const deleted =
-      offers.splice(
-        index,
-        1
-      )[0];
+    const deleted = offers.splice(
+      index,
+      1
+    )[0];
 
-    writeData(
-      OFFERS_FILE,
-      offers
-    );
+    writeData(OFFERS_FILE, offers);
 
     res.json({
       success: true,
-      message:
-        "Offer deleted",
+      message: "Offer deleted",
       offer: deleted,
     });
   }
@@ -1097,50 +873,32 @@ app.delete(
    ORDERS
 ========================================= */
 
-app.get(
-  "/api/orders",
-  (req, res) => {
-    console.log(
-      "GET /api/orders"
-    );
+app.get("/api/orders", (req, res) => {
+  console.log("GET /api/orders");
 
-    const orders =
-      readData(
-        ORDERS_FILE
-      );
+  const orders = readData(ORDERS_FILE);
 
-    res.status(200).json(
-      orders
-    );
+  res.status(200).json(orders);
+});
+
+app.get("/api/orders/:id", (req, res) => {
+  const orders = readData(ORDERS_FILE);
+
+  const order = orders.find(
+    (item) =>
+      String(item.id) ===
+      String(req.params.id)
+  );
+
+  if (!order) {
+    return res.status(404).json({
+      success: false,
+      message: "Order not found",
+    });
   }
-);
 
-app.get(
-  "/api/orders/:id",
-  (req, res) => {
-    const orders =
-      readData(
-        ORDERS_FILE
-      );
-
-    const order =
-      orders.find(
-        (item) =>
-          String(item.id) ===
-          String(req.params.id)
-      );
-
-    if (!order) {
-      return res.status(404).json({
-        success: false,
-        message:
-          "Order not found",
-      });
-    }
-
-    res.json(order);
-  }
-);
+  res.json(order);
+});
 
 /* =========================================
    RETAILER ORDERS
@@ -1149,25 +907,18 @@ app.get(
 app.get(
   "/api/orders/retailer/:retailerId",
   (req, res) => {
-    const orders =
-      readData(
-        ORDERS_FILE
-      );
+    const orders = readData(ORDERS_FILE);
 
     const retailerOrders =
       orders.filter(
         (order) =>
-          String(
-            order.retailerId
-          ) ===
+          String(order.retailerId) ===
           String(
             req.params.retailerId
           )
       );
 
-    res.json(
-      retailerOrders
-    );
+    res.json(retailerOrders);
   }
 );
 
@@ -1175,201 +926,158 @@ app.get(
    CREATE ORDER
 ========================================= */
 
-app.post(
-  "/api/orders",
-  (req, res) => {
-    const orders =
-      readData(
-        ORDERS_FILE
-      );
+app.post("/api/orders", (req, res) => {
+  const orders = readData(ORDERS_FILE);
 
-    const retailers =
-      readData(
-        RETAILERS_FILE
-      );
+  const retailers = readData(
+    RETAILERS_FILE
+  );
 
-    const {
-      retailerId,
-      retailerName,
-      name,
-      phone,
-      email,
-      items,
-      totalAmount,
-      message,
-    } = req.body;
+  const {
+    retailerId,
+    retailerName,
+    name,
+    phone,
+    email,
+    items,
+    totalAmount,
+    message,
+  } = req.body;
 
-    if (
-      !name ||
-      !phone ||
-      !Array.isArray(items) ||
-      items.length === 0
-    ) {
-      return res.status(400).json({
-        success: false,
-        message:
-          "Customer and order details are required.",
-      });
-    }
-
-    const cleanItems =
-      items.map(
-        (item) => ({
-          productId:
-            item.productId ||
-            item.id ||
-            null,
-
-          name:
-            item.name ||
-            "Product",
-
-          brand:
-            item.brand ||
-            "",
-
-          category:
-            item.category ||
-            "",
-
-          quantity:
-            Number(
-              item.quantity || 1
-            ),
-
-          price:
-            Number(
-              item.price ||
-              item.wholesalePrice ||
-              0
-            ),
-
-          image:
-            item.image ||
-            "",
-        })
-      );
-
-    const calculatedTotal =
-      cleanItems.reduce(
-        (total, item) =>
-          total +
-          Number(
-            item.price || 0
-          ) *
-          Number(
-            item.quantity || 0
-          ),
-        0
-      );
-
-    const order = {
-      id: createId("order"),
-
-      retailerId:
-        retailerId || null,
-
-      retailerName:
-        retailerName || name,
-
-      name:
-        String(name).trim(),
-
-      phone:
-        String(phone).trim(),
-
-      email:
-        String(email || "")
-          .trim()
-          .toLowerCase(),
-
-      items:
-        cleanItems,
-
-      totalAmount:
-        Number(
-          totalAmount ||
-            calculatedTotal
-        ),
-
+  if (
+    !name ||
+    !phone ||
+    !Array.isArray(items) ||
+    items.length === 0
+  ) {
+    return res.status(400).json({
+      success: false,
       message:
-        String(
-          message || ""
-        ).trim(),
+        "Customer and order details are required.",
+    });
+  }
 
-      status: "New",
+  const cleanItems = items.map(
+    (item) => ({
+      productId:
+        item.productId ||
+        item.id ||
+        null,
 
-      createdAt:
-        new Date().toISOString(),
+      name: item.name || "Product",
 
-      updatedAt:
-        new Date().toISOString(),
-    };
+      brand: item.brand || "",
 
-    orders.push(order);
+      category: item.category || "",
 
-    writeData(
-      ORDERS_FILE,
-      orders
+      quantity: Number(
+        item.quantity || 1
+      ),
+
+      price: Number(
+        item.price ||
+          item.wholesalePrice ||
+          0
+      ),
+
+      image: item.image || "",
+    })
+  );
+
+  const calculatedTotal =
+    cleanItems.reduce(
+      (total, item) =>
+        total +
+        Number(item.price || 0) *
+          Number(item.quantity || 0),
+      0
     );
 
-    if (retailerId) {
-      const retailerIndex =
-        retailers.findIndex(
-          (item) =>
-            String(item.id) ===
-            String(retailerId)
-        );
+  const order = {
+    id: createId("order"),
 
+    retailerId: retailerId || null,
+
+    retailerName:
+      retailerName || name,
+
+    name: String(name).trim(),
+
+    phone: String(phone).trim(),
+
+    email: String(email || "")
+      .trim()
+      .toLowerCase(),
+
+    items: cleanItems,
+
+    totalAmount: Number(
+      totalAmount || calculatedTotal
+    ),
+
+    message: String(
+      message || ""
+    ).trim(),
+
+    status: "New",
+
+    createdAt: new Date().toISOString(),
+
+    updatedAt: new Date().toISOString(),
+  };
+
+  orders.push(order);
+
+  writeData(ORDERS_FILE, orders);
+
+  if (retailerId) {
+    const retailerIndex =
+      retailers.findIndex(
+        (item) =>
+          String(item.id) ===
+          String(retailerId)
+      );
+
+    if (retailerIndex !== -1) {
       if (
-        retailerIndex !== -1
+        !Array.isArray(
+          retailers[retailerIndex]
+            .orders
+        )
       ) {
-        if (
-          !Array.isArray(
-            retailers[
-              retailerIndex
-            ].orders
-          )
-        ) {
-          retailers[
-            retailerIndex
-          ].orders = [];
-        }
+        retailers[retailerIndex].orders =
+          [];
+      }
 
-        retailers[
-          retailerIndex
-        ].orders.push({
-          id:
-            order.id,
+      retailers[retailerIndex].orders.push(
+        {
+          id: order.id,
 
           totalAmount:
             order.totalAmount,
 
-          status:
-            order.status,
+          status: order.status,
 
-          items:
-            order.items,
+          items: order.items,
 
-          createdAt:
-            order.createdAt,
-        });
+          createdAt: order.createdAt,
+        }
+      );
 
-        writeData(
-          RETAILERS_FILE,
-          retailers
-        );
-      }
+      writeData(
+        RETAILERS_FILE,
+        retailers
+      );
     }
-
-    res.status(201).json({
-      success: true,
-      message:
-        "Order created successfully",
-      order,
-    });
   }
-);
+
+  res.status(201).json({
+    success: true,
+    message:
+      "Order created successfully",
+    order,
+  });
+});
 
 /* =========================================
    UPDATE ORDER STATUS
@@ -1378,13 +1086,9 @@ app.post(
 app.put(
   "/api/orders/:id/status",
   (req, res) => {
-    const orders =
-      readData(
-        ORDERS_FILE
-      );
+    const orders = readData(ORDERS_FILE);
 
-    const { status } =
-      req.body;
+    const { status } = req.body;
 
     const allowed = [
       "New",
@@ -1395,9 +1099,7 @@ app.put(
       "Cancelled",
     ];
 
-    if (
-      !allowed.includes(status)
-    ) {
+    if (!allowed.includes(status)) {
       return res.status(400).json({
         success: false,
         message:
@@ -1405,41 +1107,32 @@ app.put(
       });
     }
 
-    const index =
-      orders.findIndex(
-        (item) =>
-          String(item.id) ===
-          String(req.params.id)
-      );
+    const index = orders.findIndex(
+      (item) =>
+        String(item.id) ===
+        String(req.params.id)
+    );
 
     if (index === -1) {
       return res.status(404).json({
         success: false,
-        message:
-          "Order not found.",
+        message: "Order not found.",
       });
     }
 
     orders[index] = {
       ...orders[index],
-
       status,
-
-      updatedAt:
-        new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
     };
 
-    writeData(
-      ORDERS_FILE,
-      orders
-    );
+    writeData(ORDERS_FILE, orders);
 
     res.json({
       success: true,
       message:
         "Order status updated.",
-      order:
-        orders[index],
+      order: orders[index],
     });
   }
 );
@@ -1451,41 +1144,31 @@ app.put(
 app.delete(
   "/api/orders/:id",
   (req, res) => {
-    const orders =
-      readData(
-        ORDERS_FILE
-      );
+    const orders = readData(ORDERS_FILE);
 
-    const index =
-      orders.findIndex(
-        (item) =>
-          String(item.id) ===
-          String(req.params.id)
-      );
+    const index = orders.findIndex(
+      (item) =>
+        String(item.id) ===
+        String(req.params.id)
+    );
 
     if (index === -1) {
       return res.status(404).json({
         success: false,
-        message:
-          "Order not found.",
+        message: "Order not found.",
       });
     }
 
-    const deleted =
-      orders.splice(
-        index,
-        1
-      )[0];
+    const deleted = orders.splice(
+      index,
+      1
+    )[0];
 
-    writeData(
-      ORDERS_FILE,
-      orders
-    );
+    writeData(ORDERS_FILE, orders);
 
     res.json({
       success: true,
-      message:
-        "Order deleted.",
+      message: "Order deleted.",
       order: deleted,
     });
   }
@@ -1498,10 +1181,9 @@ app.delete(
 app.get(
   "/api/price-list-downloads",
   (req, res) => {
-    const downloads =
-      readData(
-        PRICE_LIST_DOWNLOADS_FILE
-      );
+    const downloads = readData(
+      PRICE_LIST_DOWNLOADS_FILE
+    );
 
     res.json({
       success: true,
@@ -1513,10 +1195,9 @@ app.get(
 app.post(
   "/api/price-list-downloads",
   (req, res) => {
-    const downloads =
-      readData(
-        PRICE_LIST_DOWNLOADS_FILE
-      );
+    const downloads = readData(
+      PRICE_LIST_DOWNLOADS_FILE
+    );
 
     const {
       retailerId,
@@ -1528,45 +1209,30 @@ app.post(
     } = req.body;
 
     const download = {
-      id: createId(
-        "price-download"
-      ),
+      id: createId("price-download"),
 
       retailerId:
         retailerId || null,
 
-      name:
-        String(
-          name || ""
-        ).trim(),
+      name: String(name || "").trim(),
 
-      businessName:
-        String(
-          businessName || ""
-        ).trim(),
+      businessName: String(
+        businessName || ""
+      ).trim(),
 
-      phone:
-        String(
-          phone || ""
-        ).trim(),
+      phone: String(phone || "").trim(),
 
-      email:
-        String(
-          email || ""
-        )
-          .trim()
-          .toLowerCase(),
+      email: String(email || "")
+        .trim()
+        .toLowerCase(),
 
-      language:
-        language || "EN",
+      language: language || "EN",
 
       downloadedAt:
         new Date().toISOString(),
     };
 
-    downloads.unshift(
-      download
-    );
+    downloads.unshift(download);
 
     writeData(
       PRICE_LIST_DOWNLOADS_FILE,
@@ -1586,119 +1252,81 @@ app.post(
    AI CHAT
 ========================================= */
 
-app.get(
-  "/api/ai-chats",
-  (req, res) => {
-    const chats =
-      readData(
-        AI_CHATS_FILE
-      );
+app.get("/api/ai-chats", (req, res) => {
+  const chats = readData(AI_CHATS_FILE);
 
-    res.json({
-      success: true,
-      chats,
+  res.json({
+    success: true,
+    chats,
+  });
+});
+
+app.post("/api/ai-chats", (req, res) => {
+  const chats = readData(AI_CHATS_FILE);
+
+  const {
+    retailerId,
+    name,
+    businessName,
+    phone,
+    email,
+    message,
+    reply,
+    language,
+  } = req.body;
+
+  if (!message) {
+    return res.status(400).json({
+      success: false,
+      message: "Chat message is required.",
     });
   }
-);
 
-app.post(
-  "/api/ai-chats",
-  (req, res) => {
-    const chats =
-      readData(
-        AI_CHATS_FILE
-      );
+  const chat = {
+    id: createId("ai-chat"),
 
-    const {
-      retailerId,
-      name,
-      businessName,
-      phone,
-      email,
-      message,
-      reply,
-      language,
-    } = req.body;
+    retailerId: retailerId || null,
 
-    if (!message) {
-      return res.status(400).json({
-        success: false,
-        message:
-          "Chat message is required.",
-      });
-    }
+    name: String(name || "").trim(),
 
-    const chat = {
-      id: createId("ai-chat"),
+    businessName: String(
+      businessName || ""
+    ).trim(),
 
-      retailerId:
-        retailerId || null,
+    phone: String(phone || "").trim(),
 
-      name:
-        String(
-          name || ""
-        ).trim(),
+    email: String(email || "")
+      .trim()
+      .toLowerCase(),
 
-      businessName:
-        String(
-          businessName || ""
-        ).trim(),
+    message: String(message).trim(),
 
-      phone:
-        String(
-          phone || ""
-        ).trim(),
+    reply: String(reply || "").trim(),
 
-      email:
-        String(
-          email || ""
-        )
-          .trim()
-          .toLowerCase(),
+    language: language || "EN",
 
-      message:
-        String(message).trim(),
+    status: "New",
 
-      reply:
-        String(
-          reply || ""
-        ).trim(),
+    createdAt: new Date().toISOString(),
+  };
 
-      language:
-        language || "EN",
+  chats.unshift(chat);
 
-      status: "New",
+  writeData(AI_CHATS_FILE, chats);
 
-      createdAt:
-        new Date().toISOString(),
-    };
-
-    chats.unshift(chat);
-
-    writeData(
-      AI_CHATS_FILE,
-      chats
-    );
-
-    res.status(201).json({
-      success: true,
-      message:
-        "AI chat saved.",
-      chat,
-    });
-  }
-);
+  res.status(201).json({
+    success: true,
+    message: "AI chat saved.",
+    chat,
+  });
+});
 
 app.put(
   "/api/ai-chats/:id/status",
   (req, res) => {
-    const chats =
-      readData(
-        AI_CHATS_FILE
-      );
+    const chats = readData(AI_CHATS_FILE);
 
-    const { status } =
-      req.body;
+    const { status } = req.body;
 
     const allowed = [
       "New",
@@ -1707,9 +1335,7 @@ app.put(
       "Closed",
     ];
 
-    if (
-      !allowed.includes(status)
-    ) {
+    if (!allowed.includes(status)) {
       return res.status(400).json({
         success: false,
         message:
@@ -1717,41 +1343,32 @@ app.put(
       });
     }
 
-    const index =
-      chats.findIndex(
-        (item) =>
-          String(item.id) ===
-          String(req.params.id)
-      );
+    const index = chats.findIndex(
+      (item) =>
+        String(item.id) ===
+        String(req.params.id)
+    );
 
     if (index === -1) {
       return res.status(404).json({
         success: false,
-        message:
-          "Chat not found.",
+        message: "Chat not found.",
       });
     }
 
     chats[index] = {
       ...chats[index],
-
       status,
-
-      updatedAt:
-        new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
     };
 
-    writeData(
-      AI_CHATS_FILE,
-      chats
-    );
+    writeData(AI_CHATS_FILE, chats);
 
     res.json({
       success: true,
       message:
         "Chat status updated.",
-      chat:
-        chats[index],
+      chat: chats[index],
     });
   }
 );
@@ -1759,41 +1376,31 @@ app.put(
 app.delete(
   "/api/ai-chats/:id",
   (req, res) => {
-    const chats =
-      readData(
-        AI_CHATS_FILE
-      );
+    const chats = readData(AI_CHATS_FILE);
 
-    const index =
-      chats.findIndex(
-        (item) =>
-          String(item.id) ===
-          String(req.params.id)
-      );
+    const index = chats.findIndex(
+      (item) =>
+        String(item.id) ===
+        String(req.params.id)
+    );
 
     if (index === -1) {
       return res.status(404).json({
         success: false,
-        message:
-          "Chat not found.",
+        message: "Chat not found.",
       });
     }
 
-    const deleted =
-      chats.splice(
-        index,
-        1
-      )[0];
+    const deleted = chats.splice(
+      index,
+      1
+    )[0];
 
-    writeData(
-      AI_CHATS_FILE,
-      chats
-    );
+    writeData(AI_CHATS_FILE, chats);
 
     res.json({
       success: true,
-      message:
-        "Chat deleted.",
+      message: "Chat deleted.",
       chat: deleted,
     });
   }
@@ -1820,10 +1427,8 @@ app.post(
       "C24@2026";
 
     if (
-      username ===
-        adminUsername &&
-      password ===
-        adminPassword
+      username === adminUsername &&
+      password === adminPassword
     ) {
       return res.json({
         success: true,
@@ -1832,9 +1437,7 @@ app.post(
           "Admin login successful",
 
         admin: {
-          username:
-            adminUsername,
-
+          username: adminUsername,
           role: "admin",
         },
       });
@@ -1852,35 +1455,26 @@ app.post(
    404
 ========================================= */
 
-app.use(
-  (req, res) => {
-    console.log(
-      "404 ROUTE:",
-      req.method,
-      req.originalUrl
-    );
+app.use((req, res) => {
+  console.log(
+    "404 ROUTE:",
+    req.method,
+    req.originalUrl
+  );
 
-    res.status(404).json({
-      success: false,
-      message:
-        "API route not found",
-      path:
-        req.originalUrl,
-    });
-  }
-);
+  res.status(404).json({
+    success: false,
+    message: "API route not found",
+    path: req.originalUrl,
+  });
+});
 
 /* =========================================
    ERROR HANDLER
 ========================================= */
 
 app.use(
-  (
-    error,
-    req,
-    res,
-    next
-  ) => {
+  (error, req, res, next) => {
     console.error(
       "SERVER ERROR:",
       error
@@ -1888,8 +1482,7 @@ app.use(
 
     res.status(500).json({
       success: false,
-      message:
-        "Internal server error",
+      message: "Internal server error",
     });
   }
 );
@@ -1898,13 +1491,26 @@ app.use(
    START SERVER
 ========================================= */
 
-const PORT = process.env.PORT || 5000;
-
 console.log("Starting C24 Backend...");
 
-app.listen(PORT, "0.0.0.0", () => {
-  console.log("====================================");
-  console.log("C24 Backend running");
-  console.log(`Port: ${PORT}`);
-  console.log("====================================");
-});
+app.listen(
+  PORT,
+  "0.0.0.0",
+  () => {
+    console.log(
+      "===================================="
+    );
+
+    console.log(
+      "C24 Backend running"
+    );
+
+    console.log(
+      `Port: ${PORT}`
+    );
+
+    console.log(
+      "===================================="
+    );
+  }
+);
