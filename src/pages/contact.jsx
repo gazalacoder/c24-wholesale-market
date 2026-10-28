@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { useLanguage } from "../LanguageContext";
 
-import "./Contact.css";
+import "./contact.css";
 
 
 export default function Contact() {
