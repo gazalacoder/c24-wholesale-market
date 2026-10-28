@@ -113,6 +113,14 @@ export default function ProductsPage() {
 
 
   /* ===================================================
+     WISHLIST COUNT ✅
+  =================================================== */
+
+  const [wishlistCount, setWishlistCount] =
+    useState(0);
+
+
+  /* ===================================================
      CHECK RETAILER
   =================================================== */
 
@@ -281,6 +289,68 @@ export default function ProductsPage() {
       window.removeEventListener(
         "c24-cart-updated",
         updateCartCount
+      );
+
+    };
+
+  }, []);
+
+
+  /* ===================================================
+     WISHLIST COUNT ✅
+  =================================================== */
+
+  const updateWishlistCount = () => {
+
+    try {
+
+      const saved =
+        JSON.parse(
+          localStorage.getItem(
+            "c24Wishlist"
+          ) || "[]"
+        );
+
+      setWishlistCount(
+        Array.isArray(saved)
+          ? saved.length
+          : 0
+      );
+
+    } catch {
+
+      setWishlistCount(0);
+    }
+  };
+
+
+  useEffect(() => {
+
+    updateWishlistCount();
+
+
+    window.addEventListener(
+      "storage",
+      updateWishlistCount
+    );
+
+
+    window.addEventListener(
+      "c24-wishlist-updated",
+      updateWishlistCount
+    );
+
+
+    return () => {
+
+      window.removeEventListener(
+        "storage",
+        updateWishlistCount
+      );
+
+      window.removeEventListener(
+        "c24-wishlist-updated",
+        updateWishlistCount
       );
 
     };
@@ -813,6 +883,131 @@ export default function ProductsPage() {
 
 
   /* ===================================================
+     ADD TO WISHLIST ✅
+  =================================================== */
+
+  const addToWishlist = (product) => {
+
+    try {
+
+      const saved =
+        JSON.parse(
+          localStorage.getItem(
+            "c24Wishlist"
+          ) || "[]"
+        );
+
+
+      const wishlist =
+        Array.isArray(saved)
+          ? saved
+          : [];
+
+
+      const exists =
+        wishlist.find(
+          (item) =>
+            String(item.id) ===
+            String(product.id)
+        );
+
+
+      if (exists) {
+
+        alert(
+          "Already in wishlist! 💖"
+        );
+
+        return;
+      }
+
+
+      wishlist.push({
+
+        id:
+          product.id,
+
+        name:
+          product.name,
+
+        brand:
+          product.brand ||
+          "",
+
+        category:
+          product.category ||
+          "",
+
+        image:
+          product.image ||
+          product.images?.[0] ||
+          "",
+
+        price:
+          Number(
+            product.wholesalePrice ||
+            product.price ||
+            0
+          ),
+
+        wholesalePrice:
+          Number(
+            product.wholesalePrice ||
+            product.price ||
+            0
+          ),
+
+        mrp:
+          Number(
+            product.mrp ||
+            product.price ||
+            0
+          ),
+
+        stock:
+          Number(
+            product.stock || 0
+          ),
+      });
+
+
+      localStorage.setItem(
+        "c24Wishlist",
+        JSON.stringify(wishlist)
+      );
+
+
+      setWishlistCount(
+        wishlist.length
+      );
+
+
+      window.dispatchEvent(
+        new Event(
+          "c24-wishlist-updated"
+        )
+      );
+
+
+      alert(
+        `${product.name} - Added to Wishlist 💖`
+      );
+
+    } catch (err) {
+
+      console.error(
+        "Wishlist error:",
+        err
+      );
+
+      alert(
+        "Wishlist update failed."
+      );
+    }
+  };
+
+
+  /* ===================================================
      WHATSAPP
   =================================================== */
 
@@ -998,25 +1193,54 @@ Please share wholesale details.`;
         </div>
 
 
-        <button
-          type="button"
-          onClick={() =>
-            navigate("/cart")
-          }
-        >
+        <div className="topbar-actions">
 
-          🛒{" "}
-          {t("cart")}
+          {/* ✅ WISHLIST BUTTON */}
 
-          {cartCount > 0 && (
+          <button
+            type="button"
+            className="wishlist-topbar-btn"
+            onClick={() =>
+              navigate("/wishlist")
+            }
+          >
 
-            <b>
-              {cartCount}
-            </b>
+            💖 Wishlist
 
-          )}
+            {wishlistCount > 0 && (
 
-        </button>
+              <b>
+                {wishlistCount}
+              </b>
+
+            )}
+
+          </button>
+
+
+          {/* CART BUTTON */}
+
+          <button
+            type="button"
+            onClick={() =>
+              navigate("/cart")
+            }
+          >
+
+            🛒{" "}
+            {t("cart")}
+
+            {cartCount > 0 && (
+
+              <b>
+                {cartCount}
+              </b>
+
+            )}
+
+          </button>
+
+        </div>
 
       </div>
 
@@ -1087,10 +1311,6 @@ Please share wholesale details.`;
 
             </div>
 
-
-            {/* IMPORTANT:
-                Direct React navigation
-            */}
 
             <button
               type="button"
@@ -1514,6 +1734,24 @@ Please share wholesale details.`;
                         💬{" "}
 
                         {t("whatsapp")}
+
+                      </button>
+
+
+                      {/* ✅ WISHLIST BUTTON */}
+
+                      <button
+                        type="button"
+                        className="wishlist-icon-btn"
+                        onClick={() =>
+                          addToWishlist(
+                            product
+                          )
+                        }
+                        title="Add to Wishlist"
+                      >
+
+                        💖
 
                       </button>
 

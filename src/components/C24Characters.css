@@ -1,0 +1,167 @@
+/* =========================================
+   C24 CHARACTERS
+========================================= */
+
+.c24-character {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+}
+
+/* CHARACTER IMAGE */
+
+.c24-character img {
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+  display: block;
+
+  filter:
+    drop-shadow(
+      0 20px 30px
+      rgba(0, 0, 0, 0.25)
+    );
+}
+
+
+/* =========================================
+   POSITION
+========================================= */
+
+.c24-character.left {
+  align-items: flex-start;
+}
+
+.c24-character.right {
+  align-items: flex-end;
+}
+
+.c24-character.center {
+  align-items: center;
+}
+
+
+/* =========================================
+   MESSAGE BUBBLE
+========================================= */
+
+.character-message {
+  max-width: 220px;
+
+  background: white;
+
+  color: #111;
+
+  padding: 12px 16px;
+
+  border-radius:
+    18px
+    18px
+    18px
+    4px;
+
+  margin-bottom: 10px;
+
+  font-size: 14px;
+
+  font-weight: 500;
+
+  line-height: 1.5;
+
+  box-shadow:
+    0 10px 30px
+    rgba(0, 0, 0, 0.12);
+
+  position: relative;
+}
+
+
+/* SMALL ARROW */
+
+.character-message::after {
+  content: "";
+
+  position: absolute;
+
+  bottom: -8px;
+
+  left: 25px;
+
+  width: 16px;
+
+  height: 16px;
+
+  background: white;
+
+  transform:
+    rotate(45deg);
+
+  z-index: -1;
+}
+
+
+/* =========================================
+   MAIN MALE
+========================================= */
+
+.c24-character.male img {
+  max-width: 330px;
+}
+
+
+/* =========================================
+   FEMALE
+========================================= */
+
+.c24-character.female img {
+  max-width: 260px;
+}
+
+
+/* =========================================
+   SUPPORT CHARACTER
+========================================= */
+
+.c24-character.support img {
+  max-width: 240px;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+
+  .c24-character {
+    margin-top: 25px;
+  }
+
+  .c24-character img {
+    max-width: 190px;
+  }
+
+  .c24-character.male img {
+    max-width: 220px;
+  }
+
+  .c24-character.female img {
+    max-width: 180px;
+  }
+
+  .c24-character.support img {
+    max-width: 170px;
+  }
+
+  .character-message {
+    max-width: 180px;
+
+    font-size: 12px;
+
+    padding: 10px 13px;
+  }
+
+}

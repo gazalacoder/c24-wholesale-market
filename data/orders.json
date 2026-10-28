@@ -1,1 +1,59 @@
-[]
+[
+  {
+    "id": "order_1789112470277_765eb878",
+    "retailerId": 1787037529359,
+    "retailerName": "Gazala Anjum",
+    "name": "Gazala Anjum",
+    "phone": "9806135784",
+    "email": "anjumgazala1410@gmail.com",
+    "items": [
+      {
+        "productId": 1,
+        "name": "C24 Smart 4K TV",
+        "brand": "",
+        "category": "",
+        "quantity": 1,
+        "price": 24999,
+        "image": "/images/products/smart-tv.jpg"
+      },
+      {
+        "productId": 2,
+        "name": "Premium Washing Machine",
+        "brand": "",
+        "category": "",
+        "quantity": 1,
+        "price": 19999,
+        "image": "/images/products/washing-machine.jpg"
+      }
+    ],
+    "totalAmount": 44998,
+    "message": "Order placed from C24 retailer cart.",
+    "status": "Cancelled",
+    "createdAt": "2026-09-11T07:41:10.279Z",
+    "updatedAt": "2026-09-11T09:55:28.768Z"
+  },
+  {
+    "id": "order_1789120966155_4c70f156",
+    "retailerId": 1787037529359,
+    "retailerName": "Gazala Anjum",
+    "name": "Gazala Anjum",
+    "phone": "9806135784",
+    "email": "anjumgazala1410@gmail.com",
+    "items": [
+      {
+        "productId": 1,
+        "name": "C24 Smart 4K TV",
+        "brand": "",
+        "category": "",
+        "quantity": 1,
+        "price": 24999,
+        "image": "/images/products/smart-tv.jpg"
+      }
+    ],
+    "totalAmount": 24999,
+    "message": "Order placed from C24 retailer cart.",
+    "status": "Shipped",
+    "createdAt": "2026-09-11T10:02:46.167Z",
+    "updatedAt": "2026-09-11T11:05:22.179Z"
+  }
+]

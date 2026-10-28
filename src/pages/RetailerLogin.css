@@ -1,3 +1,7 @@
+/* =========================================
+   RETAILER LOGIN PAGE
+========================================= */
+
 .retailer-login-page {
   min-height: 100vh;
   padding: 100px 6%;
@@ -184,6 +188,265 @@
   color: white;
 }
 
+/* =========================================
+   LOGIN SUCCESS SCREEN - CENTER FIX ✅
+========================================= */
+
+.login-success-container {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 191, 255, 0.08) 0%,
+    #02060b 70%
+  );
+
+  overflow-y: auto;
+}
+
+.login-success-card {
+  position: relative;
+
+  width: 100%;
+  max-width: 500px;
+
+  padding: 50px 40px;
+
+  border-radius: 28px;
+
+  background: linear-gradient(
+    135deg,
+    rgba(0, 191, 255, 0.08) 0%,
+    rgba(2, 6, 11, 0.95) 100%
+  );
+
+  border: 1px solid rgba(0, 191, 255, 0.25);
+
+  box-shadow:
+    0 40px 100px rgba(0, 191, 255, 0.2),
+    0 0 0 1px rgba(0, 191, 255, 0.1);
+
+  text-align: center;
+
+  overflow: hidden;
+
+  margin: auto;
+}
+
+.login-success-card::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+
+  background: radial-gradient(
+    circle,
+    rgba(0, 191, 255, 0.1) 0%,
+    transparent 70%
+  );
+
+  animation: rotate 20s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* =========================================
+   SUCCESS ICON
+========================================= */
+
+.success-icon-wrapper {
+  position: relative;
+
+  width: 120px;
+  height: 120px;
+
+  margin: 0 auto 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.success-icon {
+  position: relative;
+
+  width: 100px;
+  height: 100px;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: linear-gradient(
+    135deg,
+    #00b894,
+    #00cfff
+  );
+
+  font-size: 48px;
+
+  box-shadow:
+    0 15px 50px rgba(0, 200, 150, 0.4),
+    0 0 0 8px rgba(0, 200, 150, 0.1);
+
+  z-index: 2;
+}
+
+.success-ripple {
+  position: absolute;
+
+  inset: 0;
+
+  border-radius: 50%;
+
+  border: 2px solid rgba(0, 200, 150, 0.5);
+
+  pointer-events: none;
+}
+
+/* =========================================
+   TEXT
+========================================= */
+
+.login-success-card h1 {
+  margin: 0 0 15px;
+
+  font-size: 32px;
+  font-weight: 800;
+
+  color: #fff;
+
+  background: linear-gradient(100deg, #fff, #00cfff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.success-welcome-text {
+  margin: 0 0 10px;
+
+  font-size: 18px;
+
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.success-welcome-text strong {
+  color: #00cfff;
+  font-weight: 800;
+}
+
+.success-sub-text {
+  margin: 0 0 30px;
+
+  font-size: 14px;
+
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* =========================================
+   FLOATING SPARKLES
+========================================= */
+
+.success-sparkle {
+  position: absolute;
+
+  font-size: 20px;
+
+  pointer-events: none;
+
+  z-index: 5;
+}
+
+/* =========================================
+   SUCCESS ACTIONS
+========================================= */
+
+.success-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  margin-top: 30px;
+}
+
+.success-actions button {
+  width: 100%;
+
+  padding: 16px 24px;
+
+  border-radius: 50px;
+
+  border: none;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.25s ease;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* Go to Website - PRIMARY */
+.go-to-website-btn {
+  background: linear-gradient(100deg, #00b894, #00cfff);
+  color: #fff;
+
+  box-shadow: 0 10px 35px rgba(0, 200, 150, 0.3);
+}
+
+.go-to-website-btn:hover {
+  box-shadow: 0 15px 45px rgba(0, 200, 150, 0.45);
+}
+
+/* Go to Dashboard - SECONDARY */
+.go-to-dashboard-btn {
+  background: linear-gradient(100deg, #006eff, #00cfff);
+  color: #fff;
+
+  box-shadow: 0 10px 35px rgba(0, 153, 255, 0.25);
+}
+
+.go-to-dashboard-btn:hover {
+  box-shadow: 0 15px 45px rgba(0, 153, 255, 0.4);
+}
+
+/* Continue Shopping - OUTLINE */
+.continue-shopping-btn {
+  background: rgba(0, 191, 255, 0.08);
+  color: #00cfff;
+
+  border: 1px solid rgba(0, 191, 255, 0.3) !important;
+}
+
+.continue-shopping-btn:hover {
+  background: rgba(0, 191, 255, 0.15);
+}
+
+/* =========================================
+   TABLET
+========================================= */
+
 @media (max-width: 850px) {
   .retailer-login-container {
     grid-template-columns: 1fr;
@@ -192,6 +455,48 @@
 
   .retailer-login-intro h1 {
     font-size: 52px;
+  }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+  .login-success-container {
+    padding: 20px 15px;
+  }
+
+  .login-success-card {
+    padding: 40px 25px;
+  }
+
+  .success-icon-wrapper {
+    width: 100px;
+    height: 100px;
+  }
+
+  .success-icon {
+    width: 85px;
+    height: 85px;
+    font-size: 40px;
+  }
+
+  .login-success-card h1 {
+    font-size: 24px;
+  }
+
+  .success-welcome-text {
+    font-size: 16px;
+  }
+
+  .success-sub-text {
+    font-size: 13px;
+  }
+
+  .success-actions button {
+    padding: 14px 20px;
+    font-size: 14px;
   }
 }
 

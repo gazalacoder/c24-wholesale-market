@@ -7,6 +7,7 @@ import Home from "./pages/home";
 import Enquiry from "./pages/enquiry";
 import ProductsPage from "./pages/ProductsPage";
 import Cart from "./components/Cart";
+import Wishlist from "./pages/Wishlist";  // ✅ Wishlist import
 
 import RetailerLogin from "./pages/RetailerLogin";
 import RetailerDashboard from "./pages/RetailerDashboard";
@@ -59,6 +60,16 @@ export default function App() {
         <Route
           path="/cart"
           element={<Cart />}
+        />
+
+
+        {/* =========================
+            WISHLIST ✅ NEW
+        ========================= */}
+
+        <Route
+          path="/wishlist"
+          element={<Wishlist />}
         />
 
 

@@ -17,60 +17,36 @@ import Enquiry from "./enquiry";
 
 import "./Home.css";
 
+// ✅ Video Import
+import videoSrc from "/videos/welcome.mp4";
 
 export default function Home() {
+  const { t, language, setLanguage } = useLanguage();
 
-  const {
-    t,
-    language,
-    setLanguage
-  } = useLanguage();
-
-
-  const [showHome, setShowHome] =
-    useState(false);
-
-  const [menuOpen, setMenuOpen] =
-    useState(false);
-
-
-  /* =====================================================
-     INTRO
-  ===================================================== */
+  const [showHome, setShowHome] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-
     const timer = setTimeout(() => {
       setShowHome(true);
     }, 6500);
 
-    return () => {
-      clearTimeout(timer);
-    };
-
+    return () => clearTimeout(timer);
   }, []);
-
-
-  /* =====================================================
-     CLOSE MOBILE MENU
-  ===================================================== */
 
   const closeMenu = () => {
     setMenuOpen(false);
   };
 
-
   return (
-
     <main className="home">
 
-{/* =====================================================
-    NAVBAR
-===================================================== */}
+      {/* ================= NAVBAR ================= */}
+
+      {/* ================= NAVBAR ================= */}
 
 <header className="c24-navbar">
 
-  {/* LOGO */}
   <Link to="/" className="c24-logo">
     <strong>C24</strong>
 
@@ -81,7 +57,6 @@ export default function Home() {
   </Link>
 
 
-  {/* NAV LINKS */}
   <nav className="c24-nav">
 
     <a href="#home">
@@ -112,13 +87,24 @@ export default function Home() {
       {t("contact")}
     </a>
 
+
+    {/* ================= MY ORDERS ================= */}
+
+    <Link
+      to="/my-orders"
+      className="nav-my-orders"
+    >
+      📦 My Orders
+    </Link>
+
   </nav>
 
 
-  {/* RIGHT SIDE */}
   <div className="c24-nav-actions">
 
+
     {/* LANGUAGE */}
+
     <div className="language-switcher">
 
       <span className="language-icon">
@@ -127,9 +113,9 @@ export default function Home() {
 
       <select
         value={language}
-        onChange={(e) => {
-          setLanguage(e.target.value);
-        }}
+        onChange={(e) =>
+          setLanguage(e.target.value)
+        }
       >
 
         <option value="EN">
@@ -150,6 +136,7 @@ export default function Home() {
 
 
     {/* CART */}
+
     <Link
       to="/cart"
       className="nav-cart-button"
@@ -158,7 +145,8 @@ export default function Home() {
     </Link>
 
 
-    {/* RETAILER LOGIN */}
+    {/* LOGIN */}
+
     <Link
       to="/retailer-login"
       className="retailer-login"
@@ -170,345 +158,258 @@ export default function Home() {
 
 
   {/* MOBILE MENU */}
+
   <button
     type="button"
     className="mobile-menu-button"
-    onClick={() => setMenuOpen(!menuOpen)}
+    onClick={() =>
+      setMenuOpen(!menuOpen)
+    }
   >
     ☰
   </button>
 
 </header>
 
+      {/* ================= MOBILE MENU ================= */}
 
-     {/* =====================================================
-    MOBILE NAVIGATION
-===================================================== */}
+      {menuOpen && (
+        <div className="mobile-navigation">
 
-{menuOpen && (
-  <div className="mobile-navigation">
+          <a href="#home" onClick={closeMenu}>
+            {t("home")}
+          </a>
 
-    <a
-      href="#home"
-      onClick={() => setMenuOpen(false)}
-    >
-      {t("home")}
-    </a>
+          <a href="#about" onClick={closeMenu}>
+            {t("about")}
+          </a>
 
-    <a
-      href="#about"
-      onClick={() => setMenuOpen(false)}
-    >
-      {t("about")}
-    </a>
+          <a href="#products" onClick={closeMenu}>
+            {t("products")}
+          </a>
 
-    <a
-      href="#products"
-      onClick={() => setMenuOpen(false)}
-    >
-      {t("products")}
-    </a>
+          <a href="#categories" onClick={closeMenu}>
+            {t("categories")}
+          </a>
 
-    <a
-      href="#categories"
-      onClick={() => setMenuOpen(false)}
-    >
-      {t("categories")}
-    </a>
+          <a href="#offers" onClick={closeMenu}>
+            {t("offers")}
+          </a>
 
-    <a
-      href="#offers"
-      onClick={() => setMenuOpen(false)}
-    >
-      {t("offers")}
-    </a>
+          <a href="#price-list" onClick={closeMenu}>
+            {t("priceList")}
+          </a>
 
-    <a
-      href="#price-list"
-      onClick={() => setMenuOpen(false)}
-    >
-      {t("priceList")}
-    </a>
+          <a href="#contact" onClick={closeMenu}>
+            {t("contact")}
+          </a>
 
-    <a
-      href="#contact"
-      onClick={() => setMenuOpen(false)}
-    >
-      {t("contact")}
-    </a>
+          <div className="mobile-language">
 
+            <span>🌐</span>
 
-    {/* =========================
-        MOBILE LANGUAGE
-    ========================= */}
+            <select
+              value={language}
+              onChange={(e) => setLanguage(e.target.value)}
+            >
+              <option value="EN">English</option>
+              <option value="HI">हिन्दी</option>
+              <option value="GU">ગુજરાતી</option>
+            </select>
 
-    <div className="mobile-language">
+          </div>
 
-      <span>
-        🌐
-      </span>
+          <Link
+            to="/cart"
+            className="mobile-cart"
+            onClick={closeMenu}
+          >
+            🛒 {t("cart")}
+          </Link>
 
-      <select
-        value={language}
-        onChange={(e) => {
-          setLanguage(e.target.value);
-        }}
-      >
-        <option value="EN">
-          English
-        </option>
-
-        <option value="HI">
-          हिन्दी
-        </option>
-
-        <option value="GU">
-          ગુજરાતી
-        </option>
-      </select>
-
-    </div>
-
-
-    {/* =========================
-        MOBILE CART
-    ========================= */}
-
-    <Link
-      to="/cart"
-      className="mobile-cart"
-      onClick={() => setMenuOpen(false)}
-    >
-      🛒 {t("cart")}
-    </Link>
-
-
-    {/* =========================
-        RETAILER LOGIN
-    ========================= */}
-
-    <Link
-      to="/retailer-login"
-      className="mobile-retailer"
-      onClick={() => setMenuOpen(false)}
-    >
-      {t("login")}
-    </Link>
-
-  </div>
-)}
-
-      {/* =================================================
-          INTRO SCENE
-      ================================================= */}
-
-      {!showHome && (
-
-        <div className="intro-wrapper">
-
-          <IntroScene
-            onComplete={() => {
-              setShowHome(true);
-            }}
-          />
+          <Link
+            to="/retailer-login"
+            className="mobile-retailer"
+            onClick={closeMenu}
+          >
+            {t("login")}
+          </Link>
 
         </div>
-
       )}
 
 
-      {/* =================================================
-          MAIN HOME
-      ================================================= */}
+      {/* ================= INTRO ================= */}
+
+      {!showHome && (
+        <div className="intro-wrapper">
+          <IntroScene
+            onComplete={() => setShowHome(true)}
+          />
+        </div>
+      )}
+
+
+      {/* ================= MAIN WEBSITE ================= */}
 
       {showHome && (
 
         <motion.div
           className="home-main"
-
-          initial={{
-            opacity: 0,
-          }}
-
-          animate={{
-            opacity: 1,
-          }}
-
-          transition={{
-            duration: 0.8,
-          }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
         >
 
-
-          {/* =================================================
-              HERO
-          ================================================= */}
+          {/* ================= HERO SECTION - LEFT RIGHT LAYOUT ================= */}
 
           <section
             id="home"
             className="real-home"
           >
 
-            {/* BLUE GLOW */}
-
-            <div className="blue-glow glow-one" />
-
-            <div className="blue-glow glow-two" />
-
-
-            {/* HERO CONTENT */}
-
-            <div className="home-content">
-
-              <motion.span
-                className="home-eyebrow"
-
-                initial={{
-                  opacity: 0,
-                  y: -20,
-                }}
-
-                animate={{
-                  opacity: 1,
-                  y: 0,
-                }}
-
-                transition={{
-                  delay: 0.15,
-                  duration: 0.5,
-                }}
-              >
-                C24 HOME APPLICATION WHOLESALE
-              </motion.span>
+            {/* ===== VIDEO - RIGHT SIDE ===== */}
+<div className="video-wrapper" style={{ 
+  display: 'flex', 
+  alignItems: 'center', 
+  justifyContent: 'center',
+  background: '#000',
+  overflow: 'hidden'
+}}>
+  <video
+    className="welcome-video"
+    autoPlay
+    muted
+    loop
+    playsInline
+    preload="auto"
+    style={{
+      width: '100%',
+      height: '100%',
+      objectFit: 'contain',
+      objectPosition: 'center'
+    }}
+  >
+    <source src={videoSrc} type="video/mp4" />
+  </video>
+  <div className="video-overlay-right"></div>
+</div>
 
 
-              <motion.h1
+            {/* ===== CONTENT - LEFT SIDE ===== */}
 
-                initial={{
-                  opacity: 0,
-                  x: -30,
-                }}
+            <div className="home-content-wrapper">
 
-                animate={{
-                  opacity: 1,
-                  x: 0,
-                }}
+              <div className="home-content">
 
-                transition={{
-                  delay: 0.3,
-                  duration: 0.7,
-                }}
-              >
-
-                {t("homeTitle")}
-
-                <br />
-
-                <span>
-                  {t("homeTitle2")}
-                </span>
-
-              </motion.h1>
-
-
-              <motion.p
-
-                initial={{
-                  opacity: 0,
-                  y: 20,
-                }}
-
-                animate={{
-                  opacity: 1,
-                  y: 0,
-                }}
-
-                transition={{
-                  delay: 0.5,
-                  duration: 0.5,
-                }}
-              >
-                {t("homeDescription")}
-              </motion.p>
-
-
-              {/* HERO BUTTONS */}
-
-              <motion.div
-                className="home-buttons"
-
-                initial={{
-                  opacity: 0,
-                  y: 20,
-                }}
-
-                animate={{
-                  opacity: 1,
-                  y: 0,
-                }}
-
-                transition={{
-                  delay: 0.7,
-                  duration: 0.5,
-                }}
-              >
-
-                <motion.a
-                  href="#products"
-
-                  whileHover={{
-                    scale: 1.05,
+                <motion.span
+                  className="home-eyebrow"
+                  initial={{
+                    opacity: 0,
+                    y: -20,
                   }}
-
-                  whileTap={{
-                    scale: 0.96,
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                  }}
+                  transition={{
+                    delay: 0.15,
+                    duration: 0.5,
                   }}
                 >
-                  {t("explore")}
-                </motion.a>
+                  C24 HOME APPLICATION WHOLESALE
+                </motion.span>
 
 
-                <motion.a
-                  href="#enquiry"
-                  className="secondary-btn"
-
-                  whileHover={{
-                    scale: 1.05,
+                <motion.h1
+                  initial={{
+                    opacity: 0,
+                    x: -30,
                   }}
-
-                  whileTap={{
-                    scale: 0.96,
+                  animate={{
+                    opacity: 1,
+                    x: 0,
+                  }}
+                  transition={{
+                    delay: 0.3,
+                    duration: 0.7,
                   }}
                 >
-                  {t("wholesaleQuote")}
-                </motion.a>
 
-              </motion.div>
+                  {t("homeTitle")}
 
-            </div>
+                  <br />
+
+                  <span>
+                    {t("homeTitle2")}
+                  </span>
+
+                </motion.h1>
 
 
-            {/* =================================================
-                PREMIUM C24 VISUAL
-            ================================================= */}
+                <motion.p
+                  initial={{
+                    opacity: 0,
+                    y: 20,
+                  }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                  }}
+                  transition={{
+                    delay: 0.5,
+                    duration: 0.5,
+                  }}
+                >
+                  {t("homeDescription")}
+                </motion.p>
 
-            <div className="hero-visual">
 
-              <div className="hero-ring ring-one" />
+                {/* BUTTONS */}
 
-              <div className="hero-ring ring-two" />
+                <motion.div
+                  className="home-buttons"
+                  initial={{
+                    opacity: 0,
+                    y: 20,
+                  }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                  }}
+                  transition={{
+                    delay: 0.7,
+                    duration: 0.5,
+                  }}
+                >
 
-              <div className="hero-ring ring-three" />
+                  <motion.a
+                    href="#products"
+                    whileHover={{
+                      scale: 1.05,
+                    }}
+                    whileTap={{
+                      scale: 0.96,
+                    }}
+                  >
+                    {t("explore")}
+                  </motion.a>
 
-              <div className="hero-logo">
 
-                <strong>
-                  C24
-                </strong>
+                  <motion.a
+                    href="#enquiry"
+                    className="secondary-btn"
+                    whileHover={{
+                      scale: 1.05,
+                    }}
+                    whileTap={{
+                      scale: 0.96,
+                    }}
+                  >
+                    {t("wholesaleQuote")}
+                  </motion.a>
 
-                <span>
-                  WHOLESALE
-                </span>
+                </motion.div>
 
               </div>
 
@@ -517,109 +418,78 @@ export default function Home() {
           </section>
 
 
-          {/* =================================================
-              ABOUT
-          ================================================= */}
+          {/* ================= ABOUT ================= */}
 
           <section
             id="about"
             className="home-section"
           >
-
             <TrustSection />
-
             <BusinessTrust />
-
           </section>
 
 
-          {/* =================================================
-              PRODUCTS
-          ================================================= */}
+          {/* ================= PRODUCTS ================= */}
 
           <section
             id="products"
             className="home-section"
           >
-
             <ProductsPage />
-
           </section>
 
 
-          {/* =================================================
-              CATEGORIES
-          ================================================= */}
+          {/* ================= CATEGORIES ================= */}
 
           <section
             id="categories"
             className="home-section"
           >
-
             <CategoriesPage />
-
           </section>
 
 
-          {/* =================================================
-              DAILY OFFERS
-          ================================================= */}
+          {/* ================= OFFERS ================= */}
 
           <section
             id="offers"
             className="home-section"
           >
-
             <DailyOffers />
-
           </section>
 
 
-          {/* =================================================
-              PRICE LIST
-          ================================================= */}
+          {/* ================= PRICE LIST ================= */}
 
           <section
             id="price-list"
             className="home-section"
           >
-
             <PriceList />
-
           </section>
 
 
-          {/* =================================================
-              CONTACT
-          ================================================= */}
+          {/* ================= CONTACT ================= */}
 
           <section
             id="contact"
             className="home-section"
           >
-
             <Contact />
-
           </section>
 
 
-          {/* =================================================
-              ENQUIRY
-          ================================================= */}
+          {/* ================= ENQUIRY ================= */}
 
           <section
             id="enquiry"
             className="home-section"
           >
-
             <Enquiry />
-
           </section>
 
 
-          {/* =================================================
-              FOOTER
-          ================================================= */}
+          {/* ================= FOOTER ================= */}
 
           <footer className="c24-footer">
 
@@ -634,7 +504,7 @@ export default function Home() {
 
             </div>
 
-            <div className="footer-divider" />
+            <div className="footer-divider"></div>
 
             <p>
               © 2026 C24 Home Application Wholesale
@@ -647,6 +517,5 @@ export default function Home() {
       )}
 
     </main>
-
   );
 }

@@ -26,6 +26,33 @@ app.use(
 app.use(express.json());
 
 /* =========================================
+   STATIC FILES (IMAGES) ✅
+========================================= */
+
+// /images/products/smart-tv.jpg
+app.use(
+  "/images",
+  express.static(
+    path.join(__dirname, "public/images")
+  )
+);
+
+// /products/fan.jpg
+app.use(
+  "/products",
+  express.static(
+    path.join(__dirname, "public/products")
+  )
+);
+
+// Fallback - poora public folder
+app.use(
+  express.static(
+    path.join(__dirname, "public")
+  )
+);
+
+/* =========================================
    DATA FOLDER
 ========================================= */
 

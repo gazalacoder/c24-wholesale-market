@@ -150,6 +150,21 @@ export default function Navbar() {
 
           </li>
 
+
+          {/* MY ORDERS */}
+
+          <li>
+
+            <Link
+              to="/my-orders"
+              onClick={closeMenu}
+            >
+              My Orders
+            </Link>
+
+          </li>
+
+
         </ul>
 
 
