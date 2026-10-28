@@ -18,7 +18,7 @@ ReactDOM.createRoot(
   <React.StrictMode>
 
     <BrowserRouter
-      basename="/c24-wholesale-market"
+      
     >
 
       <LanguageProvider>
