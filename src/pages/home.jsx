@@ -15,7 +15,7 @@ import CategoriesPage from "./CategoriesPage";
 import Contact from "./contact";
 import Enquiry from "./enquiry";
 
-import "./Home.css";
+import "./home.css";
 
 // ✅ Video Import
 import videoSrc from "/videos/welcome.mp4";
