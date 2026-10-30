@@ -1,9 +1,6 @@
 import { useLanguage } from "../LanguageContext";
+import { API_URL } from "../api"; // ✅ Central API import kiya
 import "./PriceList.css";
-
-const API =
-  import.meta.env.VITE_API_URL ||
-  "http://localhost:5000/api";
 
 export default function PriceList() {
   const { t, language } = useLanguage();
@@ -24,53 +21,25 @@ export default function PriceList() {
       }
 
       // Save download information for admin
-      await fetch(
-        `${API}/price-list-downloads`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            retailerId:
-              retailer?.id ||
-              retailer?._id ||
-              null,
-
-            name:
-              retailer?.name ||
-              "",
-
-            businessName:
-              retailer?.businessName ||
-              "",
-
-            phone:
-              retailer?.phone ||
-              "",
-
-            email:
-              retailer?.email ||
-              "",
-
-            language:
-              language ||
-              localStorage.getItem(
-                "c24Language"
-              ) ||
-              "EN",
-
-            downloadedAt:
-              new Date().toISOString(),
-          }),
-        }
-      );
+      // ✅ API_URL use kiya taaki double /api/api na bane
+      await fetch(`${API_URL}/price-list-downloads`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          retailerId: retailer?.id || retailer?._id || null,
+          name: retailer?.name || "",
+          businessName: retailer?.businessName || "",
+          phone: retailer?.phone || "",
+          email: retailer?.email || "",
+          language: language || localStorage.getItem("c24Language") || "EN",
+          downloadedAt: new Date().toISOString(),
+        }),
+      });
     } catch (error) {
       // PDF download ko block nahi karna
-      console.error(
-        "Price list tracking error:",
-        error
-      );
+      console.error("Price list tracking error:", error);
     }
 
     // PDF download/open
@@ -82,33 +51,18 @@ export default function PriceList() {
   };
 
   return (
-    <section
-      id="price-list"
-      className="price-list-section"
-    >
+    <section id="price-list" className="price-list-section">
       <div className="price-list-content">
-
-        <span>
-          C24 WHOLESALE
-        </span>
-
-        <h2>
-          {t("wholesalePriceList")}
-        </h2>
-
-        <p>
-          {t("wholesalePricing")}
-        </p>
-
+        <span>C24 WHOLESALE</span>
+        <h2>{t("wholesalePriceList")}</h2>
+        <p>{t("wholesalePricing")}</p>
         <button
           type="button"
           className="price-list-button"
           onClick={handleDownload}
         >
-          📄{" "}
-          {t("downloadPriceList")}
+          📄 {t("downloadPriceList")}
         </button>
-
       </div>
     </section>
   );

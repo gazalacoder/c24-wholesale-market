@@ -1,9 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-
-const API =
-  import.meta.env.VITE_API_URL || "http://localhost:5000";
-
-const BASE = import.meta.env.BASE_URL;
+import { API_URL, BACKEND_URL } from "../api"; // ✅ Central API import kiya
 
 const emptyForm = {
   name: "",
@@ -49,7 +45,7 @@ function Product() {
       setLoading(true);
       setError("");
 
-      const response = await fetch(`${API}/api/products`);
+      const response = await fetch(`${API_URL}/products`); // ✅ API_URL use kiya
 
       if (!response.ok) {
         throw new Error("Products load nahi ho paaye");
@@ -339,7 +335,6 @@ function Product() {
             form.specifications
           );
         } catch {
-          // Keep plain text if JSON is not provided
           specifications = form.specifications;
         }
       }
@@ -359,9 +354,10 @@ function Product() {
         specifications,
       };
 
+      // ✅ API_URL use kiya
       const url = editingId
-        ? `${API}/api/products/${editingId}`
-        : `${API}/api/products`;
+        ? `${API_URL}/products/${editingId}`
+        : `${API_URL}/products`;
 
       const response = await fetch(url, {
         method: editingId ? "PUT" : "POST",
@@ -415,7 +411,7 @@ function Product() {
       setSuccess("");
 
       const response = await fetch(
-        `${API}/api/products/${product.id}`,
+        `${API_URL}/products/${product.id}`, // ✅ API_URL use kiya
         {
           method: "DELETE",
         }
@@ -444,6 +440,7 @@ function Product() {
   // ================================
 
   function getImage(product) {
+    // ✅ Images ke liye BACKEND_URL use kiya
     if (
       product.images &&
       Array.isArray(product.images) &&
@@ -455,22 +452,15 @@ function Product() {
         return image;
       }
 
-      return `${BASE}${String(image).replace(
-        /^\/+/,
-        ""
-      )}`;
+      return `${BACKEND_URL}/${String(image).replace(/^\/+/, "")}`;
     }
 
     if (product.image) {
-      if (
-        String(product.image).startsWith("http")
-      ) {
+      if (String(product.image).startsWith("http")) {
         return product.image;
       }
 
-      return `${BASE}${String(
-        product.image
-      ).replace(/^\/+/, "")}`;
+      return `${BACKEND_URL}/${String(product.image).replace(/^\/+/, "")}`;
     }
 
     return "";

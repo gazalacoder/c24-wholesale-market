@@ -1,11 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { API_URL } from "../api"; // ✅ Central API import kiya
 import "./RetailerLogin.css";
-
-const API =
-  import.meta.env.VITE_API_URL ||
-  "http://localhost:5000/api";
 
 export default function RetailerLogin() {
   const navigate = useNavigate();
@@ -51,10 +48,8 @@ export default function RetailerLogin() {
 
   const switchMode = (newMode) => {
     setMode(newMode);
-
     setError("");
     setSuccess("");
-
     setForm({
       name: "",
       businessName: "",
@@ -81,11 +76,11 @@ export default function RetailerLogin() {
       let body;
 
       /* LOGIN */
-
       if (mode === "login") {
         const identifier = form.email.trim();
 
-        endpoint = `${API}/retailers/login`;
+        // ✅ API_URL use kiya
+        endpoint = `${API_URL}/retailers/login`;
 
         body = {
           phone: identifier,
@@ -93,11 +88,10 @@ export default function RetailerLogin() {
           password: form.password,
         };
       }
-
       /* REGISTER */
-
       else {
-        endpoint = `${API}/retailers/register`;
+        // ✅ API_URL use kiya
+        endpoint = `${API_URL}/retailers/register`;
 
         body = {
           name: form.name.trim(),
@@ -111,70 +105,41 @@ export default function RetailerLogin() {
 
       const response = await fetch(endpoint, {
         method: "POST",
-
-        headers: {
-          "Content-Type": "application/json",
-        },
-
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
 
       let data;
-
       try {
         data = await response.json();
       } catch {
-        throw new Error(
-          "Server se valid response nahi mila."
-        );
+        throw new Error("Server se valid response nahi mila.");
       }
 
       if (!response.ok) {
-        throw new Error(
-          data?.message ||
-          "Something went wrong."
-        );
+        throw new Error(data?.message || "Something went wrong.");
       }
 
       /* LOGIN SUCCESS */
-
       if (mode === "login") {
         if (!data?.retailer) {
-          throw new Error(
-            "Retailer data server se nahi mila."
-          );
+          throw new Error("Retailer data server se nahi mila.");
         }
 
-        localStorage.setItem(
-          "c24Retailer",
-          JSON.stringify(data.retailer)
-        );
-
+        localStorage.setItem("c24Retailer", JSON.stringify(data.retailer));
         localStorage.removeItem("c24_retailer");
         localStorage.removeItem("c24_retailer_id");
 
-        window.dispatchEvent(
-          new Event("c24-retailer-login")
-        );
+        window.dispatchEvent(new Event("c24-retailer-login"));
 
         // ✅ SET SUCCESS SCREEN
-        setRetailerName(
-          data.retailer.name ||
-          data.retailer.businessName ||
-          "Retailer"
-        );
+        setRetailerName(data.retailer.name || data.retailer.businessName || "Retailer");
         setLoginSuccess(true);
       }
-
       /* REGISTER SUCCESS */
-
       else {
-        setSuccess(
-          "Account created successfully! Now login with your phone or email."
-        );
-
+        setSuccess("Account created successfully! Now login with your phone or email.");
         setMode("login");
-
         setForm({
           name: "",
           businessName: "",
@@ -185,15 +150,8 @@ export default function RetailerLogin() {
         });
       }
     } catch (err) {
-      console.error(
-        "Retailer authentication error:",
-        err
-      );
-
-      setError(
-        err?.message ||
-        "Server se connection nahi ho raha."
-      );
+      console.error("Retailer authentication error:", err);
+      setError(err?.message || "Server se connection nahi ho raha.");
     } finally {
       setLoading(false);
     }
@@ -207,51 +165,30 @@ export default function RetailerLogin() {
     return (
       <section className="retailer-login-page">
         <div className="login-success-container">
-
           <motion.div
             className="login-success-card"
             initial={{ opacity: 0, scale: 0.8, y: 30 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.6, type: "spring" }}
           >
-
             {/* SUCCESS ICON */}
             <motion.div
               className="success-icon-wrapper"
               initial={{ scale: 0, rotate: -180 }}
               animate={{ scale: 1, rotate: 0 }}
-              transition={{
-                delay: 0.2,
-                duration: 0.7,
-                type: "spring",
-                bounce: 0.5,
-              }}
+              transition={{ delay: 0.2, duration: 0.7, type: "spring", bounce: 0.5 }}
             >
               <div className="success-icon">✅</div>
 
-              {/* RIPPLE EFFECT */}
               <motion.div
                 className="success-ripple"
-                animate={{
-                  scale: [1, 2, 2.5],
-                  opacity: [0.6, 0.3, 0],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                }}
+                animate={{ scale: [1, 2, 2.5], opacity: [0.6, 0.3, 0] }}
+                transition={{ duration: 2, repeat: Infinity }}
               />
               <motion.div
                 className="success-ripple"
-                animate={{
-                  scale: [1, 2, 2.5],
-                  opacity: [0.6, 0.3, 0],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  delay: 0.5,
-                }}
+                animate={{ scale: [1, 2, 2.5], opacity: [0.6, 0.3, 0] }}
+                transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
               />
             </motion.div>
 
@@ -270,8 +207,7 @@ export default function RetailerLogin() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
             >
-              Welcome back,{" "}
-              <strong>{retailerName}</strong>
+              Welcome back, <strong>{retailerName}</strong>
             </motion.p>
 
             <motion.p
@@ -288,27 +224,15 @@ export default function RetailerLogin() {
               <motion.div
                 key={i}
                 className="success-sparkle"
-                initial={{
-                  opacity: 0,
-                  scale: 0,
-                  x: 0,
-                  y: 0,
-                }}
+                initial={{ opacity: 0, scale: 0, x: 0, y: 0 }}
                 animate={{
                   opacity: [0, 1, 0],
                   scale: [0, 1, 0.5],
                   x: [0, (i % 2 === 0 ? 80 : -80)],
                   y: [0, (i % 3 === 0 ? -60 : 60)],
                 }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  delay: i * 0.25,
-                }}
-                style={{
-                  left: "50%",
-                  top: "25%",
-                }}
+                transition={{ duration: 2, repeat: Infinity, delay: i * 0.25 }}
+                style={{ left: "50%", top: "25%" }}
               >
                 {["✨", "⭐", "💫", "🌟"][i % 4]}
               </motion.div>
@@ -321,8 +245,6 @@ export default function RetailerLogin() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8 }}
             >
-
-              {/* GO TO WEBSITE */}
               <motion.button
                 type="button"
                 className="go-to-website-btn"
@@ -333,7 +255,6 @@ export default function RetailerLogin() {
                 🏠 Go to Website
               </motion.button>
 
-              {/* GO TO DASHBOARD */}
               <motion.button
                 type="button"
                 className="go-to-dashboard-btn"
@@ -344,7 +265,6 @@ export default function RetailerLogin() {
                 📊 My Dashboard
               </motion.button>
 
-              {/* CONTINUE SHOPPING */}
               <motion.button
                 type="button"
                 className="continue-shopping-btn"
@@ -354,11 +274,8 @@ export default function RetailerLogin() {
               >
                 🛒 Continue Shopping
               </motion.button>
-
             </motion.div>
-
           </motion.div>
-
         </div>
       </section>
     );
@@ -370,56 +287,36 @@ export default function RetailerLogin() {
 
   return (
     <section className="retailer-login-page">
-
       <div className="retailer-login-container">
-
         {/* LEFT SIDE */}
-
         <div className="retailer-login-intro">
-
           <span>C24 WHOLESALE</span>
-
           <h1>
-            Retailer
-            <br />
+            Retailer<br />
             <strong>Access.</strong>
           </h1>
-
-          <p>
-            Login to access exclusive wholesale
-            prices, bulk enquiries and retailer
-            benefits.
-          </p>
+          <p>Login to access exclusive wholesale prices, bulk enquiries and retailer benefits.</p>
 
           <div className="retailer-benefits">
-
             <div>
               <strong>01</strong>
               <span>Exclusive Wholesale Pricing</span>
             </div>
-
             <div>
               <strong>02</strong>
               <span>Bulk Order Enquiries</span>
             </div>
-
             <div>
               <strong>03</strong>
               <span>Retailer Enquiry History</span>
             </div>
-
           </div>
-
         </div>
 
         {/* LOGIN BOX */}
-
         <div className="retailer-login-box">
-
           {/* TABS */}
-
           <div className="retailer-tabs">
-
             <button
               type="button"
               className={mode === "login" ? "active" : ""}
@@ -427,7 +324,6 @@ export default function RetailerLogin() {
             >
               Login
             </button>
-
             <button
               type="button"
               className={mode === "register" ? "active" : ""}
@@ -435,75 +331,36 @@ export default function RetailerLogin() {
             >
               Create Account
             </button>
-
           </div>
 
           {/* HEADER */}
-
           <div className="retailer-form-header">
-
-            <span>
-              {mode === "login"
-                ? "RETAILER LOGIN"
-                : "NEW RETAILER"}
-            </span>
-
-            <h2>
-              {mode === "login"
-                ? "Welcome Back"
-                : "Create Account"}
-            </h2>
-
+            <span>{mode === "login" ? "RETAILER LOGIN" : "NEW RETAILER"}</span>
+            <h2>{mode === "login" ? "Welcome Back" : "Create Account"}</h2>
             <p>
               {mode === "login"
                 ? "Login to unlock wholesale pricing."
                 : "Create your retailer account."}
             </p>
-
           </div>
 
           {/* ERROR */}
-
-          {error && (
-            <div className="retailer-error">{error}</div>
-          )}
+          {error && <div className="retailer-error">{error}</div>}
 
           {/* SUCCESS */}
-
-          {success && (
-            <div className="retailer-success">{success}</div>
-          )}
+          {success && <div className="retailer-success">{success}</div>}
 
           {/* FORM */}
-
           <form onSubmit={handleSubmit}>
-
             {mode === "register" && (
               <>
                 <div className="retailer-form-group">
                   <label>Your Name</label>
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Enter your name"
-                    value={form.name}
-                    onChange={handleChange}
-                    autoComplete="name"
-                    required
-                  />
+                  <input type="text" name="name" placeholder="Enter your name" value={form.name} onChange={handleChange} autoComplete="name" required />
                 </div>
-
                 <div className="retailer-form-group">
                   <label>Business Name</label>
-                  <input
-                    type="text"
-                    name="businessName"
-                    placeholder="Your business name"
-                    value={form.businessName}
-                    onChange={handleChange}
-                    autoComplete="organization"
-                    required
-                  />
+                  <input type="text" name="businessName" placeholder="Your business name" value={form.businessName} onChange={handleChange} autoComplete="organization" required />
                 </div>
               </>
             )}
@@ -511,60 +368,28 @@ export default function RetailerLogin() {
             {mode === "register" && (
               <div className="retailer-form-group">
                 <label>Phone Number</label>
-                <input
-                  type="tel"
-                  name="phone"
-                  placeholder="Enter phone number"
-                  value={form.phone}
-                  onChange={handleChange}
-                  autoComplete="tel"
-                  required
-                />
+                <input type="tel" name="phone" placeholder="Enter phone number" value={form.phone} onChange={handleChange} autoComplete="tel" required />
               </div>
             )}
 
             {mode === "login" && (
               <div className="retailer-form-group">
                 <label>Email or Phone Number</label>
-                <input
-                  type="text"
-                  name="email"
-                  placeholder="Enter email or phone number"
-                  value={form.email}
-                  onChange={handleChange}
-                  autoComplete="username"
-                  required
-                />
+                <input type="text" name="email" placeholder="Enter email or phone number" value={form.email} onChange={handleChange} autoComplete="username" required />
               </div>
             )}
 
             {mode === "register" && (
               <div className="retailer-form-group">
                 <label>Email</label>
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Enter email"
-                  value={form.email}
-                  onChange={handleChange}
-                  autoComplete="email"
-                />
+                <input type="email" name="email" placeholder="Enter email" value={form.email} onChange={handleChange} autoComplete="email" />
               </div>
             )}
 
             {mode === "register" && (
               <div className="retailer-form-group">
-                <label>
-                  GST Number
-                  <small>Optional</small>
-                </label>
-                <input
-                  type="text"
-                  name="gstNumber"
-                  placeholder="Enter GST number"
-                  value={form.gstNumber}
-                  onChange={handleChange}
-                />
+                <label>GST Number <small>Optional</small></label>
+                <input type="text" name="gstNumber" placeholder="Enter GST number" value={form.gstNumber} onChange={handleChange} />
               </div>
             )}
 
@@ -576,42 +401,26 @@ export default function RetailerLogin() {
                 placeholder="Minimum 6 characters"
                 value={form.password}
                 onChange={handleChange}
-                autoComplete={
-                  mode === "login"
-                    ? "current-password"
-                    : "new-password"
-                }
+                autoComplete={mode === "login" ? "current-password" : "new-password"}
                 minLength={6}
                 required
               />
             </div>
 
-            <button
-              type="submit"
-              className="retailer-submit"
-              disabled={loading}
-            >
+            <button type="submit" className="retailer-submit" disabled={loading}>
               {loading
                 ? "Please wait..."
                 : mode === "login"
                 ? "Login to Wholesale →"
                 : "Create Retailer Account →"}
             </button>
-
           </form>
 
-          <button
-            type="button"
-            className="back-to-store"
-            onClick={() => navigate("/")}
-          >
+          <button type="button" className="back-to-store" onClick={() => navigate("/")}>
             ← Back to C24 Store
           </button>
-
         </div>
-
       </div>
-
     </section>
   );
 }
